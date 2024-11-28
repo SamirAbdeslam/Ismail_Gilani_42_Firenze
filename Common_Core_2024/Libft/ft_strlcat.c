@@ -9,15 +9,15 @@
 /*   Updated: 2024/11/23 13:56:23 by elmondo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-/*#include <stdio.h>
-#include <bsd/string.h>
-#include <unistd.h>*/
+
 #include "libft.h"
+
 size_t	ft_strlcat(char *dst, const char *src, size_t size)
 {
 	size_t	i;
 	size_t	j; //Lunghezza dest
 	size_t	f; //Lunghezza di src
+
 	f = 0;
 	j = 0;
 	i = 0;
@@ -29,7 +29,7 @@ size_t	ft_strlcat(char *dst, const char *src, size_t size)
 		f++;
 	// Controllo se la lunghezza di dest e' piu' piccola o uguale a size
 	if (size <= j)
-		return(j + f);
+		return (j + f);
 		//return (size + f);
 	// Controllo se la lunghezza di dest e' uguale a size
 	if (j == size)

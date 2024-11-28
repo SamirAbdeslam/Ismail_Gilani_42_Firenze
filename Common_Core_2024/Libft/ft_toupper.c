@@ -1,10 +1,10 @@
 #include "libft.h"
 
-int ft_toupper(int c)
+int	ft_toupper(int c)
 {
-	while(c >= 'a' && c <= 'z')
+	while (c >= 'a' && c <= 'z')
 	{
 		c -= 32;
 	}
-	return(c);
+	return (c);
 }
