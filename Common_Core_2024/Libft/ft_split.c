@@ -6,11 +6,12 @@
 /*   By: igilani <igilani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 17:56:43 by igilani           #+#    #+#             */
-/*   Updated: 2024/12/03 12:24:27 by igilani          ###   ########.fr       */
+/*   Updated: 2024/12/06 16:05:03 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
 static int	ft_count_words(char const *s, char c)
 {
@@ -37,15 +38,14 @@ static int	ft_count_words(char const *s, char c)
 	return (d);
 }
 
-static void	*ft_free(char **t, int w)
+static void	*ft_free(char **t)
 {
-	if (!t[w - 1])
-	{
-		while (w-- > 0)
-			free (t[w]);
-		free (t);
-		return (NULL);
-	}
+	int	i;
+
+	i = 0;
+	while (t[i])
+		free(t[i++]);
+	free(t);
 	return (NULL);
 }
 
@@ -66,7 +66,8 @@ static char	**ft_split_mechanic(char const *s, char **t, char c, int d)
 		while (s[i] && s[i] != c)
 			i++;
 		t[w++] = ft_substr(s, start, (i - start));
-		ft_free(t, w);
+		if (!t[w - 1])
+			return (ft_free(t));
 		i++;
 	}
 	t[w] = NULL;
@@ -81,9 +82,9 @@ char	**ft_split(char const *s, char c)
 	if (!s)
 		return (NULL);
 	d = ft_count_words (s, c);
-	t = malloc((d + 1) * sizeof(char *));
+	t = (char **)malloc((d + 1) * sizeof(char *));
 	if (!t)
 		return (NULL);
-	ft_split_mechanic(s, t, c, d);
+	t = ft_split_mechanic(s, t, c, d);
 	return (t);
 }
