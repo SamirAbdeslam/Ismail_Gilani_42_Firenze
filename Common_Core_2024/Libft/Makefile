@@ -6,7 +6,7 @@
 #    By: igilani <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/20 18:06:52 by igilani           #+#    #+#              #
-#    Updated: 2024/12/05 17:23:07 by igilani          ###   ########.fr        #
+#    Updated: 2024/12/06 16:46:41 by igilani          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,7 @@ fclean: clean
 
 re: fclean all
 
-bonus: $(OBJS) $(OBJS2)
-	ar rcs $(NAME) $(OBJS) $(OBJS2)
+bonus: $(OBJS2)
+	ar rcs $(NAME) $(OBJS2)
 
 .PHONY: all clean fclean re bonus
