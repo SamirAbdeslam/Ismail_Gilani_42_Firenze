@@ -6,9 +6,14 @@
 #    By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/28 13:40:36 by igilani           #+#    #+#              #
-#    Updated: 2024/12/28 13:40:36 by igilani          ###   ########.fr        #
+#    Updated: 2024/12/31 13:54:20 by igilani          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+#Definisco il percorso del makefile di libft
+
+LIBFT_PATH = libft
+LIBFT_NAME = $(LIBFT_PATH)/libft.a
 
 #Creo delle varibili per evitare di scrivere ogni volta i comandi
 
@@ -21,8 +26,7 @@ NAME = libftprintf.a
 all: $(NAME)
 
 #Passo i nomi dei file che deve compilare
-LIBFT = libft/Makefile
-SRCS = 
+SRCS = ft_printf.c
 
 #Passo i nomi corrispondendi ai file da compilare con i file oggetti da creare
 OBJS = $(SRCS:.c=.o)
@@ -30,6 +34,7 @@ OBJS = $(SRCS:.c=.o)
 #Creo il comando finale per compilare il tutto e le sue dependecies (OBJS)
 
 $(NAME): $(OBJS)
+	make -C $(LIBFT_PATH)
 	ar rcs $(NAME) $(OBJS)
 
 %.o: %.c
@@ -37,13 +42,12 @@ $(NAME): $(OBJS)
 
 clean:
 	rm -f $(OBJS) $(OBJS2)
+	make -C $(LIBFT_PATH) clean
 
 fclean: clean
 	rm -f $(NAME)
+	make -C $(LIBFT_PATH) fclean
 
 re: fclean all
-
-libft: 
-	$(LIBFT) make
 
 .PHONY: all clean fclean re libft
