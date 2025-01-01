@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 17:39:02 by igilani           #+#    #+#             */
-/*   Updated: 2024/12/31 14:08:51 by igilani          ###   ########.fr       */
+/*   Updated: 2025/01/01 13:16:48 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # include <unistd.h>
 # include <stdlib.h>
+# include <stdio.h>
+# include <stdarg.h>
 
 typedef struct s_list
 {
