@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 13:51:34 by igilani           #+#    #+#             */
-/*   Updated: 2025/01/01 16:32:40 by igilani          ###   ########.fr       */
+/*   Updated: 2025/01/02 20:16:15 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int ft_printf(const char *format, ...)
 	char	*s;
 	int	d;
 	void	*p;
+	unsigned int	i;
+	char	*u;
 	
 	count = 0;
 	
@@ -44,10 +46,10 @@ int ft_printf(const char *format, ...)
 		}
 		else if(*format == '%' && *(format + 1) == 'p')
 		{
-			p = va_arg(lista, void*);
-			//count += ft_strlen(p);
-			printf("Qui: %p", &p);
-			//ft_putstr_fd(&p, 1);
+			p = va_arg(lista, void *);
+			ft_putstr_fd("0x", 1);
+			count += 2;
+			count += ft_putnbr_base_fd((unsigned long)p, "0123456789abcdef", 1);
 			format++;
 		}
 		else if(*format == '%' && *(format + 1) == 'd')
@@ -57,6 +59,24 @@ int ft_printf(const char *format, ...)
 			ft_putstr_fd(s,1);
 			count += ft_strlen(s);
 			free(s);
+			format++;
+		}
+		else if(*format == '%' && *(format + 1) == 'i')
+		{
+			i = va_arg(lista, int);
+			s = ft_itoa(i);
+			ft_putstr_fd(s,1);
+			count += ft_strlen(s);
+			free(s);
+			format++;
+		}
+		else if(*format == '%' && *(format + 1) == 'u')
+		{
+			i = va_arg(lista, int);
+			u = ft_utoa(i);
+			ft_putstr_fd(u,1);
+			count += ft_strlen(u);
+			free(u);
 			format++;
 		}
 		else
@@ -75,6 +95,6 @@ int main ()
 {
 	int i;
 	
-	i = ft_printf("Cacato nel %s %d volte, %c - %p", "puzzo", 42, 'A', &i);
-	printf("\n%d - %p", i, &i);
+	i = ft_printf("Cacato nel %s %d  volte, %c - %p - Stampato: %i - %u", "puzzo", 42, 'A', &i, 42, -42);
+	printf("\nCacato nel %s %d  volte, %c - %p - Stampato: %i - %u", "puzzo", 42, 'A', &i, i, -42);
 }

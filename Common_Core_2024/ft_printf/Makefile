@@ -6,7 +6,7 @@
 #    By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/01 14:44:48 by igilani           #+#    #+#              #
-#    Updated: 2025/01/01 14:55:46 by igilani          ###   ########.fr        #
+#    Updated: 2025/01/02 12:46:41 by igilani          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ $(LIBFT_NAME):
 
 # Creo il comando finale per compilare il tutto e le sue dipendenze (OBJS)
 $(NAME): $(LIBFT_NAME) $(OBJS)
-	ar rcs $(NAME) $(OBJS) $(LIBFT_NAME)
+	ar rcs $(NAME) $(LIBFT_NAME) $(OBJS)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@ -I$(LIBFT_PATH)
@@ -49,4 +49,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re libft
+.PHONY: all clean fclean re

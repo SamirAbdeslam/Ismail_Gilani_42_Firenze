@@ -1,39 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_putnbr_base_fd.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/05 18:25:20 by igilani           #+#    #+#             */
-/*   Updated: 2025/01/02 12:07:55 by igilani          ###   ########.fr       */
+/*   Created: 2025/01/02 12:27:30 by igilani           #+#    #+#             */
+/*   Updated: 2025/01/02 12:33:13 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putnbr_fd(int n, int fd)
+int	ft_putnbr_base_fd(unsigned long n, char *base, int fd)
 {
-	if (n == -2147483648)
-	{
-		ft_putchar_fd('-', fd);
-		ft_putchar_fd('2', fd);
-		ft_putnbr_fd(147483648, fd);
-	}
-	else if (n < 0)
-	{
-		ft_putchar_fd('-', fd);
-		n = -n;
-		ft_putnbr_fd(n, fd);
-	}
-	else if (n >= 0 && n <= 9)
-	{
-		n = n + '0';
-		ft_putchar_fd(n, fd);
-	}
-	else
-	{
-		ft_putnbr_fd(n / 10, fd);
-		ft_putnbr_fd(n % 10, fd);
-	}
+	int	count;
+
+	count = 0;
+	if(n >= 16)
+		count += ft_putnbr_base_fd(n / 16, base, fd);
+	count += write(fd, &base[n % 16], 1);
+	return(count);
 }
