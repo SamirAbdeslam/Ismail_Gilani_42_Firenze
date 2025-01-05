@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_utoa.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/05 19:52:35 by igilani           #+#    #+#             */
+/*   Updated: 2025/01/05 19:56:46 by igilani          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
 static int	ft_count_nbr(unsigned long int n)
@@ -17,8 +29,8 @@ static int	ft_count_nbr(unsigned long int n)
 
 char	*ft_utoa(unsigned long int n)
 {
-	char	*m;
 	int		len;
+	char	*m;
 
 	len = ft_count_nbr(n);
 	m = ft_calloc (len + 1, sizeof(char));
