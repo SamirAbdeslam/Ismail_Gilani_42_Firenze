@@ -1,6 +1,6 @@
 #include "libft.h"
 
-int	ft_count_n(int n)
+static int	ft_count_nbr(unsigned long int n)
 {
 	int	len;
 
@@ -15,12 +15,12 @@ int	ft_count_n(int n)
 	return (len);
 }
 
-char	*ft_utoa(unsigned int n)
+char	*ft_utoa(unsigned long int n)
 {
 	char	*m;
 	int		len;
 
-	len = ft_count_n (n);
+	len = ft_count_nbr(n);
 	m = ft_calloc (len + 1, sizeof(char));
 	if (!m)
 		return (NULL);

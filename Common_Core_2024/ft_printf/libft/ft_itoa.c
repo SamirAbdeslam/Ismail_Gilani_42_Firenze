@@ -6,13 +6,13 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 18:21:51 by igilani           #+#    #+#             */
-/*   Updated: 2025/01/02 13:21:09 by igilani          ###   ########.fr       */
+/*   Updated: 2025/01/05 19:41:20 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_count_nbr(int n)
+static int	ft_count_nbr(int n)
 {
 	int	len;
 

@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 13:51:34 by igilani           #+#    #+#             */
-/*   Updated: 2025/01/02 20:16:15 by igilani          ###   ########.fr       */
+/*   Updated: 2025/01/05 19:49:33 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int ft_printf(const char *format, ...)
 	void	*p;
 	unsigned int	i;
 	char	*u;
+	void	*x;
+	void	*X;
 	
 	count = 0;
 	
@@ -76,7 +78,24 @@ int ft_printf(const char *format, ...)
 			u = ft_utoa(i);
 			ft_putstr_fd(u,1);
 			count += ft_strlen(u);
-			free(u);
+			format++;
+		}
+		else if(*format == '%' && *(format + 1) == 'x')
+		{
+			x = va_arg(lista, void *);
+			count += ft_putnbr_base_fd((unsigned long)x, "0123456789abcdef", 1);
+			format++;
+		}
+		else if(*format == '%' && *(format + 1) == 'X')
+		{
+			X = va_arg(lista, void *);
+			count += ft_putnbr_base_fd((unsigned long)X, "0123456789ABCDEF", 1);
+			format++;
+		}
+		else if(*format == '%' && *(format + 1) == '%')
+		{
+			ft_putstr_fd("%",1);
+			count++;
 			format++;
 		}
 		else
@@ -95,6 +114,6 @@ int main ()
 {
 	int i;
 	
-	i = ft_printf("Cacato nel %s %d  volte, %c - %p - Stampato: %i - %u", "puzzo", 42, 'A', &i, 42, -42);
-	printf("\nCacato nel %s %d  volte, %c - %p - Stampato: %i - %u", "puzzo", 42, 'A', &i, i, -42);
+	i = ft_printf("Cacato nel %s %d  volte, %c - %p - Stampato: %i - %u - %x - %X - %%", "puzzo", 42, 'A', &i, 42, -42, 2025, 2025);
+	printf("\nCacato nel %s %d  volte, %c - %p - Stampato: %i - %u - %x- %X - %%", "puzzo", 42, 'A', &i, i, -42, 2025, 2025);
 }
