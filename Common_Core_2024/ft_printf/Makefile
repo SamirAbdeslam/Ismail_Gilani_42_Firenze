@@ -6,7 +6,7 @@
 #    By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/01 14:44:48 by igilani           #+#    #+#              #
-#    Updated: 2025/01/02 12:46:41 by igilani          ###   ########.fr        #
+#    Updated: 2025/01/06 14:05:45 by igilani          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ $(LIBFT_NAME):
 
 # Creo il comando finale per compilare il tutto e le sue dipendenze (OBJS)
 $(NAME): $(LIBFT_NAME) $(OBJS)
+	cp libft/libft.a $(NAME)
 	ar rcs $(NAME) $(LIBFT_NAME) $(OBJS)
 
 %.o: %.c
