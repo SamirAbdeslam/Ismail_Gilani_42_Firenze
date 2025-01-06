@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 13:51:34 by igilani           #+#    #+#             */
-/*   Updated: 2025/01/06 19:13:46 by igilani          ###   ########.fr       */
+/*   Updated: 2025/01/06 19:28:57 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ static int	ft_check(const char *format, va_list lista)
 	{
 		ft_putstr_fd("%", 1);
 		count++;
+		format++;
 	}
 	else
 		return (0);
