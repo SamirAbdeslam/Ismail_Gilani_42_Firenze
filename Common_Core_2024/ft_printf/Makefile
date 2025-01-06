@@ -6,7 +6,7 @@
 #    By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/01 14:44:48 by igilani           #+#    #+#              #
-#    Updated: 2025/01/06 14:05:45 by igilani          ###   ########.fr        #
+#    Updated: 2025/01/06 19:11:09 by igilani          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ CFLAGS = -Wall -Wextra -Werror
 NAME = libftprintf.a
 
 # Passo i nomi dei file che deve compilare
-SRCS = ft_printf.c
+SRCS = ft_check/case_int.c ft_check/case_void.c ft_check/case_x.c ft_check/case_s.c ft_printf.c
 
 # Passo i nomi corrispondenti ai file da compilare con i file oggetti da creare
 OBJS = $(SRCS:.c=.o)
