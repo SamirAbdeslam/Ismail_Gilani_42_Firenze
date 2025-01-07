@@ -6,11 +6,11 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 17:36:19 by igilani           #+#    #+#             */
-/*   Updated: 2025/01/06 19:23:58 by igilani          ###   ########.fr       */
+/*   Updated: 2025/01/07 19:45:13 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libftprintf.h"
+#include "../ft_printf.h"
 
 int	case_x(unsigned int i, const char *x)
 {
