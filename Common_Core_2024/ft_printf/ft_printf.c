@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 13:51:34 by igilani           #+#    #+#             */
-/*   Updated: 2025/01/07 20:44:09 by igilani          ###   ########.fr       */
+/*   Updated: 2025/01/08 01:42:27 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	ft_check(const char *format, va_list lista)
 	int	count;
 
 	count = 0;
-	if (va_arg(lista, void *) != NULL)
+	if (va_arg(lista, void *) == NULL)
 	{
 		if (*format == 's')
 			count += case_s(va_arg(lista, char *));
@@ -37,7 +37,7 @@ static int	ft_check(const char *format, va_list lista)
 			return (0);
 	}
 	else
-		count += case_void(va_arg(lista, void *));
+		return(-1);
 	return (count);
 }
 
@@ -52,7 +52,10 @@ int	ft_printf(const char *format, ...)
 	{
 		if (*format == '%')
 		{
-			count += ft_check((format + 1), lista);
+			if(ft_check((format + 1), lista) == -1)
+				return(0);
+			else
+				count += ft_check((format + 1), lista);
 			format++;
 		}
 		else
