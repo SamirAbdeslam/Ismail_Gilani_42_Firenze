@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 19:52:35 by igilani           #+#    #+#             */
-/*   Updated: 2025/01/05 19:56:46 by igilani          ###   ########.fr       */
+/*   Updated: 2025/01/10 17:06:45 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ char	*ft_utoa(unsigned long int n)
 	m = ft_calloc (len + 1, sizeof(char));
 	if (!m)
 		return (NULL);
+	if (n == 0)
+		m[0] = '0';
 	while (n != 0)
 	{
 		m[--len] = n % 10 + '0';

@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 19:39:08 by igilani           #+#    #+#             */
-/*   Updated: 2025/01/07 19:47:26 by igilani          ###   ########.fr       */
+/*   Updated: 2025/01/10 16:51:33 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 int		ft_printf(const char *format, ...);
 void	ft_character(char c);
-int		case_void(char *s);
+int		case_void(size_t p);
 int		case_s(char *s);
 int		case_x(unsigned int i, const char *x);
 int		case_int(int di, const char *x);

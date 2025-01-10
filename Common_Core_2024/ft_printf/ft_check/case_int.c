@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 17:29:58 by igilani           #+#    #+#             */
-/*   Updated: 2025/01/07 19:44:48 by igilani          ###   ########.fr       */
+/*   Updated: 2025/01/10 17:00:48 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,15 @@
 int	case_int(int di, const char *x)
 {
 	char	*r;
+	int		n;
 
 	if (*x == 'i' || *x == 'd')
 	{
 		r = ft_itoa(di);
 		ft_putstr_fd(r, 1);
-		return (ft_strlen(r));
+		n = ft_strlen(r);
 		free(r);
+		return(n);
 	}
 	else if (*x == 'c')
 	{

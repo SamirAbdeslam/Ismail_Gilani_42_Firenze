@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 17:50:04 by igilani           #+#    #+#             */
-/*   Updated: 2025/01/07 19:45:08 by igilani          ###   ########.fr       */
+/*   Updated: 2025/01/10 16:39:23 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,14 @@
 
 int	case_s(char *s)
 {
-	ft_putstr_fd((char *)s, 1);
-	return (ft_strlen(s));
+	if (s == NULL)
+	{
+		ft_putstr_fd("(null)", 1);
+		return (6);
+	}
+	else
+	{
+		ft_putstr_fd(s, 1);
+		return (ft_strlen(s));
+	}
 }
