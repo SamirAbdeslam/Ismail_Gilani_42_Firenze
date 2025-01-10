@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 19:39:08 by igilani           #+#    #+#             */
-/*   Updated: 2025/01/10 16:51:33 by igilani          ###   ########.fr       */
+/*   Updated: 2025/01/10 17:30:31 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,9 @@
 # include "libft/libft.h"
 
 int		ft_printf(const char *format, ...);
-void	ft_character(char c);
 int		case_void(size_t p);
-int		case_s(char *s);
-int		case_x(unsigned int i, const char *x);
+int		case_char(char *s);
+int		case_unsigned(unsigned int i, const char *x);
 int		case_int(int di, const char *x);
 
 #endif

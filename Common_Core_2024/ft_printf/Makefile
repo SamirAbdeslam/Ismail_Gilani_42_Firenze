@@ -6,7 +6,7 @@
 #    By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/01 14:44:48 by igilani           #+#    #+#              #
-#    Updated: 2025/01/07 20:15:34 by igilani          ###   ########.fr        #
+#    Updated: 2025/01/10 17:29:54 by igilani          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ NAME = libftprintf.a
 
 
 # Passo i nomi dei file che deve compilare
-SRCS = ft_check/case_int.c ft_check/case_void.c ft_check/case_x.c ft_check/case_s.c ft_printf.c
+SRCS = ft_check/case_int.c ft_check/case_void.c ft_check/case_unsigned.c ft_check/case_char.c ft_printf.c
 
 # Passo i nomi corrispondenti ai file da compilare con i file oggetti da creare
 OBJS = $(SRCS:.c=.o)

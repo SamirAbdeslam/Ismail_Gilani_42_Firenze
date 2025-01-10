@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   case_x.c                                           :+:      :+:    :+:   */
+/*   case_unsigned.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 17:36:19 by igilani           #+#    #+#             */
-/*   Updated: 2025/01/10 17:06:42 by igilani          ###   ########.fr       */
+/*   Updated: 2025/01/10 17:30:37 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_printf.h"
 
-int	case_x(unsigned int i, const char *x)
+int	case_unsigned(unsigned int i, const char *x)
 {
 	char	*r;
 	int		n;
@@ -31,7 +31,7 @@ int	case_x(unsigned int i, const char *x)
 		ft_putstr_fd(r, 1);
 		n = ft_strlen(r);
 		free(r);
-		return(n);
+		return (n);
 	}
 	return (0);
 }
