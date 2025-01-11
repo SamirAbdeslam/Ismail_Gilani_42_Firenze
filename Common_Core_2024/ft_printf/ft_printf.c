@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 13:51:34 by igilani           #+#    #+#             */
-/*   Updated: 2025/01/10 17:28:37 by igilani          ###   ########.fr       */
+/*   Updated: 2025/01/11 18:12:29 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ int	ft_printf(const char *format, ...)
 
 	count = 0;
 	va_start(lista, format);
+	if (!*format)
+		return (-1);
 	while (*format)
 	{
 		if (*format == '%')
