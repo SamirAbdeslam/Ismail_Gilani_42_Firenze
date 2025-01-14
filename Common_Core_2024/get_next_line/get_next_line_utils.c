@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 14:05:55 by igilani           #+#    #+#             */
-/*   Updated: 2025/01/14 18:58:48 by igilani          ###   ########.fr       */
+/*   Updated: 2025/01/14 20:10:31 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,30 @@ size_t	ft_strlen(const char *c)
 		i++;
 	}
 	return (i);
+}
+
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	char	*ns;
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	j = 0;
+	ns = (char *)malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+	if (!ns)
+		return (NULL);
+	while (s1[i] != '\0')
+	{
+		ns[i] = s1[i];
+		i++;
+	}
+	while (s2[j] != '\0')
+	{
+		ns[i] = s2[j];
+		i++;
+		j++;
+	}
+	ns[i] = '\0';
+	return (ns);
 }
