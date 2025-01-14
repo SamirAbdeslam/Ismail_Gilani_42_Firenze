@@ -6,14 +6,14 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 14:05:53 by igilani           #+#    #+#             */
-/*   Updated: 2025/01/13 19:22:30 by igilani          ###   ########.fr       */
+/*   Updated: 2025/01/14 19:31:47 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1
+#  define BUFFER_SIZE 1024
 # endif
 #include <unistd.h>
 #include <stdio.h>
