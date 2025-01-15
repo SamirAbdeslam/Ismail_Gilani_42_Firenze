@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: igilani <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 17:19:21 by igilani           #+#    #+#             */
-/*   Updated: 2024/11/20 17:19:28 by igilani          ###   ########.fr       */
+/*   Updated: 2025/01/15 17:04:45 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,3 @@ void	ft_bzero(void *s, size_t n)
 		i++;
 	}
 }
-/*
-int main()
-{
-	char s[] = "Hello World";
-	size_t n = 8;
-	int i = 0;
-	ft_bzero(s,n);	
-	while(i < 11)
-	{
-		write(1, &s[i], 1);
-		i++;
-	}
-}
-*/
