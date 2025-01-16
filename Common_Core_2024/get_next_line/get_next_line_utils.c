@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 14:05:55 by igilani           #+#    #+#             */
-/*   Updated: 2025/01/15 18:56:28 by igilani          ###   ########.fr       */
+/*   Updated: 2025/01/16 21:41:35 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,21 @@
 
 void	*ft_calloc(size_t nmemb, size_t size)
 {
-    void			*mem;
-    unsigned char	*str;
-    size_t			i;
+	void			*mem;
+	unsigned char	*str;
+	size_t			i;
 
-    mem = malloc(nmemb * size);
-    if (!mem)
-        return (NULL);
-    str = (unsigned char *)mem;
-    i = 0;
-    while (i < nmemb * size)
-    {
-        str[i] = '\0';
-        i++;
-    }
-    return (mem);
+	mem = malloc(nmemb * size);
+	if (!mem)
+		return (NULL);
+	str = (unsigned char *)mem;
+	i = 0;
+	while (i < nmemb * size)
+	{
+		str[i] = '\0';
+		i++;
+	}
+	return (mem);
 }
 
 char	*ft_strjoin(char const *s1, char const *s2)
@@ -37,9 +37,15 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	size_t	i;
 	size_t	j;
 
+	if (!s1 && !s2)
+		return (NULL);
+	if (!s1)
+		return (ft_strdup(s2));
+	if (!s2)
+		return (ft_strdup(s1));
 	i = 0;
 	j = 0;
-	ns = (char *)malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+	ns = (char *)ft_calloc(ft_strlen(s1) + ft_strlen(s2) + 1, sizeof(char *));
 	if (!ns)
 		return (NULL);
 	while (s1[i] != '\0')
@@ -77,22 +83,24 @@ char	*ft_strchr(const char *s, int c)
 	return (NULL);
 }
 
-size_t	ft_strlcpy(char *dest, const char *src, size_t size)
+char	*ft_strdup(const char *s)
 {
+	char	*mem;
 	size_t	i;
+	size_t	len;
 
 	i = 0;
-	if (!size)
+	len = ft_strlen(s);
+	mem = ft_calloc(len + 1, 1);
+	if (!mem)
+		return (NULL);
+	while (i < len)
 	{
-		return (ft_strlen(src));
-	}
-	while (i < size - 1 && src[i])
-	{
-		dest[i] = src[i];
+		mem[i] = s[i];
 		i++;
 	}
-	dest[i] = '\0';
-	return (ft_strlen (src));
+	mem[i] = '\0';
+	return (mem);
 }
 
 size_t	ft_strlen(const char *c)
