@@ -6,18 +6,31 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 18:20:09 by igilani           #+#    #+#             */
-/*   Updated: 2025/01/20 18:21:12 by igilani          ###   ########.fr       */
+/*   Updated: 2025/01/21 00:52:26 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1
+#  define BUFFER_SIZE 10
 # endif
 # include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <fcntl.h>
 
+typedef struct s_list
+{
+	char			*str_buffer;
+	struct s_list	*next;
+}	t_list;
+char	*get_next_line(int fd);
+char	*ft_strchr(t_list *s, int c);
+void	*ft_calloc(size_t nmemb, size_t size);
+t_list	*ft_lstnew(t_list *lst);
+t_list	*ft_lstlast(t_list *lst);
+int		ft_lstsize(t_list *lst);
+void	ft_lstdup(t_list *lst, char *str);
+void	ft_free(t_list **lst, t_list *clean_node, char *buffer);
 #endif
