@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 18:20:11 by igilani           #+#    #+#             */
-/*   Updated: 2025/01/21 00:51:32 by igilani          ###   ########.fr       */
+/*   Updated: 2025/01/21 19:29:42 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void	final_line(t_list **lst)
 	int		k;
 	char	*buffer;
 
-	buffer = ft_calloc(BUFFER_SIZE + 1,	sizeof(char));
-	clean_node = ft_calloc(1,sizeof(t_list));
+	buffer = malloc(BUFFER_SIZE + 1);
+	clean_node = malloc(sizeof(t_list));
 	last_node = ft_lstlast(*lst);
 	i = 0;
 	k = 0;
@@ -36,29 +36,34 @@ void	final_line(t_list **lst)
 	ft_free(lst, clean_node, buffer);
 }
 
-char	*get_line(t_list *lst)
+char	*take_line(t_list *lst)
 {
 	int		len;
 	char	*next_str;
 
 	if (lst == NULL)
 		return(NULL);
-	len = ft_lstsize(lst);
-	next_str = ft_calloc(len + 1,sizeof(char));
+	len = ft_lstlen(lst);
+	next_str = malloc(len + 1);
 	ft_lstdup(lst, next_str);
 	return(next_str);
 }
 
-void	add_list(t_list **lst)
+void	add_list(t_list **lst, char *buffer)
 {
 	t_list	*new_node;
 	t_list	*last_node;
 	
-	last_node = NULL;
+	last_node = ft_lstlast(*lst);
+	new_node = malloc(sizeof(t_list));
+	if (new_node == NULL)
+		return;
 	if (last_node == NULL)
-		new_node = ft_lstnew(*lst);
+		*lst = new_node;
 	else
-		last_node = ft_lstlast(*lst);
+		last_node->next = new_node;
+	new_node->str_buffer = buffer;
+	new_node->next = NULL;
 }
 
 void	create_list(t_list **lst, int fd)
@@ -66,9 +71,9 @@ void	create_list(t_list **lst, int fd)
 	int		bytes_read;
 	char	*buffer;
 
-	while (!ft_strchr(*lst, '\n'))
+	while (!ft_strchr(*lst))
 	{
-		buffer = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
+		buffer = malloc(BUFFER_SIZE + 1);
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (!bytes_read)
 		{
@@ -76,8 +81,8 @@ void	create_list(t_list **lst, int fd)
 			return;
 		}
 		buffer[bytes_read] = '\0';
+		add_list(lst, buffer);
 	}
-	add_list(lst);
 }
 
 char	*get_next_line(int fd)
@@ -90,7 +95,7 @@ char	*get_next_line(int fd)
 	create_list(&lst, fd);
 	if (lst == NULL)
 		return(NULL);
-	next_line = get_line(lst);
+	next_line = take_line(lst);
 	final_line(&lst);
 	return (next_line);
 }
@@ -102,8 +107,10 @@ int main()
 	int		lines;
 
 	lines = 1;
-	fd = open("test.txt", O_RDONLY);
+	fd = open("read_error.txt", O_RDONLY);
 
 	while((line = get_next_line(fd)))
-		printf("%d->%s\n", lines++, line);
+		printf("%s\n", line);
+	free(line);
+	close(fd);
 }

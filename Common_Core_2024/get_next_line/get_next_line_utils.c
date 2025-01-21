@@ -6,33 +6,53 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 18:20:13 by igilani           #+#    #+#             */
-/*   Updated: 2025/01/21 00:52:17 by igilani          ###   ########.fr       */
+/*   Updated: 2025/01/21 19:31:10 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*ft_strchr(t_list *s, int c)
+/*char	*ft_strchr(t_list *lst)
 {
-	unsigned char	t;
 	int				i;
 
 	i = 0;
-	t = (unsigned char)c;
-	while (s->str_buffer[i] != '\0')
+	while (lst)
 	{
-		if (s->str_buffer[i] == t)
+		while(lst->str_buffer[i])
 		{
-			return ((char *)&s->str_buffer[i]);
+			if (lst->str_buffer[i] == '\n')
+			{
+				return ((char *)&lst->str_buffer[i]);
+			}
+			i++;
 		}
-		i++;
+		lst = lst->next;
 	}
-	if (s->str_buffer[i] == t)
-		return ((char *)&s->str_buffer[i]);
 	return (NULL);
+}*/
+
+int	ft_strchr(t_list *lst)
+{
+	int	i;
+
+	if (NULL == lst)
+		return (0);
+	while (lst)
+	{
+		i = 0;
+		while (lst->str_buffer[i] && i < BUFFER_SIZE)
+		{
+			if (lst->str_buffer[i] == '\n')
+				return (1);
+			++i;
+		}
+		lst = lst->next;
+	}
+	return (0);
 }
 
-void	*ft_calloc(size_t nmemb, size_t size)
+/*void	*ft_calloc(size_t nmemb, size_t size)
 {
 	void			*mem;
 	unsigned char	*str;
@@ -49,32 +69,20 @@ void	*ft_calloc(size_t nmemb, size_t size)
 		i++;
 	}
 	return (mem);
-}
-
-t_list	*ft_lstnew(t_list *lst)
-{
-	t_list	*new_node;
-
-	new_node = (t_list *)malloc(sizeof(t_list));
-	if (!new_node)
-		return (NULL);
-	new_node->str_buffer = lst;
-	new_node->next = NULL;
-	return (new_node);
-}
+}*/
 
 t_list	*ft_lstlast(t_list *lst)
 {
-	if (!lst)
+	if (lst == NULL)
 		return (NULL);
-	while (lst->next != NULL)
+	while (lst->next)
 	{
 		lst = lst -> next;
 	}
 	return (lst);
 }
 
-int	ft_lstsize(t_list *lst)
+int	ft_lstlen(t_list *lst)
 {
 	int	i;
 	int	len;
@@ -141,7 +149,9 @@ void	ft_free(t_list **lst, t_list *clean_node, char *buffer)
 	}
 	*lst = NULL;
 	if (clean_node->str_buffer[0])
+	{
 		*lst = clean_node;
+	}
 	else
 	{
 		free(buffer);
