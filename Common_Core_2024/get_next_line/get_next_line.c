@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 18:20:11 by igilani           #+#    #+#             */
-/*   Updated: 2025/01/21 19:29:42 by igilani          ###   ########.fr       */
+/*   Updated: 2025/01/21 19:44:12 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,10 @@ char	*get_next_line(int fd)
 	char			*next_line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, &next_line, 0) < 0)
+	{
+		free(lst);
 		return (NULL);
+	}
 	create_list(&lst, fd);
 	if (lst == NULL)
 		return(NULL);
@@ -100,7 +103,7 @@ char	*get_next_line(int fd)
 	return (next_line);
 }
 
-int main()
+/*int main()
 {
 	int		fd;
 	char	*line;
@@ -113,4 +116,4 @@ int main()
 		printf("%s\n", line);
 	free(line);
 	close(fd);
-}
+}*/
