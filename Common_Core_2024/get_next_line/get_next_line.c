@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 18:20:11 by igilani           #+#    #+#             */
-/*   Updated: 2025/01/21 19:44:12 by igilani          ###   ########.fr       */
+/*   Updated: 2025/01/21 21:15:54 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	final_line(t_list **lst)
 
 	buffer = malloc(BUFFER_SIZE + 1);
 	clean_node = malloc(sizeof(t_list));
+	if(!buffer || !clean_node)
+		return;
 	last_node = ft_lstlast(*lst);
 	i = 0;
 	k = 0;
@@ -45,6 +47,8 @@ char	*take_line(t_list *lst)
 		return(NULL);
 	len = ft_lstlen(lst);
 	next_str = malloc(len + 1);
+	if(!next_str)
+		return(NULL);
 	ft_lstdup(lst, next_str);
 	return(next_str);
 }
@@ -56,7 +60,7 @@ void	add_list(t_list **lst, char *buffer)
 	
 	last_node = ft_lstlast(*lst);
 	new_node = malloc(sizeof(t_list));
-	if (new_node == NULL)
+	if (!new_node)
 		return;
 	if (last_node == NULL)
 		*lst = new_node;
@@ -74,6 +78,8 @@ void	create_list(t_list **lst, int fd)
 	while (!ft_strchr(*lst))
 	{
 		buffer = malloc(BUFFER_SIZE + 1);
+		if(!buffer)
+			return;
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (!bytes_read)
 		{
@@ -87,14 +93,11 @@ void	create_list(t_list **lst, int fd)
 
 char	*get_next_line(int fd)
 {
-	static t_list	*lst = NULL;
+	static t_list	*lst;
 	char			*next_line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, &next_line, 0) < 0)
-	{
-		free(lst);
 		return (NULL);
-	}
 	create_list(&lst, fd);
 	if (lst == NULL)
 		return(NULL);
@@ -103,17 +106,26 @@ char	*get_next_line(int fd)
 	return (next_line);
 }
 
-/*int main()
+int main()
 {
-	int		fd;
-	char	*line;
-	int		lines;
+    int		fd;
+    char	*line;
+    int		lines;
 
-	lines = 1;
-	fd = open("read_error.txt", O_RDONLY);
+    lines = 1;
+    fd = open("read_error.txt", O_RDONLY);
 
-	while((line = get_next_line(fd)))
-		printf("%s\n", line);
-	free(line);
-	close(fd);
-}*/
+    if (fd == -1)
+    {
+        perror("Error opening file");
+        return (1);
+    }
+
+    while ((line = get_next_line(fd)))
+    {
+        printf("%s", line);
+        free(line);
+    }
+    close(fd);
+    return (0);
+}
