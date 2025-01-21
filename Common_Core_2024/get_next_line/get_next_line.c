@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 18:20:11 by igilani           #+#    #+#             */
-/*   Updated: 2025/01/21 21:34:54 by igilani          ###   ########.fr       */
+/*   Updated: 2025/01/21 22:02:27 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,11 @@ void	create_list(t_list **lst, int fd)
 		if (buffer == NULL)
 			return ;
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
+		if (bytes_read < 0)
+		{
+			free(buffer);
+			return ;
+		}
 		if (!bytes_read)
 		{
 			free(buffer);
@@ -95,7 +100,7 @@ char	*get_next_line(int fd)
 	static t_list	*lst;
 	char			*next_line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, &next_line, 0) < 0)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	create_list(&lst, fd);
 	if (lst == NULL)
@@ -105,26 +110,24 @@ char	*get_next_line(int fd)
 	return (next_line);
 }
 
-/*int main()
-{
-    int		fd;
-    char	*line;
-    int		lines;
+// int main()
+// {
+//     int		fd;
+//     char	*line;
+//     int		lines;
 
-    lines = 1;
-    fd = open("read_error.txt", O_RDONLY);
-
-    if (fd == -1)
-    {
-        perror("Error opening file");
-        return (1);
-    }
-
-    while ((line = get_next_line(fd)))
-    {
-        printf("%s", line);
-        free(line);
-    }
-    close(fd);
-    return (0);
-}*/
+//     lines = 1;
+//     fd = open("read_error.txt", O_RDONLY);
+//     if (fd == -1)
+//     {
+//         perror("Error opening file");
+//         return (1);
+//     }
+//     while ((line = get_next_line(fd)))
+//     {
+//         printf("%s", line);
+//         free(line);
+//     }
+//     close(fd);
+//     return (0);
+// }
