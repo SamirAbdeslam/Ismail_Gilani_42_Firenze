@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 18:20:13 by igilani           #+#    #+#             */
-/*   Updated: 2025/01/21 21:01:01 by igilani          ###   ########.fr       */
+/*   Updated: 2025/01/21 21:38:12 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ void	ft_lstdup(t_list *lst, char *str)
 	int	k;
 
 	if (lst == NULL)
-		return;
+		return ;
 	k = 0;
 	while (lst)
 	{
@@ -125,7 +125,7 @@ void	ft_lstdup(t_list *lst, char *str)
 			{
 				str[k++] = '\n';
 				str[k] = '\0';
-				return;
+				return ;
 			}
 			str[k++] = lst->str_buffer[i++];
 		}
@@ -138,14 +138,14 @@ void	ft_free(t_list **lst, t_list *clean_node, char *buffer)
 {
 	t_list	*tmp;
 
-	if(lst == NULL)
-		return;
-	while(*lst)
+	if (lst == NULL)
+		return ;
+	while (*lst)
 	{
 		tmp = (*lst)->next;
 		free((*lst)->str_buffer);
 		free(*lst);
-		*lst = tmp;	
+		*lst = tmp;
 	}
 	*lst = NULL;
 	if (clean_node->str_buffer[0])

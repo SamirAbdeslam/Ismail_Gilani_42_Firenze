@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 18:20:11 by igilani           #+#    #+#             */
-/*   Updated: 2025/01/21 21:15:54 by igilani          ###   ########.fr       */
+/*   Updated: 2025/01/21 21:34:54 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,11 @@ void	final_line(t_list **lst)
 
 	buffer = malloc(BUFFER_SIZE + 1);
 	clean_node = malloc(sizeof(t_list));
-	if(!buffer || !clean_node)
-		return;
+	if (buffer == NULL || clean_node == NULL)
+		return ;
 	last_node = ft_lstlast(*lst);
 	i = 0;
 	k = 0;
-	
 	while (last_node->str_buffer[i] != '\0' && last_node->str_buffer[i] != '\n')
 		++i;
 	while (last_node->str_buffer[i] != '\0' && last_node->str_buffer[++i])
@@ -44,24 +43,24 @@ char	*take_line(t_list *lst)
 	char	*next_str;
 
 	if (lst == NULL)
-		return(NULL);
+		return (NULL);
 	len = ft_lstlen(lst);
 	next_str = malloc(len + 1);
-	if(!next_str)
-		return(NULL);
+	if (next_str == NULL)
+		return (NULL);
 	ft_lstdup(lst, next_str);
-	return(next_str);
+	return (next_str);
 }
 
 void	add_list(t_list **lst, char *buffer)
 {
 	t_list	*new_node;
 	t_list	*last_node;
-	
+
 	last_node = ft_lstlast(*lst);
 	new_node = malloc(sizeof(t_list));
-	if (!new_node)
-		return;
+	if (new_node == NULL)
+		return ;
 	if (last_node == NULL)
 		*lst = new_node;
 	else
@@ -78,13 +77,13 @@ void	create_list(t_list **lst, int fd)
 	while (!ft_strchr(*lst))
 	{
 		buffer = malloc(BUFFER_SIZE + 1);
-		if(!buffer)
-			return;
+		if (buffer == NULL)
+			return ;
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (!bytes_read)
 		{
 			free(buffer);
-			return;
+			return ;
 		}
 		buffer[bytes_read] = '\0';
 		add_list(lst, buffer);
@@ -100,13 +99,13 @@ char	*get_next_line(int fd)
 		return (NULL);
 	create_list(&lst, fd);
 	if (lst == NULL)
-		return(NULL);
+		return (NULL);
 	next_line = take_line(lst);
 	final_line(&lst);
 	return (next_line);
 }
 
-int main()
+/*int main()
 {
     int		fd;
     char	*line;
@@ -128,4 +127,4 @@ int main()
     }
     close(fd);
     return (0);
-}
+}*/
