@@ -6,33 +6,13 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 18:20:13 by igilani           #+#    #+#             */
-/*   Updated: 2025/01/22 12:52:38 by igilani          ###   ########.fr       */
+/*   Updated: 2025/01/22 15:13:46 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
-/*char	*ft_strchr(t_list *lst)
-{
-	int				i;
-
-	i = 0;
-	while (lst)
-	{
-		while(lst->str_buffer[i])
-		{
-			if (lst->str_buffer[i] == '\n')
-			{
-				return ((char *)&lst->str_buffer[i]);
-			}
-			i++;
-		}
-		lst = lst->next;
-	}
-	return (NULL);
-}*/
-
-int	ft_strchr(t_list *lst)
+int	ft_lstchr(t_list *lst)
 {
 	int	i;
 
@@ -51,25 +31,6 @@ int	ft_strchr(t_list *lst)
 	}
 	return (0);
 }
-
-/*void	*ft_calloc(size_t nmemb, size_t size)
-{
-	void			*mem;
-	unsigned char	*str;
-	size_t			i;
-
-	mem = malloc(nmemb * size);
-	if (!mem)
-		return (NULL);
-	str = (unsigned char *)mem;
-	i = 0;
-	while (i < nmemb * size)
-	{
-		str[i] = '\0';
-		i++;
-	}
-	return (mem);
-}*/
 
 t_list	*ft_lstlast(t_list *lst)
 {
@@ -134,7 +95,7 @@ void	ft_lstdup(t_list *lst, char *str)
 	str[k] = '\0';
 }
 
-void	ft_free(t_list **lst, t_list *clean_node, char *buffer)
+void	ft_lstfree(t_list **lst, t_list *clean_node, char *buffer)
 {
 	t_list	*tmp;
 

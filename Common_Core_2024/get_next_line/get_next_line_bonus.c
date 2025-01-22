@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 18:20:11 by igilani           #+#    #+#             */
-/*   Updated: 2025/01/22 15:05:44 by igilani          ###   ########.fr       */
+/*   Updated: 2025/01/22 15:13:59 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	final_line(t_list **lst)
 	buffer[k] = '\0';
 	clean_node->str_buffer = buffer;
 	clean_node->next = NULL;
-	ft_free(lst, clean_node, buffer);
+	ft_lstfree(lst, clean_node, buffer);
 }
 
 char	*take_line(t_list *lst)
@@ -74,7 +74,7 @@ void	create_list(t_list **lst, int fd)
 	int		bytes_read;
 	char	*buffer;
 
-	while (!ft_strchr(lst[fd]))
+	while (!ft_lstchr(lst[fd]))
 	{
 		buffer = malloc(BUFFER_SIZE + 1);
 		if (buffer == NULL)

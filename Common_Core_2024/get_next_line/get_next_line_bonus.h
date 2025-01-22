@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 18:20:09 by igilani           #+#    #+#             */
-/*   Updated: 2025/01/22 15:07:12 by igilani          ###   ########.fr       */
+/*   Updated: 2025/01/22 15:13:54 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ typedef struct s_list
 	struct s_list	*next;
 }	t_list;
 char	*get_next_line(int fd);
-int		ft_strchr(t_list *lst);
+int		ft_lstchr(t_list *lst);
 t_list	*ft_lstnew(void *lst);
 t_list	*ft_lstlast(t_list *lst);
 int		ft_lstlen(t_list *lst);
 void	ft_lstdup(t_list *lst, char *str);
-void	ft_free(t_list **lst, t_list *clean_node, char *buffer);
+void	ft_lstfree(t_list **lst, t_list *clean_node, char *buffer);
 #endif
