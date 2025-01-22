@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 18:20:11 by igilani           #+#    #+#             */
-/*   Updated: 2025/01/22 14:33:08 by igilani          ###   ########.fr       */
+/*   Updated: 2025/01/22 15:05:44 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 void	final_line(t_list **lst)
 {
@@ -52,17 +52,17 @@ char	*take_line(t_list *lst)
 	return (next_str);
 }
 
-void	add_list(t_list **lst, char *buffer)
+void	add_list(t_list **lst, char *buffer, int fd)
 {
 	t_list	*new_node;
 	t_list	*last_node;
 
-	last_node = ft_lstlast(*lst);
+	last_node = ft_lstlast(lst[fd]);
 	new_node = malloc(sizeof(t_list));
 	if (new_node == NULL)
 		return ;
 	if (last_node == NULL)
-		*lst = new_node;
+		lst[fd] = new_node;
 	else
 		last_node->next = new_node;
 	new_node->str_buffer = buffer;
@@ -74,37 +74,41 @@ void	create_list(t_list **lst, int fd)
 	int		bytes_read;
 	char	*buffer;
 
-	while (!ft_lstchr(*lst))
+	while (!ft_strchr(lst[fd]))
 	{
 		buffer = malloc(BUFFER_SIZE + 1);
 		if (buffer == NULL)
 			return ;
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
-		if (!bytes_read || bytes_read < 0)
+		if (bytes_read < 0)
+		{
+			free(buffer);
+			return ;
+		}
+		if (!bytes_read)
 		{
 			free(buffer);
 			return ;
 		}
 		buffer[bytes_read] = '\0';
-		add_list(lst, buffer);
+		add_list(lst, buffer, fd);
 	}
 }
 
 char	*get_next_line(int fd)
 {
-	static t_list	*lst;
+	static t_list	*lst[1024];
 	char			*next_line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || fd > 1023)
 		return (NULL);
-	create_list(&lst, fd);
-	if (lst == NULL)
+	create_list(lst, fd);
+	if (lst[fd] == NULL)
 		return (NULL);
-	next_line = take_line(lst);
-	final_line(&lst);
+	next_line = take_line(lst[fd]);
+	final_line(&lst[fd]);
 	return (next_line);
 }
-
 // int main()
 // {
 //     int		fd;

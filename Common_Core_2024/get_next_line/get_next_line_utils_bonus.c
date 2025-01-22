@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 18:20:13 by igilani           #+#    #+#             */
-/*   Updated: 2025/01/22 14:31:29 by igilani          ###   ########.fr       */
+/*   Updated: 2025/01/22 12:52:38 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 /*char	*ft_strchr(t_list *lst)
 {
@@ -32,7 +32,7 @@
 	return (NULL);
 }*/
 
-int	ft_lstchr(t_list *lst)
+int	ft_strchr(t_list *lst)
 {
 	int	i;
 
