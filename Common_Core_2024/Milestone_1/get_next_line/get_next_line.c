@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 18:20:11 by igilani           #+#    #+#             */
-/*   Updated: 2025/01/23 15:30:09 by igilani          ###   ########.fr       */
+/*   Updated: 2025/01/23 15:48:25 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	final_line(t_list **lst)
 	buffer[k] = '\0';
 	clean_node->str_buffer = buffer;
 	clean_node->next = NULL;
-	ft_free(lst, clean_node, buffer);
+	ft_lstfree(lst, clean_node, buffer);
 }
 
 char	*take_line(t_list *lst)
@@ -107,22 +107,21 @@ char	*get_next_line(int fd)
 
 // int main()
 // {
-//     int		fd;
-//     char	*line;
-//     int		lines;
+// 	int		fd;
+// 	char		*line;
+// 	int		lines;
 
-//     lines = 1;
-//     fd = open("read_error.txt", O_RDONLY);
-//     if (fd == -1)
-//     {
-//         perror("Error opening file");
-//         return (1);
-//     }
-//     while ((line = get_next_line(fd)))
-//     {
-//         printf("%s", line);
-//         free(line);
-//     }
-//     close(fd);
-//     return (0);
+// 	lines = 1;
+// 	fd = open("read_error.txt", O_RDONLY);
+// 	if (fd == -1)
+// 	{
+// 		return (1);
+// 	}
+// 	while ((line = get_next_line(fd)))
+// 	{
+// 		printf("%s", line);
+// 		free(line);
+// 	}
+// 	close(fd);
+// 	return (0);
 // }

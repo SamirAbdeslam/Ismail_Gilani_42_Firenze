@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 18:20:11 by igilani           #+#    #+#             */
-/*   Updated: 2025/01/22 17:32:00 by igilani          ###   ########.fr       */
+/*   Updated: 2025/01/23 15:48:16 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,12 +80,7 @@ void	create_list(t_list **lst, int fd)
 		if (buffer == NULL)
 			return ;
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
-		if (bytes_read < 0)
-		{
-			free(buffer);
-			return ;
-		}
-		if (!bytes_read)
+		if (!bytes_read || bytes_read < 0)
 		{
 			free(buffer);
 			return ;
@@ -109,24 +104,24 @@ char	*get_next_line(int fd)
 	final_line(&lst[fd]);
 	return (next_line);
 }
+
 // int main()
 // {
-//     int		fd;
-//     char	*line;
-//     int		lines;
+// 	int		fd;
+// 	char		*line;
+// 	int		lines;
 
-//     lines = 1;
-//     fd = open("read_error.txt", O_RDONLY);
-//     if (fd == -1)
-//     {
-//         perror("Error opening file");
-//         return (1);
-//     }
-//     while ((line = get_next_line(fd)))
-//     {
-//         printf("%s", line);
-//         free(line);
-//     }
-//     close(fd);
-//     return (0);
+// 	lines = 1;
+// 	fd = open("read_error.txt", O_RDONLY);
+// 	if (fd == -1)
+// 	{
+// 		return (1);
+// 	}
+// 	while ((line = get_next_line(fd)))
+// 	{
+// 		printf("%s", line);
+// 		free(line);
+// 	}
+// 	close(fd);
+// 	return (0);
 // }
