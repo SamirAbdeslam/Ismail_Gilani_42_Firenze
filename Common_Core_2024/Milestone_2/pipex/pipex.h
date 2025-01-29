@@ -6,11 +6,12 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 11:02:56 by igilani           #+#    #+#             */
-/*   Updated: 2025/01/29 11:05:34 by igilani          ###   ########.fr       */
+/*   Updated: 2025/01/29 18:41:45 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include <stdio.h>
+# include <stdlib.h>
 # include <unistd.h>
 # include <errno.h>
 # include <fcntl.h>
