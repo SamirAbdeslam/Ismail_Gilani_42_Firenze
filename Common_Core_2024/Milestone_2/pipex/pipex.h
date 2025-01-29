@@ -1,29 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/28 18:20:32 by igilani           #+#    #+#             */
-/*   Updated: 2025/01/29 11:02:52 by igilani          ###   ########.fr       */
+/*   Created: 2025/01/29 11:02:56 by igilani           #+#    #+#             */
+/*   Updated: 2025/01/29 11:05:34 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
-
-int	main(int argc, char **argv)
-{
-	int	fd1;
-	int	fd2;
-	errno = EINVAL;
-	
-	if(argc != 5)
-		perror(NULL);
-		
-	fd1 = open(argv[0], O_RDONLY);
-	fd2 = open(argv[4], O_CREAT | O_RDWR | O_TRUNC, 0644);
-
-	if(fd1 < 0 || fd2 < 0)
-		perror("Errore di apertura");
-}
+# include <stdio.h>
+# include <unistd.h>
+# include <errno.h>
+# include <fcntl.h>
