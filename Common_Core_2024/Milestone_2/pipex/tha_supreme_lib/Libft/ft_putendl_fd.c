@@ -1,21 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
+/*   By: igilani <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/29 11:02:56 by igilani           #+#    #+#             */
-/*   Updated: 2025/01/30 12:33:40 by igilani          ###   ########.fr       */
+/*   Created: 2024/12/05 18:25:12 by igilani           #+#    #+#             */
+/*   Updated: 2024/12/05 18:25:13 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <errno.h>
-# include <fcntl.h>
-# include <sys/wait.h>
-# include "tha_supreme_lib/tha_supreme_lib.h"
+#include "libft.h"
 
-char	**ft_split(char const *s, char c);
+void	ft_putendl_fd(char *s, int fd)
+{
+	unsigned int	i;
+
+	i = 0;
+	while (s[i] != '\0')
+	{
+		write (fd, &s[i], 1);
+		i++;
+	}
+	write (fd, "\n", 1);
+}

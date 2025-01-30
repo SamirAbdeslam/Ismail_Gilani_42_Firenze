@@ -1,21 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/29 11:02:56 by igilani           #+#    #+#             */
-/*   Updated: 2025/01/30 12:33:40 by igilani          ###   ########.fr       */
+/*   Created: 2024/11/29 10:26:25 by igilani           #+#    #+#             */
+/*   Updated: 2024/12/31 13:12:11 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <errno.h>
-# include <fcntl.h>
-# include <sys/wait.h>
-# include "tha_supreme_lib/tha_supreme_lib.h"
+#include "libft.h"
 
-char	**ft_split(char const *s, char c);
+void	*ft_memchr(const void *s, int c, size_t n)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < n)
+	{
+		if (((unsigned char *)s)[i] == (unsigned char)c)
+			return ((unsigned char *)s + i);
+		i++;
+	}
+	return (NULL);
+}

@@ -1,21 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/29 11:02:56 by igilani           #+#    #+#             */
-/*   Updated: 2025/01/30 12:33:40 by igilani          ###   ########.fr       */
+/*   Created: 2024/12/05 18:25:27 by igilani           #+#    #+#             */
+/*   Updated: 2025/01/10 16:09:50 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <errno.h>
-# include <fcntl.h>
-# include <sys/wait.h>
-# include "tha_supreme_lib/tha_supreme_lib.h"
+#include "libft.h"
 
-char	**ft_split(char const *s, char c);
+void	ft_putstr_fd(char *s, int fd)
+{
+	unsigned int	i;
+
+	i = 0;
+	while (s[i] != '\0')
+	{
+		write (fd, &s[i], 1);
+		i++;
+	}
+}

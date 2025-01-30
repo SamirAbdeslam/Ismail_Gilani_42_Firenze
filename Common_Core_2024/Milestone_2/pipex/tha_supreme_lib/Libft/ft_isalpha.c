@@ -1,21 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
+/*   By: igilani <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/29 11:02:56 by igilani           #+#    #+#             */
-/*   Updated: 2025/01/30 12:33:40 by igilani          ###   ########.fr       */
+/*   Created: 2024/11/18 14:44:48 by igilani           #+#    #+#             */
+/*   Updated: 2024/12/02 17:10:21 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <errno.h>
-# include <fcntl.h>
-# include <sys/wait.h>
-# include "tha_supreme_lib/tha_supreme_lib.h"
+#include "libft.h"
 
-char	**ft_split(char const *s, char c);
+int	ft_isalpha(int c)
+{
+	if ((c >= 65 && c <= 90) || (c >= 97 && c <= 122))
+		return (1);
+	return (0);
+}

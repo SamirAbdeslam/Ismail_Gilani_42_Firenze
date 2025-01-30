@@ -1,21 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   case_int.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/29 11:02:56 by igilani           #+#    #+#             */
-/*   Updated: 2025/01/30 12:33:40 by igilani          ###   ########.fr       */
+/*   Created: 2025/01/06 17:29:58 by igilani           #+#    #+#             */
+/*   Updated: 2025/01/10 17:29:08 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <errno.h>
-# include <fcntl.h>
-# include <sys/wait.h>
-# include "tha_supreme_lib/tha_supreme_lib.h"
+#include "../ft_printf.h"
 
-char	**ft_split(char const *s, char c);
+int	case_int(int di, const char *x)
+{
+	char	*r;
+	int		n;
+
+	if (*x == 'i' || *x == 'd')
+	{
+		r = ft_itoa(di);
+		ft_putstr_fd(r, 1);
+		n = ft_strlen(r);
+		free(r);
+		return (n);
+	}
+	else if (*x == 'c')
+	{
+		ft_putchar_fd((char)di, 1);
+		return (1);
+	}
+	else
+		return (0);
+}

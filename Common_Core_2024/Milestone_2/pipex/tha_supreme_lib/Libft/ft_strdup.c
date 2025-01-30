@@ -1,21 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
+/*   By: igilani <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/29 11:02:56 by igilani           #+#    #+#             */
-/*   Updated: 2025/01/30 12:33:40 by igilani          ###   ########.fr       */
+/*   Created: 2024/11/29 10:26:15 by igilani           #+#    #+#             */
+/*   Updated: 2024/11/29 10:26:16 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <errno.h>
-# include <fcntl.h>
-# include <sys/wait.h>
-# include "tha_supreme_lib/tha_supreme_lib.h"
+#include "libft.h"
 
-char	**ft_split(char const *s, char c);
+char	*ft_strdup(const char *s)
+{
+	char	*mem;
+
+	mem = ft_calloc(ft_strlen(s) + 1, 1);
+	if (!mem)
+		return (NULL);
+	ft_strlcpy (mem, s, ft_strlen(s) + 1);
+	return (mem);
+}

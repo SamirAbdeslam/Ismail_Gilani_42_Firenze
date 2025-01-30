@@ -1,21 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   case_void.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/29 11:02:56 by igilani           #+#    #+#             */
-/*   Updated: 2025/01/30 12:33:40 by igilani          ###   ########.fr       */
+/*   Created: 2025/01/06 15:54:24 by igilani           #+#    #+#             */
+/*   Updated: 2025/01/10 17:29:27 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <errno.h>
-# include <fcntl.h>
-# include <sys/wait.h>
-# include "tha_supreme_lib/tha_supreme_lib.h"
+#include "../ft_printf.h"
 
-char	**ft_split(char const *s, char c);
+int	case_void(size_t p)
+{
+	if (p == 0)
+	{
+		ft_putstr_fd("(nil)", 1);
+		return (5);
+	}
+	else
+	{
+		ft_putstr_fd("0x", 1);
+		return (ft_putnbr_base_fd((unsigned long)p, "0123456789abcdef", 1) + 2);
+	}
+	return (0);
+}

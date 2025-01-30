@@ -1,21 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/29 11:02:56 by igilani           #+#    #+#             */
-/*   Updated: 2025/01/30 12:33:40 by igilani          ###   ########.fr       */
+/*   Created: 2025/01/20 18:20:09 by igilani           #+#    #+#             */
+/*   Updated: 2025/01/29 16:03:04 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <errno.h>
-# include <fcntl.h>
-# include <sys/wait.h>
-# include "tha_supreme_lib/tha_supreme_lib.h"
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 10
+# endif
 
-char	**ft_split(char const *s, char c);
+#include "../tha_supreme_lib.h"
+
+char	*get_next_line(int fd);
+int		ft_lstchr(t_list *lst);
+t_list	*ft_lstnew(void *lst);
+t_list	*ft_lstlast(t_list *lst);
+int		ft_lstlen(t_list *lst);
+void	ft_lstdup(t_list *lst, char *str);
+void	ft_lstfree(t_list **lst, t_list *clean_node, char *buffer);
+#endif

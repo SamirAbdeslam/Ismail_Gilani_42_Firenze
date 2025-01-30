@@ -1,21 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/29 11:02:56 by igilani           #+#    #+#             */
-/*   Updated: 2025/01/30 12:33:40 by igilani          ###   ########.fr       */
+/*   Created: 2025/01/07 19:39:08 by igilani           #+#    #+#             */
+/*   Updated: 2025/01/29 16:02:52 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <errno.h>
-# include <fcntl.h>
-# include <sys/wait.h>
-# include "tha_supreme_lib/tha_supreme_lib.h"
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
 
-char	**ft_split(char const *s, char c);
+#include "../tha_supreme_lib.h"
+
+int		ft_printf(const char *format, ...);
+int		case_void(size_t p);
+int		case_char(char *s);
+int		case_unsigned(unsigned int i, const char *x);
+int		case_int(int di, const char *x);
+
+#endif

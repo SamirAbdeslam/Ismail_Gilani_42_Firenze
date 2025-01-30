@@ -1,21 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   case_char.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/29 11:02:56 by igilani           #+#    #+#             */
-/*   Updated: 2025/01/30 12:33:40 by igilani          ###   ########.fr       */
+/*   Created: 2025/01/06 17:50:04 by igilani           #+#    #+#             */
+/*   Updated: 2025/01/10 17:30:44 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <errno.h>
-# include <fcntl.h>
-# include <sys/wait.h>
-# include "tha_supreme_lib/tha_supreme_lib.h"
+#include "../ft_printf.h"
 
-char	**ft_split(char const *s, char c);
+int	case_char(char *s)
+{
+	if (s == NULL)
+	{
+		ft_putstr_fd("(null)", 1);
+		return (6);
+	}
+	else
+	{
+		ft_putstr_fd(s, 1);
+		return (ft_strlen(s));
+	}
+}
