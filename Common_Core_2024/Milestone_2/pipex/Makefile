@@ -6,7 +6,7 @@
 #    By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/29 10:59:20 by igilani           #+#    #+#              #
-#    Updated: 2025/01/30 19:04:22 by igilani          ###   ########.fr        #
+#    Updated: 2025/02/02 20:50:15 by igilani          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,7 @@ endef
 # Esempio di Makefile con colori
 CC      = cc
 CFLAGS  = -Wall -Wextra -Werror
+DEBUG	= -g
 NAME    = pipex
 SRC     = pipex.c
 OBJ_DIR = obj
@@ -81,4 +82,7 @@ re: fclean
 	@echo "$(RICOMP)"
 	@$(MAKE) --no-print-directory all
 
-.PHONY: all clean fclean re
+debug: CFLAGS += -g
+debug: re
+
+.PHONY: all clean fclean re debug

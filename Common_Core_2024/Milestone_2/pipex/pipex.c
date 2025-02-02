@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 10:58:50 by igilani           #+#    #+#             */
-/*   Updated: 2025/01/30 19:39:21 by igilani          ###   ########.fr       */
+/*   Updated: 2025/02/02 22:16:05 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,14 +61,14 @@ int main(int argc, char **argv, char **envp)
 	char	**cmd2;
 	char	*cmd_path1;
 	char	*cmd_path2;
-	int		errore;
 	char	**path;
+	int		errore;
 	errore = 0;
 
 	if (argc < 5)
 	{
 		perror("Pochi argomenti");
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
 
 	file_in = open(argv[1], O_RDONLY);
@@ -77,7 +77,7 @@ int main(int argc, char **argv, char **envp)
 	if(file_in == -1 || file_out == -1)
 	{
 		perror("Errore apertura file");
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
 
 	id_pipe = pipe(fd);
@@ -85,7 +85,7 @@ int main(int argc, char **argv, char **envp)
 	if(id_pipe == -1)
 	{
 		perror("Erorre pipe");
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
 	
 	pid1 = fork();
@@ -93,7 +93,7 @@ int main(int argc, char **argv, char **envp)
 	if(pid1 == -1)
 	{
 		perror("Errore fork");
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
 	
 	path = get_path(envp);
@@ -108,13 +108,12 @@ int main(int argc, char **argv, char **envp)
 		cmd_path1 = find_cmd_path(cmd1[0], path);
 		if (!cmd_path1) {
   			perror("cmd1 non trovato");
-  			exit(1);
+  			exit(EXIT_FAILURE);
 		}
 		errore = execve(cmd_path1, cmd1, envp);
 		if (errore == -1) {
-  			perror("execve failed");
-  			exit(1);
 			errore = 0;
+  			exit(0);
 		}
 	}
 
@@ -122,8 +121,7 @@ int main(int argc, char **argv, char **envp)
 
 	if(pid2 == -1)
 	{
-		perror("Errore fork");
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
 
 	if(pid2 == 0)
@@ -135,21 +133,25 @@ int main(int argc, char **argv, char **envp)
 		cmd_path2 = find_cmd_path(cmd2[0], path);
 		if (!cmd_path2) {
   			perror("cmd2 non trovato");
-  			exit(1);
+  			exit(EXIT_FAILURE);
 		}
 		errore = execve(cmd_path2, cmd2, envp);
 		if (errore == -1) {
-  			perror("execve failed");
-  			exit(1);
-			errore = 0;
+  			errore = 0;
+			exit(0);
 		}
 	}
 
-	close(fd[0]);
-	close(fd[1]);
-	close(file_in);
-	close(file_out);
+close(fd[0]);
+close(fd[1]);
+if (file_in != -1) close(file_in);
+if (file_out != -1) close(file_out);
 
-	waitpid(pid1, NULL, 0);
-	waitpid(pid2, NULL, 0);
+int status1, status2;
+waitpid(pid1, &status1, 0);
+waitpid(pid2, &status2, 0);
+
+int exit_code = (status2 & 0xFF00) >> 8;
+
+exit(exit_code);
 }
