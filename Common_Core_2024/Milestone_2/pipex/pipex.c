@@ -6,35 +6,40 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 10:58:50 by igilani           #+#    #+#             */
-/*   Updated: 2025/02/02 22:16:05 by igilani          ###   ########.fr       */
+/*   Updated: 2025/02/03 19:21:17 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-char	*find_cmd_path(char *cmd, char **path_dirs)
+char *find_cmd_path(char *cmd, char **path_dirs)
 {
-	int		i;
-	char	*full_path;
-	i = 0;
+    int i = 0;
+    char *full_path;
+    int len;
 
-	if(ft_strchr(cmd, '/') != NULL)
-	{
-		if(access(cmd, F_OK | X_OK) == 0)
-			return(cmd);
-		return(NULL);
-	}
-	
-	while(path_dirs[i])
-	{
-		full_path = malloc(ft_strlen(path_dirs[i]) + ft_strlen(cmd) + 2);
-		sprintf(full_path, "%s/%s", path_dirs[i], cmd);
-		if(access(full_path, F_OK | X_OK) == 0)
-			return(full_path);
-		free(full_path);
-		i++;
-	}
-	return(NULL);
+    if (ft_strchr(cmd, '/') != NULL)
+    {
+        if (access(cmd, F_OK | X_OK) == 0)
+            return (cmd);
+        return (NULL);
+    }
+
+    while (path_dirs[i])
+    {
+        len = ft_strlen(path_dirs[i]) + ft_strlen(cmd) + 2;
+        full_path = malloc(len);
+        if (!full_path)
+            return (NULL);
+        ft_strlcpy(full_path, path_dirs[i], len);
+        ft_strlcat(full_path, "/", len);
+        ft_strlcat(full_path, cmd, len);
+        if (access(full_path, F_OK | X_OK) == 0)
+            return (full_path);
+        free(full_path);
+        i++;
+    }
+    return (NULL);
 }
 
 char **get_path(char **envp)
@@ -64,6 +69,9 @@ int main(int argc, char **argv, char **envp)
 	char	**path;
 	int		errore;
 	errore = 0;
+	int i;
+	i = 0;
+	char *clean_cmd;
 
 	if (argc < 5)
 	{
@@ -104,10 +112,20 @@ int main(int argc, char **argv, char **envp)
 		dup2(fd[1], STDOUT_FILENO);
 		close(fd[0]);
 		close(file_in);
-		cmd1 = ft_split(argv[2], ' ');
+		if(ft_strchr(argv[2], '\'')) // Se contiene apici
+    	{
+    	    // Rimuovi gli apici e splitta
+    	    char *clean_cmd = ft_strtrim(argv[2], "\'");
+    	    cmd1 = ft_split(clean_cmd, ' ');
+    	    free(clean_cmd);
+    	}
+    	else
+    	{
+    	    cmd1 = ft_split(argv[2], ' ');
+    	}
 		cmd_path1 = find_cmd_path(cmd1[0], path);
 		if (!cmd_path1) {
-  			perror("cmd1 non trovato");
+  			perror("command not found");
   			exit(EXIT_FAILURE);
 		}
 		errore = execve(cmd_path1, cmd1, envp);
@@ -129,15 +147,22 @@ int main(int argc, char **argv, char **envp)
 		dup2(fd[0], STDIN_FILENO);
 		dup2(file_out, STDOUT_FILENO);
 		close(fd[1]);
-		cmd2 = ft_split(argv[3], ' ');
+		if(ft_strchr(argv[3], '\'')) // Se contiene apici
+    	{
+    	    clean_cmd = ft_strtrim(argv[3], "\'");
+    	    ft_putstr_fd(clean_cmd,2);
+			cmd2 = ft_split(clean_cmd, ' ');
+    	    free(clean_cmd);
+    	}
+    	else
+    	{
+    	    cmd2 = ft_split(argv[3], ' ');
+    	}
 		cmd_path2 = find_cmd_path(cmd2[0], path);
-		if (!cmd_path2) {
-  			perror("cmd2 non trovato");
-  			exit(EXIT_FAILURE);
-		}
 		errore = execve(cmd_path2, cmd2, envp);
 		if (errore == -1) {
   			errore = 0;
+			ft_putstr_fd("Errore", 2);
 			exit(0);
 		}
 	}

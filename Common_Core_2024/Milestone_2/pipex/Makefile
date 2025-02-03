@@ -5,8 +5,8 @@
 #                                                     +:+ +:+         +:+      #
 #    By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/01/29 10:59:20 by igilani           #+#    #+#              #
-#    Updated: 2025/02/02 20:50:15 by igilani          ###   ########.fr        #
+#    Created: 2025/02/03 15:15:41 by igilani           #+#    #+#              #
+#    Updated: 2025/02/03 15:25:34 by igilani          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,17 +34,18 @@ define PROGRESS_BAR_END
     echo "$(1) $(2)$(RESET)"
 endef
 
-# Esempio di Makefile con colori
+# Configurazioni
 CC      = cc
 CFLAGS  = -Wall -Wextra -Werror
-DEBUG	= -g
+DEBUG   = -g
 NAME    = pipex
 SRC     = pipex.c
 OBJ_DIR = obj
 OBJ     = $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
+LIB     = tha_supreme_lib/tha_supreme_lib.a
 RICOMP  = $(YELLOW)[$(RESET)$(BLUE)=====$(RESET)$(GREEN)RICOMPILO$(RESET)$(BLUE)=====$(RESET)$(YELLOW)]$(RESET)
 
-# Definizione dei colori
+# Colori
 RED     = \033[31m
 GREEN   = \033[32m
 YELLOW  = \033[33m
@@ -55,13 +56,17 @@ RESET   = \033[0m
 all: $(NAME)
 	$(call PROGRESS_BAR_END,\033[32m,Eseguibile \033[33mpipex\033[0m \033[32mgenerato)
 
-# Crea la cartella obj
+# Crea cartella obj e compila libreria
 $(OBJ_DIR):
 	@mkdir -p $@
 	$(call PROGRESS_BAR_START)
 
-$(NAME): $(OBJ)
-	@$(CC) $(CFLAGS) $^ -o $@ tha_supreme_lib/tha_supreme_lib.a
+$(LIB):
+	@$(MAKE) -s -C tha_supreme_lib
+
+# Compilazione progetto principale
+$(NAME): $(OBJ) $(LIB)
+	@$(CC) $(CFLAGS) $^ -o $@
 	$(call PROGRESS_BAR_UPDATE)
 
 # Regola per i file oggetto
@@ -72,17 +77,16 @@ $(OBJ_DIR)/%.o: %.c | $(OBJ_DIR)
 # Pulizia
 clean:
 	@rm -rf $(OBJ_DIR)
+	@$(MAKE) -s -C tha_supreme_lib clean
 	$(call PROGRESS_BAR,\033[31m,Cartella $(OBJ_DIR) pulita!)
 
 fclean: clean
 	@rm -f $(NAME)
+	@$(MAKE) -s -C tha_supreme_lib fclean
 	$(call PROGRESS_BAR,\033[31m,Eseguibile rimosso!)
 
 re: fclean
 	@echo "$(RICOMP)"
 	@$(MAKE) --no-print-directory all
 
-debug: CFLAGS += -g
-debug: re
-
-.PHONY: all clean fclean re debug
+.PHONY: all clean fclean re
