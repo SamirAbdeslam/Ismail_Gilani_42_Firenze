@@ -6,12 +6,12 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 10:58:50 by igilani           #+#    #+#             */
-/*   Updated: 2025/02/05 19:58:17 by igilani          ###   ########.fr       */
+/*   Updated: 2025/02/05 20:26:47 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-
+//SISTEMARE I MEMORY LEAK
 static char	*find_cmd_path(char *cmd, char **path_dirs)
 {
 	int		i;
