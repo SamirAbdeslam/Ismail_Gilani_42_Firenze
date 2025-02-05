@@ -6,7 +6,7 @@
 #    By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/03 15:15:41 by igilani           #+#    #+#              #
-#    Updated: 2025/02/03 15:25:34 by igilani          ###   ########.fr        #
+#    Updated: 2025/02/05 13:13:40 by igilani          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ CC      = cc
 CFLAGS  = -Wall -Wextra -Werror
 DEBUG   = -g
 NAME    = pipex
-SRC     = pipex.c
+SRC     = pipex.c utils.c
 OBJ_DIR = obj
 OBJ     = $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
 LIB     = tha_supreme_lib/tha_supreme_lib.a
