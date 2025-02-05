@@ -6,12 +6,12 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 12:33:53 by igilani           #+#    #+#             */
-/*   Updated: 2025/02/05 19:09:16 by igilani          ###   ########.fr       */
+/*   Updated: 2025/02/05 20:04:49 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-
+//cambiare con strerror
 void	error_handle(int error, int exit_type)
 {
 	if (error == 0)
@@ -36,4 +36,17 @@ void	error_handle(int error, int exit_type)
 		ft_putstr_fd("generic error\n", 2);
 	exit (exit_type);
 	return ;
+}
+
+void	ft_free(char **tab)
+{
+	size_t	i;
+
+	i = 0;
+	while (tab[i])
+	{
+		free(tab[i]);
+		i++;
+	}
+	free(tab);
 }
