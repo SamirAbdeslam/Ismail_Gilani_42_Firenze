@@ -1,25 +1,5 @@
 #include "pipex.h"
 
-void	free_split(char **tab)
-{
-	size_t	i;
-
-	i = 0;
-	while (tab[i])
-	{
-		free(tab[i]);
-		i++;
-	}
-	free(tab);
-}
-
-void	free_resources(char **arr, char *path, int exit_code)
-{
-	free_split(arr);
-	free_split(&path);
-	exit(exit_code);
-}
-
 static char	*find_cmd_path(char *cmd, char **path_dirs)
 {
 	int		i;
@@ -71,26 +51,25 @@ static void	child(int *fd, char **argv, char **env)
 	char	**path;
 	char	**cmd1;
 
-	file_in = open(argv[1], O_RDONLY);
+	file_in = open(argv[1], O_RDONLY, 0777);
 	if (file_in == -1)
 		error_handle(5, 1);
 	path = get_path(env);
-	cmd1 = ft_split(argv[2], ' ');
-	if (!cmd1)
-		free_resources(path, NULL, 1); // Libera path se cmd1 fallisce
-	cmd_path1 = find_cmd_path(cmd1[0], path);
-	free_split(path); // Libera path subito dopo l'uso
-	if (!cmd_path1)
-		free_resources(cmd1, NULL, 127);
 	dup2(file_in, STDIN_FILENO);
 	dup2(fd[1], STDOUT_FILENO);
 	close(fd[0]);
-	if (execve(cmd_path1, cmd1, env) == -1)
+	cmd1 = ft_split(argv[2], ' ');
+	if (!cmd1)
+		free(path);
+	cmd_path1 = find_cmd_path(cmd1[0], path);
+	ft_free(path);
+	if (!cmd_path1)
 	{
-		if (cmd_path1 != cmd1[0])
-			free(cmd_path1);
-		free_resources(cmd1, NULL, 1);
+		error_handle(3, 127);
+		free(cmd1);
 	}
+	if (execve(cmd_path1, cmd1, env) == -1)
+		error_handle(41, 0);
 	close(file_in);
 }
 
@@ -98,51 +77,49 @@ static void	parent(int *fd, char **argv, char **env)
 {
 	int		file_out;
 	char	*cmd_path2;
-	char	**path;
 	char	**cmd2;
+	char	**path;
 
 	file_out = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (file_out == -1)
 		error_handle(6, 1);
 	path = get_path(env);
-	cmd2 = ft_split(argv[3], ' ');
-	if (!cmd2)
-		free_resources(path, NULL, 1); // Libera path se cmd2 fallisce
-	cmd_path2 = find_cmd_path(cmd2[0], path);
-	free_split(path); // Libera path subito dopo l'uso
-	if (!cmd_path2)
-		free_resources(cmd2, NULL, 127);
 	dup2(fd[0], STDIN_FILENO);
 	dup2(file_out, STDOUT_FILENO);
 	close(fd[1]);
-	if (execve(cmd_path2, cmd2, env) == -1)
+	cmd2 = ft_split(argv[3], ' ');
+	if (!cmd2)
+		free(path);
+	cmd_path2 = find_cmd_path(cmd2[0], path);
+	if (!cmd_path2)
 	{
-		if (cmd_path2 != cmd2[0])
-			free(cmd_path2);
-		free_resources(cmd2, NULL, 1);
+		error_handle(3, 127);
+		free(cmd2);
 	}
+	if (execve(cmd_path2, cmd2, env) == -1)
+		error_handle(42, 0);
 	close(file_out);
 }
 
 int	main(int argc, char **argv, char **env)
 {
 	int		fd[2];
-	pid_t	pid1;
-	pid_t	pid2;
+	pid_t	pid;
 
-	if (argc != 5)
-		error_handle(0, 1);
+	if (argc >= 5)
+		if (ft_strncmp(argv[1], "here_doc", 8) == 0)
+		{
+			
+		}
+		
 	if (pipe(fd) == -1)
 		error_handle(1, 1);
-	pid1 = fork();
-	if (pid1 == 0)
+	pid = fork();
+	if (pid == -1)
+		error_handle(2, 0);
+	if (!pid)
 		child(fd, argv, env);
-	pid2 = fork();
-	if (pid2 == 0)
-		parent(fd, argv, env);
-	close(fd[0]);
-	close(fd[1]);
-	waitpid(pid1, NULL, 0);
-	waitpid(pid2, NULL, 0);
+	waitpid(pid, NULL, 0);
+	parent(fd, argv, env);
 	return (0);
 }

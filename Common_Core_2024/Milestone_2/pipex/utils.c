@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 12:33:53 by igilani           #+#    #+#             */
-/*   Updated: 2025/02/05 20:04:49 by igilani          ###   ########.fr       */
+/*   Updated: 2025/02/06 18:24:47 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,11 @@ void	ft_free(char **tab)
 		i++;
 	}
 	free(tab);
+}
+
+void	free_resources(char **arr, char **arr2, int exit_code)
+{
+	ft_free(arr);
+	ft_free(arr2);
+	exit(exit_code);
 }

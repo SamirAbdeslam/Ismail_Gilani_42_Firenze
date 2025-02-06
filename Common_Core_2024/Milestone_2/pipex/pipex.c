@@ -6,12 +6,12 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 10:58:50 by igilani           #+#    #+#             */
-/*   Updated: 2025/02/05 20:28:20 by igilani          ###   ########.fr       */
+/*   Updated: 2025/02/06 19:24:41 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-//SISTEMARE I MEMORY LEAK
+
 static char	*find_cmd_path(char *cmd, char **path_dirs)
 {
 	int		i;
@@ -71,9 +71,15 @@ static void	child(int *fd, char **argv, char **env)
 	dup2(fd[1], STDOUT_FILENO);
 	close(fd[0]);
 	cmd1 = ft_split(argv[2], ' ');
+	if (!cmd1)
+		free(path);
 	cmd_path1 = find_cmd_path(cmd1[0], path);
+	ft_free(path);
 	if (!cmd_path1)
+	{
 		error_handle(3, 127);
+		free(cmd1);
+	}
 	if (execve(cmd_path1, cmd1, env) == -1)
 		error_handle(41, 0);
 	close(file_in);
@@ -94,9 +100,14 @@ static void	parent(int *fd, char **argv, char **env)
 	dup2(file_out, STDOUT_FILENO);
 	close(fd[1]);
 	cmd2 = ft_split(argv[3], ' ');
+	if (!cmd2)
+		free(path);
 	cmd_path2 = find_cmd_path(cmd2[0], path);
 	if (!cmd_path2)
+	{
 		error_handle(3, 127);
+		free(cmd2);
+	}
 	if (execve(cmd_path2, cmd2, env) == -1)
 		error_handle(42, 0);
 	close(file_out);
@@ -116,6 +127,7 @@ int	main(int argc, char **argv, char **env)
 		error_handle(2, 0);
 	if (!pid)
 		child(fd, argv, env);
+	waitpid(pid, NULL, 0);
 	parent(fd, argv, env);
 	return (0);
 }

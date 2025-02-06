@@ -6,7 +6,7 @@
 #    By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/03 15:15:41 by igilani           #+#    #+#              #
-#    Updated: 2025/02/05 13:13:40 by igilani          ###   ########.fr        #
+#    Updated: 2025/02/06 18:51:40 by igilani          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ endef
 
 # Configurazioni
 CC      = cc
-CFLAGS  = -Wall -Wextra -Werror
+CFLAGS  = -Wall -Wextra -Werror -g
 DEBUG   = -g
 NAME    = pipex
 SRC     = pipex.c utils.c
