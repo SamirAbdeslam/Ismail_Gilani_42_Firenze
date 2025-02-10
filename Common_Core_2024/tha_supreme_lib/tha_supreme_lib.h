@@ -6,13 +6,14 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 14:46:29 by igilani           #+#    #+#             */
-/*   Updated: 2025/01/29 16:05:05 by igilani          ###   ########.fr       */
+/*   Updated: 2025/02/10 23:06:27 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
+# include <stdarg.h>
 # include <fcntl.h>
 
 typedef struct s_list
