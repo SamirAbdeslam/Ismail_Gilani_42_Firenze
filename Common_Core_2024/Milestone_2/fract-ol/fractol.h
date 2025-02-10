@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 17:13:15 by igilani           #+#    #+#             */
-/*   Updated: 2025/02/10 17:00:03 by igilani          ###   ########.fr       */
+/*   Updated: 2025/02/10 19:13:11 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct	s_keys {
 typedef struct	s_data {
 	void	*mlx;       // Connessione principale a MinilibX
 	void	*win;       // Finestra grafica
+	char	*title;     // Titolo finestra
 	void	*img;       // Immagine buffer per il rendering
 	char	*addr;      // Indirizzo dati immagine
 	int		bits_per_pixel;
