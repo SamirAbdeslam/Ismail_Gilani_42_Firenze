@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 17:15:58 by igilani           #+#    #+#             */
-/*   Updated: 2025/02/10 19:25:34 by igilani          ###   ########.fr       */
+/*   Updated: 2025/02/18 19:37:39 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,67 +18,53 @@ int close_window(void *param)
 	exit(0);
 }
 
-int	key_hook(int keycode, t_data data)
+void	data_init(t_data *fractal)
 {
-	if (keycode == KEY_ESC)
-		close_window(&data.win);
-	// if (keycode == KEY_PLUS)
-	// 	data.max_iter += 10;
-	// if (keycode == KEY_MINUS)
-	// 	data.max_iter -= 10;
-	// render_fractal(data); // Funzione di ridisegno
-	return (0);
+	fractal->hypotenuse = 4;
+	fractal->iter = 42;
+}
+void	handle_error()
+{
+	perror("Errore con il malloc");
 }
 
-static void	handle_error()
+void	fractal_init(t_data *fractal)
 {
-	perror("Problem with malloc");
-	exit(EXIT_FAILURE);
-}
+	fractal->mlx = mlx_init();
+	if (!fractal->mlx)
+	{
+		handle_error();
+	}
+	fractal->win = mlx_new_window(fractal->mlx, WIDTH, HEIGHT, fractal->title);
+	if (!fractal->win)
+	{
+		mlx_destroy_display(fractal->mlx);
+		free(fractal->mlx);
+		handle_error();
+	}
+	fractal->img = mlx_new_image(fractal->mlx, WIDTH, HEIGHT);
+	if (!fractal->img)
+	{
+		mlx_destroy_window(fractal->mlx, fractal->win);
+		mlx_destroy_display(fractal->mlx);
+		free(fractal->mlx);
+		handle_error();
+	}
+	fractal->addr = mlx_get_data_addr(fractal->img, &fractal->bits_per_pixel, &fractal->line_length, &fractal->endian);
 
-void	fractal_init(t_data *data)
-{
-	data->mlx = mlx_init();
-	if (!data->mlx)
-	{
-		handle_error();
-		// ft_putstr_fd("Error: mlx_init() failed\n", 2);
-		// exit(EXIT_FAILURE);
-	}
-	data->win = mlx_new_window(data->mlx, WIDTH, HEIGHT, data->title);
-	if (!data->win)
-	{
-		mlx_destroy_display(data->mlx);
-		free(data->mlx);
-		handle_error();
-		// ft_putstr_fd("Error: mlx_init() failed\n", 2);
-		// exit(EXIT_FAILURE);
-	}
-	data->img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
-	if (!data->img)
-	{
-		mlx_destroy_window(data->mlx, data->win);
-		mlx_destroy_display(data->mlx);
-		free(data->mlx);
-		handle_error();
-		// ft_putstr_fd("Error: mlx_new_image() failed\n", 2);
-		// exit(EXIT_FAILURE);
-	}
-	data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel, &data->line_length, &data->endian);
-
-	// mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
-	// mlx_key_hook(data->win, key_hook, &data);
-	// mlx_hook(data->win, 17, 0, close_window, NULL);
-	// mlx_loop(data->mlx);
+	data_init(fractal);
 }
 
 int	main(int argc, char **argv)
 {
-	t_data data;
+	t_data fractal;
 	
 	if((2 == argc && !ft_strncmp(argv[1], "mandelbrot", 10)) || (4 == argc && !ft_strncmp(argv[1], "julia", 5)))
 	{
-		data.title = argv[1];
+		fractal.title = argv[1];
+		fractal_init(&fractal);
+		fractal_render(&fractal);
+		mlx_loop(fractal.mlx);
 	}
 	else
 	{
@@ -86,39 +72,3 @@ int	main(int argc, char **argv)
 		exit(EXIT_FAILURE);
 	}
 }
-
-// int main(int argc, char **argv)
-// {
-// 	//usage(argc, argv);
-// 	// t_data	data;
-// 	// int		y;
-// 	// int		x;
-// 	// int		offset;
-// 	int		i = 0;
-// 	(void)argc;
-	
-// 	t_complex z;
-// 	t_complex c; //punto specifico del frattale
-// 	double temp;
-
-// 	z.r = 0;
-// 	z.i = 0;
-
-// 	c.r = atof(argv[1]);
-// 	c.i = atof(argv[2]);
-
-// 	while(i < ft_atoi(argv[3]))
-// 	{
-// 		temp = (z.r * z.r) - (z.i * z.i);
-		
-// 		z.i = 2 * z.r * z.i;
-// 		z.r = temp;
-
-// 		z.r += c.r;
-// 		z.i += c.i;
-
-// 		printf("Iterazione ->%d: Reale = %f, Immaginario = %f\n", i, z.r, z.i);
-// 		i++;
-// 	}
-// 	return (0);
-// }

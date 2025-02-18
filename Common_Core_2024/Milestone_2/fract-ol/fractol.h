@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 17:13:15 by igilani           #+#    #+#             */
-/*   Updated: 2025/02/10 19:13:11 by igilani          ###   ########.fr       */
+/*   Updated: 2025/02/18 19:25:57 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,10 @@
 # define KEY_DOWN XK_Down
 # define KEY_LEFT XK_Left
 # define KEY_RIGHT XK_Right
+# define BLACK 0x000000
+# define WHITE 0xFFFFFF
+# define ELETRIC_BLUE 0x0066FF
+
 # include "tha_supreme_lib/tha_supreme_lib.h"
 # include "minilibx-linux/mlx_int.h"
 # include "minilibx-linux/mlx.h"
@@ -54,17 +58,18 @@ typedef struct	s_data {
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
+	double	hypotenuse; // Teorema di pitagora per controllare se e' in Mandelbrot
 	
 	// Parametri del frattale
 	double	offset_x;   // Spostamento sull'asse X
 	double	offset_y;   // Spostamento sull'asse Y
 	double	zoom;       // Livello di zoom
-	int		max_iter;   // Massime iterazioni per precisione
+	int		iter;   // Massime iterazioni per precisione
 	
 	// Gestione colori
-	int		color_pattern;
-	int		color1;
-	int		color2;
+	int		color;
+	// int		color1;
+	// int		color2;
 	
 	// Input utente
 	t_keys	keys;
@@ -73,4 +78,9 @@ typedef struct	s_data {
 	double	mouse_y;    // Posizione Y mouse
 }		t_data;
 
+void	fractal_render(t_data *fractal);
+
+double	map(double unscaled_num, double new_min, double new_max, double old_max);
+t_complex	sum_compl(t_complex z1, t_complex z2);
+t_complex	square_compl(t_complex z);
 #endif

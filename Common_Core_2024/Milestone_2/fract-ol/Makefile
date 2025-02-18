@@ -6,7 +6,7 @@
 #    By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/07 19:13:20 by igilani           #+#    #+#              #
-#    Updated: 2025/02/10 15:59:57 by igilani          ###   ########.fr        #
+#    Updated: 2025/02/18 19:39:29 by igilani          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 CC      = cc
 CFLAGS  = -Wall -Wextra -Werror -g
 NAME    = fractol
-SRC     = fractol.c
+SRC     = fractol.c render.c math_utils.c
 OBJ_DIR = obj
 OBJ     = $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
 LIB_DIR = tha_supreme_lib
