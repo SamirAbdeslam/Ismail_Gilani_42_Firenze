@@ -6,6 +6,7 @@ static char	*find_cmd_path(char *cmd, char **path_dirs)
 	int		len;
 	char	*full_path;
 
+	printf("%s/n", cmd);
 	if (ft_strchr(cmd, '/') != NULL)
 	{
 		if (access(cmd, F_OK | X_OK) == 0)

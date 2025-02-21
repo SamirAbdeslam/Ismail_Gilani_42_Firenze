@@ -37,15 +37,3 @@
 	// mlx_key_hook(data->win, key_hook, &data);
 	// mlx_hook(data->win, 17, 0, close_window, NULL);
 	// mlx_loop(data->mlx);
-
-	// int	key_hook(int keycode, t_data data)
-	// {
-	// 	if (keycode == KEY_ESC)
-	// 		close_window(&data.win);
-	// 	// if (keycode == KEY_PLUS)
-	// 	// 	data.max_iter += 10;
-	// 	// if (keycode == KEY_MINUS)
-	// 	// 	data.max_iter -= 10;
-	// 	// render_fractal(data); // Funzione di ridisegno
-	// 	return (0);
-	// }

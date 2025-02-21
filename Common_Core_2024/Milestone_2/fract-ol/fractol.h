@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 17:13:15 by igilani           #+#    #+#             */
-/*   Updated: 2025/02/18 19:25:57 by igilani          ###   ########.fr       */
+/*   Updated: 2025/02/21 19:13:53 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,7 @@
 # define FRACTOL_H
 
 # define WIDTH 800
-# define HEIGHT 600
-# define KEY_ESC XK_Escape
-# define KEY_PLUS XK_plus
-# define KEY_MINUS XK_minus
-# define KEY_SCROLL_UP 4
-# define KEY_SCROLL_DOWN 5
-# define KEY_UP XK_Up
-# define KEY_DOWN XK_Down
-# define KEY_LEFT XK_Left
-# define KEY_RIGHT XK_Right
+# define HEIGHT 800
 # define BLACK 0x000000
 # define WHITE 0xFFFFFF
 # define ELETRIC_BLUE 0x0066FF
@@ -32,6 +23,7 @@
 # include "minilibx-linux/mlx_int.h"
 # include "minilibx-linux/mlx.h"
 # include <math.h>
+# include <X11/keysym.h>
 
 typedef struct	s_complex {
 	double	r;
@@ -74,6 +66,8 @@ typedef struct	s_data {
 	// Input utente
 	t_keys	keys;
 	int		is_julia;   // Flag per Julia set
+	double	julia_r;
+    double	julia_i;
 	double	mouse_x;    // Posizione X mouse
 	double	mouse_y;    // Posizione Y mouse
 }		t_data;
