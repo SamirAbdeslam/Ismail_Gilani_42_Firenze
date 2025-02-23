@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 17:15:58 by igilani           #+#    #+#             */
-/*   Updated: 2025/02/23 12:25:04 by igilani          ###   ########.fr       */
+/*   Updated: 2025/02/23 12:52:21 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	fractal_init(t_data *fractal)
 
 int main(int argc, char **argv)
 {
-    t_data fractal;
+    t_data fractal = {0};
 
     if ((2 == argc && !ft_strncmp(argv[1], "mandelbrot", 10)) || 
         (4 == argc && !ft_strncmp(argv[1], "julia", 5)))
