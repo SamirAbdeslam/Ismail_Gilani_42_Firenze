@@ -6,15 +6,15 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 14:46:29 by igilani           #+#    #+#             */
-/*   Updated: 2025/02/02 22:10:40 by igilani          ###   ########.fr       */
+/*   Updated: 2025/02/10 23:06:27 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <fcntl.h>
-#include <stdarg.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <stdio.h>
+# include <stdarg.h>
+# include <fcntl.h>
 
 typedef struct s_list
 {
@@ -69,12 +69,14 @@ void	ft_lstdelone(t_list *lst, void (*del)(void*));
 void	ft_lstclear(t_list **lst, void (*del)(void*));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
+
 /* FT_PRINTF */
 int		ft_printf(const char *format, ...);
 int		case_void(size_t p);
 int		case_char(char *s);
 int		case_unsigned(unsigned int i, const char *x);
 int		case_int(int di, const char *x);
+
 /* GET_NEXT_LINE */
 char	*get_next_line(int fd);
 int		ft_lstchr(t_list *lst);

@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 17:13:15 by igilani           #+#    #+#             */
-/*   Updated: 2025/02/21 19:13:53 by igilani          ###   ########.fr       */
+/*   Updated: 2025/02/23 11:36:04 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,6 @@ typedef struct	s_data {
 	
 	// Gestione colori
 	int		color;
-	// int		color1;
-	// int		color2;
 	
 	// Input utente
 	t_keys	keys;

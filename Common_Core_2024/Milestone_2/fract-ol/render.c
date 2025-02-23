@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 15:07:59 by igilani           #+#    #+#             */
-/*   Updated: 2025/02/21 18:29:43 by igilani          ###   ########.fr       */
+/*   Updated: 2025/02/23 11:52:25 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,20 @@ static void	handle_pixel(int x, int y, t_data *fractal)
     int i;
 
     i = 0;
-    if (ft_strncmp(fractal->title, "julia", 5) == 0)
-    {
-        z.r = map(x, -2, +2, WIDTH);
-        z.i = map(y, +2, -2, HEIGHT);
-        c.r = fractal->julia_r;
-        c.i = fractal->julia_i;
-    }
-    else // Mandelbrot
-    {
+    // if (ft_strncmp(fractal->title, "julia", 5) == 0)
+    // {
+    //     z.r = map(x, -2, +2, WIDTH) + fractal->offset_x;
+    //     z.i = map(y, +2, -2, HEIGHT) + fractal->offset_y;
+    //     c.r = fractal->julia_r;
+    //     c.i = fractal->julia_i;
+    // }
+    // else // Mandelbrot
+    // {
         z.r = 0.0;
         z.i = 0.0;
-        c.r = map(x, -2, +2, WIDTH);
-        c.i = map(y, +2, -2, HEIGHT);
-    }
+        c.r = map(x, -2, +2, WIDTH) + fractal->offset_x;
+        c.i = map(y, +2, -2, HEIGHT) + fractal->offset_y;
+    // }
 
 	while(i < fractal->iter)
 	{
