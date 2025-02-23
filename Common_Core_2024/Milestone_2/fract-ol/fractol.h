@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 17:13:15 by igilani           #+#    #+#             */
-/*   Updated: 2025/02/23 11:36:04 by igilani          ###   ########.fr       */
+/*   Updated: 2025/02/23 14:19:04 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,6 @@ typedef struct	s_complex {
 	double	i;
 }		t_complex;
 
-typedef struct	s_keys {
-	int	w;
-	int	a;
-	int	s;
-	int	d;
-	int	left;
-	int	right;
-	int	up;
-	int	down;
-}		t_keys;
-
 typedef struct	s_data {
 	void	*mlx;       // Connessione principale a MinilibX
 	void	*win;       // Finestra grafica
@@ -52,6 +41,7 @@ typedef struct	s_data {
 	int		endian;
 	double	hypotenuse; // Teorema di pitagora per controllare se e' in Mandelbrot
 	
+	t_complex	c;          // Costante per il calcolo del frattale
 	// Parametri del frattale
 	double	offset_x;   // Spostamento sull'asse X
 	double	offset_y;   // Spostamento sull'asse Y
@@ -62,8 +52,6 @@ typedef struct	s_data {
 	int		color;
 	
 	// Input utente
-	t_keys	keys;
-	int		is_julia;   // Flag per Julia set
 	double	julia_r;
     double	julia_i;
 	double	mouse_x;    // Posizione X mouse

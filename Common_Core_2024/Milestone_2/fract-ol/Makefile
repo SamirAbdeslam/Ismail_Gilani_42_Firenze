@@ -6,7 +6,7 @@
 #    By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/07 19:13:20 by igilani           #+#    #+#              #
-#    Updated: 2025/02/23 12:16:11 by igilani          ###   ########.fr        #
+#    Updated: 2025/02/23 13:01:00 by igilani          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,11 +61,13 @@ $(OBJ_DIR):
 clean:
 	@rm -rf $(OBJ_DIR)
 	@$(MAKE) -s -C $(LIB_DIR) clean
+	@$(MAKE) -s -C $(MLX_DIR) clean
 	@echo "$(RED)✔ Cartella $(OBJ_DIR) pulita$(RESET)"
 
 fclean: clean
 	@rm -f $(NAME)
 	@$(MAKE) -s -C $(LIB_DIR) fclean
+	@$(MAKE) -s -C $(MLX_DIR) clean
 	@echo "$(RED)✔ Eseguibile $(NAME) rimosso$(RESET)"
 
 re: fclean all
