@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 17:15:58 by igilani           #+#    #+#             */
-/*   Updated: 2025/02/23 14:25:15 by igilani          ###   ########.fr       */
+/*   Updated: 2025/02/24 19:07:34 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,39 +37,83 @@ int	key_hook(int keysym, t_data *fractal)
         fractal->iter += 10;
     else if (keysym == XK_minus)
        fractal->iter -= 10;
+    else if (keysym == XK_r)
+        data_init(fractal);
     fractal_render(fractal);
     return (0);
 }
-// int mouse_pointer_hook(int x, int y, t_data *fractal)
+
+// int mouse_hook(int button, int x, int y, t_data *fractal)
 // {
-//     fractal->c.r = (map(x, -2, +2, WIDTH) * fractal->zoom) + fractal->offset_x;
-//     fractal->c.i = (map(y, +2, -2, HEIGHT) * fractal->zoom) + fractal->offset_y;
+//     (void)x;
+//     (void)y;
+//     if(button == Button4)
+//     {
+//         fractal->zoom *= 0.95;
+//     }
+//     else if (button == Button5)
+//     {
+//         fractal->zoom *= 1.05;
+//     }
 //     fractal_render(fractal);
 //     return(0);
 // }
 
+// int	mouse_hook(int button, int x, int y, t_data *fractal)
+// {
+// 	double	mouse_fractal[2];
+// 	double	new_mouse_fractal[2];
+// 	double	factor;
+
+// 	if (button == Button4 || button == Button5)
+// 	{
+// 		mouse_fractal[X] = map(x, -2, 2, WIDTH) * fractal->zoom + fractal->offset_x;
+// 		mouse_fractal[Y] = map(y, 2, -2, HEIGHT) * fractal->zoom + fractal->offset_y;
+// 		factor = 0.95;
+// 		if (button == Button5)
+// 			factor = 1.05;
+// 		fractal->zoom *= factor;
+// 		new_mouse_fractal[X] = map(x, -2, 2, WIDTH) * fractal->zoom + fractal->offset_x;
+// 		new_mouse_fractal[Y] = map(y, 2, -2, HEIGHT) * fractal->zoom + fractal->offset_y;
+// 		fractal->offset_x += mouse_fractal[X] - new_mouse_fractal[X];
+// 		fractal->offset_y += mouse_fractal[Y] - new_mouse_fractal[Y];
+// 		fractal_render(fractal);
+// 	}
+// 	return (0);
+// }
+
 int mouse_hook(int button, int x, int y, t_data *fractal)
 {
-    (void)x;
-    (void)y;
-    if(button == Button4)
+    if (button == Button4 || button == Button5)
     {
-        fractal->zoom *= 0.95;
-    }
-    else if (button == Button5)
-    {
-        fractal->zoom *= 1.05;
-    }
-    fractal_render(fractal);
-    return(0);
-}
+        // Convert mouse position to fractal coordinates
+        double mouse_fractal_x = map(x, -2, 2, WIDTH) * fractal->zoom + fractal->offset_x;
+        double mouse_fractal_y = map(y, 2, -2, HEIGHT) * fractal->zoom + fractal->offset_y;
 
+        // Apply zoom factor
+        // double factor = (button == Button4) ? 0.95 : 1.05;
+        double factor = 0.95;
+        if (button == Button5)
+            factor = 1.05;
+        fractal->zoom *= factor;
+
+        // Recalculate mouse position after zoom
+        double new_mouse_fractal_x = map(x, -2, 2, WIDTH) * fractal->zoom + fractal->offset_x;
+        double new_mouse_fractal_y = map(y, 2, -2, HEIGHT) * fractal->zoom + fractal->offset_y;
+
+        // Adjust offsets to keep the mouse position fixed
+        fractal->offset_x += (mouse_fractal_x - new_mouse_fractal_x);
+        fractal->offset_y += (mouse_fractal_y - new_mouse_fractal_y);
+
+        fractal_render(fractal);
+    }
+    return (0);
+}
 
 static void events_init(t_data *fractal)
 {
     mlx_hook(fractal->win, KeyPress, KeyPressMask, key_hook, fractal);
     mlx_hook(fractal->win, ButtonPress, ButtonPressMask, mouse_hook, fractal);
-    // mlx_hook(fractal->win, MotionNotify, PointerMotionMask, mouse_pointer_hook, fractal);
     mlx_hook(fractal->win, DestroyNotify, StructureNotifyMask, close_window, fractal);
 }
 

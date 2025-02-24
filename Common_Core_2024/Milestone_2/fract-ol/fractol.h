@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 17:13:15 by igilani           #+#    #+#             */
-/*   Updated: 2025/02/23 14:19:04 by igilani          ###   ########.fr       */
+/*   Updated: 2025/02/24 19:03:50 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # define WIDTH 800
 # define HEIGHT 800
+# define X 0
+# define Y 1
 # define BLACK 0x000000
 # define WHITE 0xFFFFFF
 # define ELETRIC_BLUE 0x0066FF
@@ -41,7 +43,7 @@ typedef struct	s_data {
 	int		endian;
 	double	hypotenuse; // Teorema di pitagora per controllare se e' in Mandelbrot
 	
-	t_complex	c;          // Costante per il calcolo del frattale
+	//t_complex	c;          // Costante per il calcolo del frattale
 	// Parametri del frattale
 	double	offset_x;   // Spostamento sull'asse X
 	double	offset_y;   // Spostamento sull'asse Y
@@ -59,6 +61,8 @@ typedef struct	s_data {
 }		t_data;
 
 void	fractal_render(t_data *fractal);
+int		print_menu(t_data *data);
+void	data_init(t_data *fractal);
 
 double	map(double unscaled_num, double new_min, double new_max, double old_max);
 t_complex	sum_compl(t_complex z1, t_complex z2);

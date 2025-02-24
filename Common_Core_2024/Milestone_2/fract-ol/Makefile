@@ -6,13 +6,13 @@
 #    By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/07 19:13:20 by igilani           #+#    #+#              #
-#    Updated: 2025/02/23 13:01:00 by igilani          ###   ########.fr        #
+#    Updated: 2025/02/24 15:52:43 by igilani          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Configurazioni principali
 CC      = cc
-CFLAGS  = -Wall -Wextra -Werror -g
+CFLAGS  = -Wall -Wextra -Werror -g -o3
 NAME    = fractol
 SRC     = fractol.c render.c math_utils.c
 OBJ_DIR = obj
