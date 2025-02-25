@@ -6,7 +6,7 @@
 #    By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/29 14:45:02 by igilani           #+#    #+#              #
-#    Updated: 2025/02/23 13:46:41 by igilani          ###   ########.fr        #
+#    Updated: 2025/02/25 17:15:43 by igilani          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -79,7 +79,7 @@ $(NAME): $(OBJ)
 
 clean:
 	@rm -rf $(OBJ_DIR)
-	$(call PROGRESS_BAR,\033[31m,Cartella $(OBJ_DIR) pulita!)
+	$(call PROGRESS_BAR_C,\033[31m,Cartelle $(OBJ_DIR) pulite!)
 
 fclean: clean
 	@rm -f $(NAME)
