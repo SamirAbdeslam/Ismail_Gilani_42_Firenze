@@ -6,14 +6,14 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 17:39:02 by igilani           #+#    #+#             */
-/*   Updated: 2025/02/23 13:47:36 by igilani          ###   ########.fr       */
+/*   Updated: 2025/02/25 12:28:09 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
-#include "../tha_supreme_lib.h"
+# include "../tha_supreme_lib.h"
 
 int		ft_isalpha(int c);
 int		ft_isdigit(int c);

@@ -1,24 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/07 19:39:08 by igilani           #+#    #+#             */
-/*   Updated: 2025/01/27 17:01:34 by igilani          ###   ########.fr       */
+/*   Created: 2025/01/20 18:20:09 by igilani           #+#    #+#             */
+/*   Updated: 2025/01/29 16:03:06 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 10
+# endif
 
-# include "../libft/libft.h"
+#include "../tha_supreme_lib.h"
 
-int		ft_printf(const char *format, ...);
-int		case_void(size_t p);
-int		case_char(char *s);
-int		case_unsigned(unsigned int i, const char *x);
-int		case_int(int di, const char *x);
-
+char	*get_next_line(int fd);
+int		ft_lstchr(t_list *lst);
+t_list	*ft_lstnew(void *lst);
+t_list	*ft_lstlast(t_list *lst);
+int		ft_lstlen(t_list *lst);
+void	ft_lstdup(t_list *lst, char *str);
+void	ft_lstfree(t_list **lst, t_list *clean_node, char *buffer);
 #endif

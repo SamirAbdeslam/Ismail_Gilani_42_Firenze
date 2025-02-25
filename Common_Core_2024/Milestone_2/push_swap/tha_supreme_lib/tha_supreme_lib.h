@@ -1,29 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   tha_supreme_lib.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/20 17:39:02 by igilani           #+#    #+#             */
-/*   Updated: 2025/01/05 19:38:10 by igilani          ###   ########.fr       */
+/*   Created: 2025/01/29 14:46:29 by igilani           #+#    #+#             */
+/*   Updated: 2025/02/10 23:06:27 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#ifndef LIBFT_H
-# define LIBFT_H
 
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
 # include <stdarg.h>
+# include <fcntl.h>
 
 typedef struct s_list
 {
-	void			*content;
+	char			*str_buffer;
+	char			*content;
 	struct s_list	*next;
 }	t_list;
 
+/* LIBFT */
 int		ft_isalpha(int c);
 int		ft_isdigit(int c);
 int		ft_isalnum(int c);
@@ -70,4 +70,18 @@ void	ft_lstclear(t_list **lst, void (*del)(void*));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 
-#endif
+/* FT_PRINTF */
+int		ft_printf(const char *format, ...);
+int		case_void(size_t p);
+int		case_char(char *s);
+int		case_unsigned(unsigned int i, const char *x);
+int		case_int(int di, const char *x);
+
+/* GET_NEXT_LINE */
+char	*get_next_line(int fd);
+int		ft_lstchr(t_list *lst);
+t_list	*ft_lstnew(void *lst);
+t_list	*ft_lstlast(t_list *lst);
+int		ft_lstlen(t_list *lst);
+void	ft_lstdup(t_list *lst, char *str);
+void	ft_lstfree(t_list **lst, t_list *clean_node, char *buffer);
