@@ -1,0 +1,35 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   error_handle.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/03 17:09:09 by igilani           #+#    #+#             */
+/*   Updated: 2025/03/03 17:16:10 by igilani          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "push_swap.h"
+
+void	error_handle(t_push_swap_stack **stack_a, char **argv, bool flag_argc_2)
+{
+	ft_lstclear((t_list **)stack_a, free);
+	if (flag_argc_2)
+		ft_lstclear((t_list **)argv, free);
+	perror("Error");
+	exit(1);
+}
+
+int error_repetition(t_push_swap_stack *stack_a, int nbr)
+{
+	if(stack_a == NULL)
+		return (0);
+	while (stack_a != NULL)
+	{
+		if (stack_a->value == nbr)
+			return (1);
+		stack_a = stack_a->next;
+	}
+	return (0);
+}

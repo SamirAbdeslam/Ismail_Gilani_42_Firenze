@@ -6,7 +6,7 @@
 #    By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/03 14:46:42 by igilani           #+#    #+#              #
-#    Updated: 2025/03/03 14:48:25 by igilani          ###   ########.fr        #
+#    Updated: 2025/03/03 18:24:27 by igilani          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,16 +17,14 @@
 CC	  	= cc
 CFLAGS  = -Wall -Wextra -Werror -g -O3
 NAME	= push_swap
-SRC	 	= main.c
+SRC	 	= main.c stack_init.c error_handle.c swap_command.c tiny_sort.c stack_utils.c 
 HEADERS = push_swap.h
 OBJ_DIR = obj
 OBJ	 	= $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
 LIB_DIR = tha_supreme_lib
-# MLX_DIR = minilibx-linux
 BUILD 	= 0
 
 # Librerie
-# MLX_LIB = $(MLX_DIR)/libmlx_Linux.a
 THA_LIB = $(LIB_DIR)/tha_supreme_lib.a
 
 # Colori ANSI
@@ -46,14 +44,6 @@ all: $(NAME)
 		fi \
 	fi
 
-# $(MLX_LIB):
-# 	@echo "$(BLUE)➜ Compilazione della libreria $(YELLOW)MinilibX$(RESET)$(BLUE)...$(RESET)"
-# 	@if ! $(MAKE) -C $(MLX_DIR) > /dev/null 2>&1; then \
-# 		echo "$(ERROR) Errore durante la compilazione di MinilibX$(RESET)"; \
-# 		exit 1; \
-# 	fi
-# 	@echo "$(GREEN)✔ MinilibX compilata$(RESET)"
-
 $(THA_LIB):
 	@echo "$(BLUE)➜ Compilazione della libreria $(YELLOW)tha_supreme$(RESET)$(BLUE)...$(RESET)"
 	@if ! $(MAKE) -C $(LIB_DIR) > /dev/null 2>&1; then \
@@ -71,8 +61,8 @@ $(OBJ_DIR)/%.o: %.c $(HEADERS) | $(OBJ_DIR)
 $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
 
-$(NAME): $(OBJ) $(MLX_LIB)
-	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME) -L$(LIB_DIR) -l:$(notdir $(THA_LIB)) || { \
+$(NAME): $(OBJ) $(THA_LIB)
+	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(THA_LIB) || { \
 		echo "$(ERROR) Errore durante il linking finale$(RESET)"; \
 		exit 1; \
 	}

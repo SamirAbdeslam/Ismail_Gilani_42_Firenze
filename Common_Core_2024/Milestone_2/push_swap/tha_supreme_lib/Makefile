@@ -6,7 +6,7 @@
 #    By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/29 14:45:02 by igilani           #+#    #+#              #
-#    Updated: 2025/02/23 13:46:41 by igilani          ###   ########.fr        #
+#    Updated: 2025/03/03 17:29:55 by igilani          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,7 +54,7 @@ SRC_LIBFT =	Libft/ft_isalpha.c Libft/ft_isdigit.c Libft/ft_isalnum.c Libft/ft_is
 			Libft/ft_strlcpy.c Libft/ft_strlcat.c Libft/ft_toupper.c Libft/ft_tolower.c Libft/ft_strchr.c \
 			Libft/ft_strrchr.c Libft/ft_memchr.c Libft/ft_strncmp.c Libft/ft_memcmp.c Libft/ft_strnstr.c \
 			Libft/ft_atoi.c Libft/ft_calloc.c Libft/ft_strdup.c Libft/ft_substr.c Libft/ft_strjoin.c \
-			Libft/ft_strtrim.c Libft/ft_split.c Libft/ft_itoa.c Libft/ft_strmapi.c Libft/ft_striteri.c \
+			Libft/ft_strtrim.c Libft/ft_split.c Libft/ft_itoa.c Libft/ft_strmapi.c Libft/ft_striteri.c Libft/ft_atoll.c\
 			Libft/ft_putchar_fd.c Libft/ft_putstr_fd.c Libft/ft_putendl_fd.c Libft/ft_putnbr_fd.c Libft/ft_putnbr_base_fd.c\
 			Libft/ft_lstnew.c Libft/ft_lstadd_front.c Libft/ft_lstsize.c Libft/ft_lstlast.c Libft/ft_utoa.c Libft/ft_atodbl.c\
 			Libft/ft_lstadd_back.c Libft/ft_lstdelone.c Libft/ft_lstclear.c Libft/ft_lstiter.c Libft/ft_lstmap.c
