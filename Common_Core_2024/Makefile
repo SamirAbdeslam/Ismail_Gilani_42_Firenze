@@ -5,8 +5,8 @@
 #                                                     +:+ +:+         +:+      #
 #    By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/03/03 14:46:42 by igilani           #+#    #+#              #
-#    Updated: 2025/03/03 14:48:25 by igilani          ###   ########.fr        #
+#    Created: 2025/03/03 14:47:16 by igilani           #+#    #+#              #
+#    Updated: 2025/03/03 14:47:17 by igilani          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,9 +16,9 @@
 # Configurazioni principali
 CC	  	= cc
 CFLAGS  = -Wall -Wextra -Werror -g -O3
-NAME	= push_swap
-SRC	 	= main.c
-HEADERS = push_swap.h
+NAME	=
+SRC	 	=
+HEADERS =
 OBJ_DIR = obj
 OBJ	 	= $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
 LIB_DIR = tha_supreme_lib
