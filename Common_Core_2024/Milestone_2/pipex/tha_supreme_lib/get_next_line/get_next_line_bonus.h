@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 18:20:09 by igilani           #+#    #+#             */
-/*   Updated: 2025/01/29 16:03:06 by igilani          ###   ########.fr       */
+/*   Updated: 2025/02/25 12:28:23 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #  define BUFFER_SIZE 10
 # endif
 
-#include "../tha_supreme_lib.h"
+# include "../tha_supreme_lib.h"
 
 char	*get_next_line(int fd);
 int		ft_lstchr(t_list *lst);

@@ -6,15 +6,15 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 14:46:29 by igilani           #+#    #+#             */
-/*   Updated: 2025/02/10 23:06:27 by igilani          ###   ########.fr       */
+/*   Updated: 2025/02/25 12:29:19 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <unistd.h>
-# include <stdlib.h>
-# include <stdio.h>
-# include <stdarg.h>
-# include <fcntl.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <stdarg.h>
+#include <fcntl.h>
 
 typedef struct s_list
 {
@@ -53,6 +53,7 @@ char	*ft_strtrim(char const *s1, char const *set);
 char	**ft_split(char const *s, char c);
 char	*ft_itoa(int n);
 char	*ft_utoa(unsigned long n);
+double	ft_atodbl(char *s);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));
 void	ft_putchar_fd(char c, int fd);

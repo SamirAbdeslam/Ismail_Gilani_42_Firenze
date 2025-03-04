@@ -1,92 +1,89 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
+#    Makefile_pipex                                     :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/02/03 15:15:41 by igilani           #+#    #+#              #
-#    Updated: 2025/02/06 18:51:40 by igilani          ###   ########.fr        #
+#    Created: 2025/03/03 14:47:16 by igilani           #+#    #+#              #
+#    Updated: 2025/03/04 14:28:27 by igilani          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-# Barra di avanzamento
-define PROGRESS_BAR 
-	@echo -n "$(YELLOW)[$(RESET)$(BLUE)"; \
-	for i in `seq 1 19`; do \
-		echo -n "="; \
-		sleep 0.03; \
-	done; \
-	echo -n "$(YELLOW)]$(RESET)"; \
-	echo "$(1) $(2)$(RESET)"
-endef
+# Comportamento predefinito
+.DEFAULT_GOAL := silent
 
-define PROGRESS_BAR_START
-    @echo -n "$(YELLOW)[$(RESET)$(BLUE)"
-endef
-
-define PROGRESS_BAR_UPDATE
-    @echo -n "="
-endef
-
-define PROGRESS_BAR_END
-    @echo -n "$(YELLOW)]$(RESET)"; \
-    echo "$(1) $(2)$(RESET)"
-endef
-
-# Configurazioni
-CC      = cc
+# Configurazioni principali
+CC	  	= cc
 CFLAGS  = -Wall -Wextra -Werror -g
-DEBUG   = -g
-NAME    = pipex
-SRC     = pipex.c utils.c
+NAME	= pipex
+SRC	 	= pipex.c utils.c
+HEADERS = pipex.h
 OBJ_DIR = obj
-OBJ     = $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
-LIB     = tha_supreme_lib/tha_supreme_lib.a
-RICOMP  = $(YELLOW)[$(RESET)$(BLUE)=====$(RESET)$(GREEN)RICOMPILO$(RESET)$(BLUE)=====$(RESET)$(YELLOW)]$(RESET)
+OBJ	 	= $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
+LIB_DIR = tha_supreme_lib
+BUILD 	= 0
 
-# Colori
-RED     = \033[31m
+# Librerie
+THA_LIB = $(LIB_DIR)/tha_supreme_lib.a
+
+# Colori ANSI
+RED	 = \033[31m
+ERROR = $(RED)✗
 GREEN   = \033[32m
 YELLOW  = \033[33m
-BLUE    = \033[34m
+BLUE	= \033[34m
 RESET   = \033[0m
 
-# Regole principali
 all: $(NAME)
-	$(call PROGRESS_BAR_END,\033[32m,Eseguibile \033[33mpipex\033[0m \033[32mgenerato)
+	@if [ $(BUILD) -eq 1 ]; then \
+		echo "$(GREEN)✔ Build completato$(RESET)"; \
+	else \
+		if [ $(BUILD) -eq 0 ]; then \
+			echo "$(GREEN)✔ Già tutto compilato$(RESET)"; \
+		fi \
+	fi
 
-# Crea cartella obj e compila libreria
+$(THA_LIB):
+	@echo "$(BLUE)➜ Compilazione della libreria $(YELLOW)tha_supreme$(RESET)$(BLUE)...$(RESET)"
+	@if ! $(MAKE) -C $(LIB_DIR) > /dev/null 2>&1; then \
+		echo "$(ERROR) Errore durante la compilazione della libreria tha_supreme_lib$(RESET)"; \
+		exit 1; \
+	fi
+	@echo "$(GREEN)✔ tha_supreme compilata$(RESET)"
+
+$(OBJ_DIR)/%.o: %.c $(HEADERS) | $(OBJ_DIR)
+	@$(CC) $(CFLAGS) -c $< -o $@ || { \
+		echo "$(ERROR) Errore nella compilazione di $<$(RESET)"; \
+		exit 1; \
+	}
+
 $(OBJ_DIR):
-	@mkdir -p $@
-	$(call PROGRESS_BAR_START)
+	@mkdir -p $(OBJ_DIR)
 
-$(LIB):
-	@$(MAKE) -s -C tha_supreme_lib
+$(NAME): $(OBJ) $(THA_LIB)
+	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(THA_LIB) || { \
+		echo "$(ERROR) Errore durante il linking finale$(RESET)"; \
+		exit 1; \
+	}
+	@$(eval BUILD = 1)
+	@echo "$(BLUE)➜ Creazione eseguibile $(NAME)...$(RESET)"
+	@echo "$(GREEN)✔ Eseguibile $(NAME) generato$(RESET)"
 
-# Compilazione progetto principale
-$(NAME): $(OBJ) $(LIB)
-	@$(CC) $(CFLAGS) $^ -o $@
-	$(call PROGRESS_BAR_UPDATE)
-
-# Regola per i file oggetto
-$(OBJ_DIR)/%.o: %.c | $(OBJ_DIR)
-	@$(CC) $(CFLAGS) -c $< -o $@
-	$(call PROGRESS_BAR_UPDATE)
-
-# Pulizia
 clean:
+	@$(MAKE) -s -C $(LIB_DIR) clean > /dev/null 2>&1
+	@echo "$(BLUE)➜ File oggetto da $(YELLOW)$(LIB_DIR)$(RESET) $(BLUE)rimossi$(RESET)"
 	@rm -rf $(OBJ_DIR)
-	@$(MAKE) -s -C tha_supreme_lib clean
-	$(call PROGRESS_BAR,\033[31m,Cartella $(OBJ_DIR) pulita!)
+	@echo "$(BLUE)➜ File oggetto $(YELLOW)$(NAME)$(RESET) $(BLUE)rimossi$(RESET)"
 
 fclean: clean
+	@$(MAKE) -s -C $(LIB_DIR) fclean > /dev/null 2>&1
 	@rm -f $(NAME)
-	@$(MAKE) -s -C tha_supreme_lib fclean
-	$(call PROGRESS_BAR,\033[31m,Eseguibile rimosso!)
+	@echo "$(BLUE)➜ Eseguibile $(YELLOW)$(NAME)$(RESET) $(BLUE)rimosso$(RESET)"
 
-re: fclean
-	@echo "$(RICOMP)"
-	@$(MAKE) --no-print-directory all
+re: fclean all
 
-.PHONY: all clean fclean re
+silent:
+	@$(MAKE) all 2>&1 | grep -v '^make\[.*\]:'
+
+.PHONY: all clean fclean re lib_check silent
