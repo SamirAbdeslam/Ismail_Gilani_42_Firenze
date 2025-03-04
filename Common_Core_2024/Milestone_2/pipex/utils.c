@@ -6,12 +6,12 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 12:33:53 by igilani           #+#    #+#             */
-/*   Updated: 2025/03/04 14:46:43 by igilani          ###   ########.fr       */
+/*   Updated: 2025/03/04 16:06:36 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-//cambiare con strerror
+
 void	error_handle(int error, int exit_type)
 {
 	if (error == 0)
@@ -31,7 +31,7 @@ void	error_handle(int error, int exit_type)
 	else if (error == 7)
 		ft_putstr_fd("path not set\n", 2);
 	else
-		ft_putstr_fd("generic error\n", 2);
+		perror("zsh");
 	exit (exit_type);
 	return ;
 }
