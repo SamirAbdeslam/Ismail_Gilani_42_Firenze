@@ -5,14 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/30 10:58:50 by igilani           #+#    #+#             */
-/*   Updated: 2025/03/04 16:04:42 by igilani          ###   ########.fr       */
+/*   Created: 2025/03/07 18:52:31 by igilani           #+#    #+#             */
+/*   Updated: 2025/03/07 18:59:52 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-static char	*find_cmd_path(char *cmd, char **path_dirs)
+char	*find_cmd_path(char *cmd, char **path_dirs)
 {
 	int		i;
 	int		len;
@@ -41,7 +41,7 @@ static char	*find_cmd_path(char *cmd, char **path_dirs)
 	return (NULL);
 }
 
-static char	**get_path(char **env)
+char	**get_path(char **env, int file)
 {
 	char	*path_str;
 
@@ -49,6 +49,7 @@ static char	**get_path(char **env)
 		env++;
 	if (!*env)
 	{
+		close(file);
 		error_handle(7, 1);
 		return (NULL);
 	}
@@ -56,67 +57,65 @@ static char	**get_path(char **env)
 	return (ft_split(path_str, ':'));
 }
 
-static void	child(int *fd, char **argv, char **env)
+void	child(int *fd, char **argv, char **env)
 {
 	int		file_in;
-	char	*cmd_path1;
 	char	**path;
-	char	**cmd1;
 
+	close(fd[0]);
 	file_in = open(argv[1], O_RDONLY, 0777);
 	if (file_in == -1)
-		error_handle(5, 1);
-	path = get_path(env);
-	dup2(file_in, STDIN_FILENO);
-	dup2(fd[1], STDOUT_FILENO);
-	close(fd[0]);
-	cmd1 = ft_split(argv[2], ' ');
-	if (!cmd1)
-		free(path);
-	cmd_path1 = find_cmd_path(cmd1[0], path);
-	ft_free(path);
-	if (!cmd_path1)
 	{
-		error_handle(3, 127);
-		free(cmd1);
+		close(fd[1]);
+		error_handle(5, 1);
 	}
-	if (execve(cmd_path1, cmd1, env) == -1)
-		error_handle(41, 0);
+	path = get_path(env, file_in);
+	if (dup2(file_in, STDIN_FILENO) == -1 || dup2(fd[1], STDOUT_FILENO) == -1)
+	{
+		close(0);
+		close(1);
+		close(fd[1]);
+		close(file_in);
+		error_handle(8, 1);
+	}
 	close(file_in);
+	close(fd[1]);
+	exec(argv, env, path, 2);
+	ft_free(path);
 }
 
-static void	parent(int *fd, char **argv, char **env)
+void	parent(int *fd, char **argv, char **env)
 {
 	int		file_out;
-	char	*cmd_path2;
-	char	**cmd2;
 	char	**path;
 
+	close(fd[1]);
 	file_out = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (file_out == -1)
-		error_handle(5, 1);
-	path = get_path(env);
-	dup2(fd[0], STDIN_FILENO);
-	dup2(file_out, STDOUT_FILENO);
-	close(fd[1]);
-	cmd2 = ft_split(argv[3], ' ');
-	if (!cmd2)
-		free(path);
-	cmd_path2 = find_cmd_path(cmd2[0], path);
-	if (!cmd_path2)
 	{
-		error_handle(3, 127);
-		free(cmd2);
+		close(fd[0]);
+		error_handle(5, 1);
 	}
-	if (execve(cmd_path2, cmd2, env) == -1)
-		error_handle(42, 0);
+	path = get_path(env, file_out);
+	if (dup2(fd[0], STDIN_FILENO) == -1 || dup2(file_out, STDOUT_FILENO) == -1)
+	{
+		close(0);
+		close(1);
+		close(fd[0]);
+		close(file_out);
+		error_handle(8, 1);
+	}
+	close(fd[0]);
 	close(file_out);
+	exec(argv, env, path, 3);
+	ft_free(path);
 }
 
 int	main(int argc, char **argv, char **env)
 {
 	int		fd[2];
 	pid_t	pid;
+	int		status;
 
 	if (argc != 5)
 		error_handle(0, 1);
@@ -124,10 +123,14 @@ int	main(int argc, char **argv, char **env)
 		error_handle(1, 1);
 	pid = fork();
 	if (pid == -1)
+	{
+		close(fd[0]);
+		close(fd[1]);
 		error_handle(2, 0);
+	}
 	if (!pid)
 		child(fd, argv, env);
-	waitpid(pid, NULL, 0);
+	waitpid(pid, &status, 0);
 	parent(fd, argv, env);
 	return (0);
 }

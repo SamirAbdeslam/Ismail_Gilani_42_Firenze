@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 11:02:56 by igilani           #+#    #+#             */
-/*   Updated: 2025/02/06 18:26:17 by igilani          ###   ########.fr       */
+/*   Updated: 2025/03/07 18:59:37 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,6 @@
 char	**ft_split(char const *s, char c);
 void	error_handle(int error, int exit_type);
 void	ft_free(char **tab);
-void	free_resources(char **arr, char **arr2, int exit_code);
+char	**get_path(char **env, int file);
+char	*find_cmd_path(char *cmd, char **path_dirs);
+void	exec(char **argv, char **env, char **path, int cmd_index);

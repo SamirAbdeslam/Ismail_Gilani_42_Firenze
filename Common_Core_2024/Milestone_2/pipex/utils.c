@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/05 12:33:53 by igilani           #+#    #+#             */
-/*   Updated: 2025/03/04 16:06:36 by igilani          ###   ########.fr       */
+/*   Created: 2025/03/07 18:52:26 by igilani           #+#    #+#             */
+/*   Updated: 2025/03/07 19:00:39 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,23 +17,20 @@ void	error_handle(int error, int exit_type)
 	if (error == 0)
 		ft_putstr_fd("Usage: ./pipex infile cmd1 cmd2 outfile\n", 2);
 	else if (error == 1)
-		ft_putstr_fd("pipe erorr\n", 2);
+		perror("pipex: pipe");
 	else if (error == 2)
-		ft_putstr_fd("fork error\n", 2);
+		perror("pipex: fork");
 	else if (error == 3)
-		perror("zsh");
-	else if (error == 41)
-		ft_putstr_fd("execve child error\n", 2);
-	else if (error == 42)
-		ft_putstr_fd("execve parent error\n", 2);
-	else if (error == 5)
-		perror("zsh");
+		ft_putstr_fd("zsh: command not found\n", 2);
+	else if (error == 4)
+		perror("pipex: execve");
+	else if (error == 5 || error > 7)
+		perror("pipex");
 	else if (error == 7)
-		ft_putstr_fd("path not set\n", 2);
-	else
-		perror("zsh");
-	exit (exit_type);
-	return ;
+		ft_putstr_fd("pipex: PATH not set\n", 2);
+	else if (error == 8)
+		perror("pipex");
+	exit(exit_type);
 }
 
 void	ft_free(char **tab)
@@ -49,9 +46,58 @@ void	ft_free(char **tab)
 	free(tab);
 }
 
-void	free_resources(char **arr, char **arr2, int exit_code)
+static void	ft_cmd_not_found(char *cmd, char **cmd_array, char **path)
 {
-	ft_free(arr);
-	ft_free(arr2);
-	exit(exit_code);
+	ft_putstr_fd("zsh: command not found: ", 2);
+	ft_putstr_fd(cmd, 2);
+	ft_putstr_fd("\n", 2);
+	ft_free(cmd_array);
+	ft_free(path);
+	close(0);
+	close(1);
+	exit(127);
+}
+
+static char	**parse_cmd(char *arg, char **path)
+{
+	char	**cmd;
+
+	if (!arg || arg[0] == '\0')
+	{
+		ft_free(path);
+		close(0);
+		close(1);
+		error_handle(3, 127);
+	}
+	cmd = ft_split(arg, ' ');
+	if (!cmd || !cmd[0])
+	{
+		if (cmd)
+			ft_free(cmd);
+		ft_free(path);
+		close(0);
+		close(1);
+		error_handle(3, 1);
+	}
+	return (cmd);
+}
+
+void	exec(char **argv, char **env, char **path, int cmd_index)
+{
+	char	*cmd_path;
+	char	**cmd;
+
+	cmd = parse_cmd(argv[cmd_index], path);
+	cmd_path = find_cmd_path(cmd[0], path);
+	if (!cmd_path)
+		ft_cmd_not_found(cmd[0], cmd, path);
+	if (execve(cmd_path, cmd, env) == -1)
+	{
+		ft_free(cmd);
+		free(cmd_path);
+		ft_free(path);
+		close(0);
+		close(1);
+		error_handle(4, 0);
+	}
 }
