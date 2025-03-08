@@ -6,13 +6,13 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 18:35:39 by igilani           #+#    #+#             */
-/*   Updated: 2025/03/03 18:53:49 by igilani          ###   ########.fr       */
+/*   Updated: 2025/03/08 14:24:39 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "push_swap.h"
 
-void set_current_position(t_push_swap_stack *stack)
+void	set_current_position(t_push_swap_stack *stack)
 {
 	int i;
 	int centerline;
@@ -33,7 +33,7 @@ void set_current_position(t_push_swap_stack *stack)
 	}
 }
 
-static void set_target_node(t_push_swap_stack *stack_a, t_push_swap_stack *stack_b)
+static void	set_target_node(t_push_swap_stack *stack_a, t_push_swap_stack *stack_b)
 {
 	t_push_swap_stack *current_a;
 	t_push_swap_stack *target_node;
@@ -60,7 +60,7 @@ static void set_target_node(t_push_swap_stack *stack_a, t_push_swap_stack *stack
 	}
 }
 
-void set_price(t_push_swap_stack *stack_a, t_push_swap_stack *stack_b)
+void	set_price(t_push_swap_stack *stack_a, t_push_swap_stack *stack_b)
 {
 	int len_a;
 	int len_b;
@@ -80,7 +80,7 @@ void set_price(t_push_swap_stack *stack_a, t_push_swap_stack *stack_b)
 	}
 }
 
-void set_cheapest(t_push_swap_stack *stack_b)
+void	set_cheapest(t_push_swap_stack *stack_b)
 {
 	long int best_match_value;
 	t_push_swap_stack *best_match_node;
@@ -100,7 +100,7 @@ void set_cheapest(t_push_swap_stack *stack_b)
 	best_match_node->cheapest = true;
 }
 
-void init_nodes(t_push_swap_stack *stack_a , t_push_swap_stack *stack_b)
+void	init_nodes(t_push_swap_stack *stack_a , t_push_swap_stack *stack_b)
 {
 	set_current_position(stack_a);
 	set_current_position(stack_b);

@@ -6,7 +6,7 @@
 #    By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/03 14:46:42 by igilani           #+#    #+#              #
-#    Updated: 2025/03/03 18:24:27 by igilani          ###   ########.fr        #
+#    Updated: 2025/03/08 14:48:07 by igilani          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@
 CC	  	= cc
 CFLAGS  = -Wall -Wextra -Werror -g -O3
 NAME	= push_swap
-SRC	 	= main.c stack_init.c error_handle.c swap_command.c tiny_sort.c stack_utils.c 
+SRC	 	= error_handle.c main.c push_command.c push_swap_command.c push_swap_init.c reverse_rotate_command.c rotate_command.c stack_init.c stack_utils.c swap_command.c tiny_sort.c
 HEADERS = push_swap.h
 OBJ_DIR = obj
 OBJ	 	= $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))

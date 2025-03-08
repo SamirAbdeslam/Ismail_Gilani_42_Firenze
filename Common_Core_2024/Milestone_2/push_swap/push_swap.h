@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 17:27:46 by igilani           #+#    #+#             */
-/*   Updated: 2025/03/03 18:57:29 by igilani          ###   ########.fr       */
+/*   Updated: 2025/03/08 14:50:49 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,29 +34,42 @@ typedef struct s_push_swap_stack
 
 /* Stack Init */
 void	stack_init(t_push_swap_stack **stack_a, char **argv, bool flag_argc_2);
+void	set_current_position(t_push_swap_stack *stack);
+void	set_price(t_push_swap_stack *stack_a, t_push_swap_stack *stack_b);
+void	init_nodes(t_push_swap_stack *stack_a, t_push_swap_stack *stack_b);
+void	set_cheapest(t_push_swap_stack *stack);
 
-/* Stack Operations */
+/* Stack Utils */
+void				append_node(t_push_swap_stack **stack, int nbr);
+int					ft_lstsize_push(t_push_swap_stack *stack);
+bool 				stack_sorted(t_push_swap_stack *stack);
+t_push_swap_stack	*ft_lstlast_push(t_push_swap_stack *lst);
+t_push_swap_stack	*find_smallest(t_push_swap_stack *stack);
+t_push_swap_stack	*return_cheapest(t_push_swap_stack *stack);
+void				finish_rotation(t_push_swap_stack **stack, t_push_swap_stack *top_node, char stack_name);
+
+/* Algorithms */
+void	tiny_sort(t_push_swap_stack **stack_a);
+void	handle_five(t_push_swap_stack **stack_a, t_push_swap_stack **stack_b);
+void	push_swap(t_push_swap_stack **stack_a, t_push_swap_stack **stack_b);
+
+/* Commands */
 void	sa(t_push_swap_stack **stack_a, bool checker);
 void	sb(t_push_swap_stack **stack_b, bool checker);
 void	ss(t_push_swap_stack **stack_a, t_push_swap_stack **stack_b, bool checker);
-
-/* Stack Utils */
-int		ft_lstsize_push(t_push_swap_stack *stack);
-t_push_swap_stack	*ft_lstlast_push(t_push_swap_stack *lst);
-void	append_node(t_push_swap_stack **stack, int nbr);
-
-/* Push Swap */
-void	push_swap(t_push_swap_stack **stack_a, t_push_swap_stack **stack_b);
-void	handle_five(t_push_swap_stack **stack_a, t_push_swap_stack **stack_b);
-void	set_current_position(t_push_swap_stack *stack);
-void	set_price(t_push_swap_stack *stack_a, t_push_swap_stack *stack_b);
-void 	set_target_node(t_push_swap_stack *stack_a, t_push_swap_stack *stack_b);
-t_push_swap_stack	*find_smallest(t_push_swap_stack *stack);
-void	init_nodes(t_push_swap_stack *stack_a, t_push_swap_stack *stack_b);
-void tiny_sort(t_push_swap_stack **stack_a);
-bool stack_sorted(t_push_swap_stack *stack);
+void 	ra (t_push_swap_stack **stack_a, bool checker);
+void 	rb(t_push_swap_stack **stack_b, bool checker);
+void 	rr(t_push_swap_stack **stack_a, t_push_swap_stack **stack_b, bool checker);
+void	rra(t_push_swap_stack **stack_a, bool checker);
+void	rrb(t_push_swap_stack **stack_b, bool checker);
+void 	rrr(t_push_swap_stack **stack_a, t_push_swap_stack **stack_b, bool checker);
+void	pa(t_push_swap_stack **stack_a, t_push_swap_stack **stack_b, bool checker);
+void	pb(t_push_swap_stack **stack_a, t_push_swap_stack **stack_b, bool checker);
 
 /* Erorr Handle */
-int error_repetition(t_push_swap_stack *stack_a, int nbr);
-void error_handle(t_push_swap_stack **stack_a, char **argv, bool flag_argc_2);
+void	free_matrix(char **argv);
+int		error_syntax(char *str);
+int 	error_repetition(t_push_swap_stack *stack_a, int nbr);
+void 	error_handle(t_push_swap_stack **stack_a, char **argv, bool flag_argc_2);
+
 #endif

@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 18:12:45 by igilani           #+#    #+#             */
-/*   Updated: 2025/03/03 18:23:20 by igilani          ###   ########.fr       */
+/*   Updated: 2025/03/08 14:29:31 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,39 @@ void	append_node(t_push_swap_stack **stack, int nbr)
 		last_node->next = node;
 		node->prev = last_node;
 	}
+}
+
+t_push_swap_stack	*find_smallest(t_push_swap_stack *stack)
+{
+	long	smallest;
+	t_push_swap_stack	*smallest_node;
+
+	if (stack == NULL)
+		return (NULL);
+	smallest = LONG_MAX;
+	while (stack)
+	{
+		if (stack->value < smallest)
+		{
+			smallest = stack->value;
+			smallest_node = stack;
+		}
+		stack = stack->next;
+	}
+	return (smallest_node);
+}
+
+t_push_swap_stack	*return_cheapest(t_push_swap_stack *stack)
+{
+	if (stack == NULL)
+		return (NULL);
+	while (stack)
+	{
+		if (stack->cheapest)
+			return (stack);
+		stack = stack->next;
+	}
+	return (NULL);
 }
 
 int	ft_lstsize_push(t_push_swap_stack *stack)

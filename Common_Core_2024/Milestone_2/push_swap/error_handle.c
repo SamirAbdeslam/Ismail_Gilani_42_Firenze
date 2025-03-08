@@ -6,11 +6,23 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 17:09:09 by igilani           #+#    #+#             */
-/*   Updated: 2025/03/03 17:16:10 by igilani          ###   ########.fr       */
+/*   Updated: 2025/03/08 14:45:12 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+void	free_matrix(char **argv)
+{
+	int	i;
+
+	i = -1;
+	if (NULL == argv || NULL == *argv)
+		return ;
+	while (argv[i])
+		free(argv[i++]);
+	free(argv - 1);
+}
 
 void	error_handle(t_push_swap_stack **stack_a, char **argv, bool flag_argc_2)
 {
@@ -19,6 +31,20 @@ void	error_handle(t_push_swap_stack **stack_a, char **argv, bool flag_argc_2)
 		ft_lstclear((t_list **)argv, free);
 	perror("Error");
 	exit(1);
+}
+
+int	error_syntax(char *str)
+{
+	if (!(*str == '+' || *str == '-' || ft_isdigit(*str)))
+		return (1);
+	if ((*str == '+' || *str == '-') && !ft_isdigit(*(str + 1)))
+		return (1);
+	while (*++str)
+	{
+		if (!ft_isdigit(*str))
+			return (1);
+	}
+	return (0);
 }
 
 int error_repetition(t_push_swap_stack *stack_a, int nbr)
