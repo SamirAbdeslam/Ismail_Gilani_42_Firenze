@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 18:10:50 by igilani           #+#    #+#             */
-/*   Updated: 2025/03/03 18:34:57 by igilani          ###   ########.fr       */
+/*   Updated: 2025/03/08 18:15:37 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,16 @@
 
 bool stack_sorted(t_push_swap_stack *stack)
 {
-	if(stack == NULL)
-		return (1);
-	while (stack->next != NULL)
-	{
-		if (stack->value > stack->next->value)
-			return (false);
-		stack = stack->next;
-	}
-	return (true);
+    if (!stack)
+        return (true);
+        
+    while (stack->next != NULL)
+    {
+        if (stack->value > stack->next->value)
+            return (false);
+        stack = stack->next;
+    }
+    return (true);
 }
 
 static t_push_swap_stack *find_highest(t_push_swap_stack *stack)
@@ -64,6 +65,6 @@ void handle_five (t_push_swap_stack **stack_a, t_push_swap_stack **stack_b)
 	{
 		init_nodes(*stack_a, *stack_b);
 		finish_rotation(stack_a, find_smallest(*stack_a), 'a');
-		pb(stack_b, stack_a, false);
+		pb(stack_a, stack_b, false);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 16:57:54 by igilani           #+#    #+#             */
-/*   Updated: 2025/03/08 14:54:36 by igilani          ###   ########.fr       */
+/*   Updated: 2025/03/08 18:03:48 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,5 @@ void	stack_init(t_push_swap_stack **stack_a, char **argv, bool flag_argc_2)
 		append_node(stack_a, (int)nbr);
 		i++;
 	}
+	(*stack_a)->cheapest = false;
 }

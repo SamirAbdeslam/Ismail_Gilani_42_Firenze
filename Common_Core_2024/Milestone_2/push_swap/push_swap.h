@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 17:27:46 by igilani           #+#    #+#             */
-/*   Updated: 2025/03/08 14:50:49 by igilani          ###   ########.fr       */
+/*   Updated: 2025/03/08 18:17:21 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,8 @@ void	free_matrix(char **argv);
 int		error_syntax(char *str);
 int 	error_repetition(t_push_swap_stack *stack_a, int nbr);
 void 	error_handle(t_push_swap_stack **stack_a, char **argv, bool flag_argc_2);
+void 	free_stack(t_push_swap_stack **stack);
 
+
+void optimize_rotations(t_push_swap_stack **stack_a, t_push_swap_stack **stack_b, int cost_a, int cost_b);
 #endif

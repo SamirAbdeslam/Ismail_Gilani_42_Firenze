@@ -6,7 +6,7 @@
 #    By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/01 14:44:48 by igilani           #+#    #+#              #
-#    Updated: 2025/01/30 19:03:53 by igilani          ###   ########.fr        #
+#    Updated: 2025/03/08 16:29:39 by igilani          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,6 @@ CFLAGS = -Wall -Wextra -Werror
 
 # Definisco il nome della libreria
 NAME = libftprintf.a
-
 
 # Passo i nomi dei file che deve compilare
 SRCS = ft_check/case_int.c ft_check/case_void.c ft_check/case_unsigned.c ft_check/case_char.c ft_printf.c

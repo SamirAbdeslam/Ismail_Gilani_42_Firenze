@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 18:12:45 by igilani           #+#    #+#             */
-/*   Updated: 2025/03/08 14:29:31 by igilani          ###   ########.fr       */
+/*   Updated: 2025/03/08 18:11:02 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,29 +23,36 @@ t_push_swap_stack	*ft_lstlast_push(t_push_swap_stack *lst)
 	return (lst);
 }
 
-void	append_node(t_push_swap_stack **stack, int nbr)
+void append_node(t_push_swap_stack **stack, int nbr)
 {
-	t_push_swap_stack	*node;
-	t_push_swap_stack	*last_node;
+    t_push_swap_stack *node;
+    t_push_swap_stack *last_node;
 
-	if (stack == NULL)
-		return ;
-	node = malloc(sizeof(t_push_swap_stack));
-	if (node == NULL)
-		return;
-	node->next = NULL;
-	node->value = nbr;
-	if (*stack == NULL)
-	{
-		*stack = node;
-		node->prev = NULL;
-	}
-	else
-	{
-		last_node = ft_lstlast_push(*stack);
-		last_node->next = node;
-		node->prev = last_node;
-	}
+    node = malloc(sizeof(t_push_swap_stack));
+    if (node == NULL)
+        return;
+        
+    // Inizializza tutti i campi della struttura
+    node->value = nbr;
+    node->next = NULL;
+    node->prev = NULL;
+    node->final_index = 0;
+    node->current_position = 0;
+    node->push_price = 0;
+    node->cheapest = false;
+    node->above_median = false;
+    node->target_node = NULL;
+    
+    if (*stack == NULL)
+    {
+        *stack = node;
+    }
+    else
+    {
+        last_node = ft_lstlast_push(*stack);
+        last_node->next = node;
+        node->prev = last_node;
+    }
 }
 
 t_push_swap_stack	*find_smallest(t_push_swap_stack *stack)

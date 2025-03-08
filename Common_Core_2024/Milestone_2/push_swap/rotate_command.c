@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 14:20:23 by igilani           #+#    #+#             */
-/*   Updated: 2025/03/08 14:22:59 by igilani          ###   ########.fr       */
+/*   Updated: 2025/03/08 16:14:31 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,20 @@
 
 static void rotate(t_push_swap_stack **stack)
 {
-	t_push_swap_stack *last_node;
-	int len;
+    t_push_swap_stack *first_node;
+    t_push_swap_stack *last_node;
+    int len;
 
-	len = ft_lstsize_push(*stack);
-	if (*stack == NULL || stack == NULL || len == 1)
-		return ;
-	last_node = ft_lstlast_push(*stack);
-	last_node->next = *stack;
-	*stack = (*stack)->next;
-	(*stack)->prev = NULL;
-	last_node->next->prev = last_node;
-	last_node->next = NULL;
+    len = ft_lstsize_push(*stack);
+    if (*stack == NULL || stack == NULL || len == 1)
+        return ;
+    first_node = *stack;
+    last_node = ft_lstlast_push(*stack);
+    *stack = first_node->next;
+    (*stack)->prev = NULL;
+    last_node->next = first_node;
+    first_node->prev = last_node;
+    first_node->next = NULL;
 }
 
 void ra (t_push_swap_stack **stack_a, bool checker)
