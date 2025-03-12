@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 18:10:50 by igilani           #+#    #+#             */
-/*   Updated: 2025/03/10 10:35:51 by igilani          ###   ########.fr       */
+/*   Updated: 2025/03/10 19:19:56 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ bool stack_sorted(t_push_swap_stack *stack)
 
 static t_push_swap_stack *find_highest(t_push_swap_stack *stack)
 {
-    t_push_swap_stack	*highest_node = NULL; // Inizializza a NULL
+    t_push_swap_stack	*highest_node;
     int 				highest;
 
     if(stack == NULL)
@@ -46,17 +46,30 @@ static t_push_swap_stack *find_highest(t_push_swap_stack *stack)
     return (highest_node);
 }
 
-void tiny_sort(t_push_swap_stack **stack_a)
-{
-	t_push_swap_stack *highest_node;
+// void tiny_sort(t_push_swap_stack **stack_a)
+// {
+// 	t_push_swap_stack *highest_node;
 
-	highest_node = find_highest(*stack_a);
-	if (*stack_a == highest_node)
-		ra(stack_a, false);
-	else if ((*stack_a)->value == highest_node->value)
-		rra(stack_a, false);
-	if((*stack_a)->value > highest_node->value)
-		sa(stack_a, false);
+// 	highest_node = find_highest(*stack_a);
+// 	if (*stack_a == highest_node)
+// 		ra(stack_a, false);
+// 	else if ((*stack_a)->value == highest_node->value)
+// 		rra(stack_a, false);
+// 	if((*stack_a)->value > highest_node->value)
+// 		sa(stack_a, false);
+// }
+
+void	tiny_sort(t_push_swap_stack **a)
+{
+	t_push_swap_stack	*highest_node;
+
+	highest_node = find_highest(*a);
+	if (*a == highest_node)
+		ra(a, false);
+	else if ((*a)->next == highest_node)
+		rra(a, false);
+	if ((*a)->value > (*a)->next->value)
+		sa(a, false);
 }
 
 void handle_five (t_push_swap_stack **stack_a, t_push_swap_stack **stack_b)

@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 17:27:46 by igilani           #+#    #+#             */
-/*   Updated: 2025/03/10 10:22:22 by igilani          ###   ########.fr       */
+/*   Updated: 2025/03/10 17:16:54 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct s_push_swap_stack
 	int							current_position;
 	int							final_index;
 	int							push_price;
+	int							idx;
 	bool						above_median;
 	bool						cheapest;
 	struct s_push_swap_stack	*target_node;

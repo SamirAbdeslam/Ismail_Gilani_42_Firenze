@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 14:10:56 by igilani           #+#    #+#             */
-/*   Updated: 2025/03/08 14:14:47 by igilani          ###   ########.fr       */
+/*   Updated: 2025/03/10 19:23:37 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static void reverse_rotate(t_push_swap_stack **stack)
 	*stack = last_node;
 	last_node->next->prev = last_node;
 }
+
 void	rra(t_push_swap_stack **stack_a, bool checker)
 {
 	reverse_rotate(stack_a);
