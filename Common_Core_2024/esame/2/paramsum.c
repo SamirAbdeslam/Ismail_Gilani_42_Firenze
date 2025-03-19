@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   epur_str.c                                         :+:      :+:    :+:   */
+/*   paramsum.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/18 18:38:46 by igilani           #+#    #+#             */
-/*   Updated: 2025/03/19 10:43:55 by igilani          ###   ########.fr       */
+/*   Created: 2025/03/19 14:44:06 by igilani           #+#    #+#             */
+/*   Updated: 2025/03/19 14:50:21 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,32 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+void ft_putnbr(int nbr)
+{
+	if (nbr >= 0 && nbr <= 9)
+	{
+		nbr = nbr + '0';
+		write(1, &nbr, 1);
+	}
+	else
+	{
+		ft_putnbr(nbr / 10);
+		ft_putnbr(nbr % 10);
+	}
+}
+
 int main(int argc, char **argv)
 {
+	(void)argv;
 	int i = 0;
-	
-	if (argc != 2)
+	if (argc == 1)
 	{
-		write(1, "\n", 1);
+		write(1, "0\n", 2);
 		return(0);
 	}
-	while (argv[1][i] && (argv[1][i] == ' ' || argv[1][i] == '\t'))
+	while (--argc)
 		i++;
-	while (argv[1][i])
-	{
-		while (argv[1][i] != ' ' && argv[1][i] != '\t' && argv[1][i])
-		{
-			write(1, &argv[1][i], 1);
-			i++;
-		}
-		while (argv[1][i] && (argv[1][i] == ' ' || argv[1][i] == '\t'))
-			i++;
-		if (argv[1][i])
-			write(1, " ", 1);
-	}
+	ft_putnbr(i);
 	write(1, "\n", 1);
 	return(0);
 }

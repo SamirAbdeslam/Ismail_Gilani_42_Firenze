@@ -1,42 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   epur_str.c                                         :+:      :+:    :+:   */
+/*   rstr_capitalizer.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/18 18:38:46 by igilani           #+#    #+#             */
-/*   Updated: 2025/03/19 10:43:55 by igilani          ###   ########.fr       */
+/*   Created: 2025/03/19 15:42:43 by igilani           #+#    #+#             */
+/*   Updated: 2025/03/19 16:43:08 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
-#include <stdio.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 int main(int argc, char **argv)
 {
 	int i = 0;
-	
-	if (argc != 2)
+	if (argc == 1)
 	{
 		write(1, "\n", 1);
 		return(0);
 	}
-	while (argv[1][i] && (argv[1][i] == ' ' || argv[1][i] == '\t'))
-		i++;
-	while (argv[1][i])
+	int j = 1;
+	while (j < argc)
 	{
-		while (argv[1][i] != ' ' && argv[1][i] != '\t' && argv[1][i])
+		i = 0;
+		while (argv[j][i] && (argv[j][i] == ' ' || argv[j][i] == '\t'))
 		{
-			write(1, &argv[1][i], 1);
+			write(1, &argv[j][i], 1);
 			i++;
 		}
-		while (argv[1][i] && (argv[1][i] == ' ' || argv[1][i] == '\t'))
+		while (argv[j][i] && (argv[j][i] != ' ' || argv[j][i] != '\t'))
+		{
+			if (argv[j][i] >= 'A' && argv[j][i] <= 'Z' && argv[j][i])
+				argv[j][i] += 32;
+			if ((argv[j][i] >= 'a' && argv[j][i] <= 'z') && (argv[j][i + 1] == ' ' || argv[j][i + 1] == '\t' || argv[j][i + 1] == '\0'))
+				argv[j][i] -= 32;
+			write(1, &argv[j][i], 1);
 			i++;
-		if (argv[1][i])
-			write(1, " ", 1);
+		}
+		write(1, "\n", 1);
+		j++;
 	}
-	write(1, "\n", 1);
 	return(0);
 }

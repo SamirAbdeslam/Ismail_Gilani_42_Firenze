@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   epur_str.c                                         :+:      :+:    :+:   */
+/*   str_capitalizer.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/18 18:38:46 by igilani           #+#    #+#             */
-/*   Updated: 2025/03/19 10:43:55 by igilani          ###   ########.fr       */
+/*   Created: 2025/03/19 16:40:04 by igilani           #+#    #+#             */
+/*   Updated: 2025/03/19 16:50:16 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,26 +17,28 @@
 int main(int argc, char **argv)
 {
 	int i = 0;
-	
-	if (argc != 2)
+	int j = 1;
+	if (argc == 1)
 	{
 		write(1, "\n", 1);
 		return(0);
 	}
-	while (argv[1][i] && (argv[1][i] == ' ' || argv[1][i] == '\t'))
-		i++;
-	while (argv[1][i])
+	while (j < argc)
 	{
-		while (argv[1][i] != ' ' && argv[1][i] != '\t' && argv[1][i])
+		i = 0;
+		while(argv[j][i])
 		{
-			write(1, &argv[1][i], 1);
-			i++;
+			if (argv[j][i] >= 'A' && argv[j][i] <= 'Z')
+				argv[j][i] += 32;
+			if (i == 0 && argv[j][i] >= 'a' && argv[j][i] <= 'z')
+				argv[j][i] -= 32;
+			if ((argv[j][i - 1] == ' ' || argv[j][i - 1] == '\t') && (argv[j][i] >= 'a' && argv[j][i] <= 'z'))
+				argv[j][i] -= 32;
+			write(1, &argv[j][i], 1);
+			i++;	
 		}
-		while (argv[1][i] && (argv[1][i] == ' ' || argv[1][i] == '\t'))
-			i++;
-		if (argv[1][i])
-			write(1, " ", 1);
+		write(1, "\n", 1);
+		j++;
 	}
-	write(1, "\n", 1);
 	return(0);
 }
