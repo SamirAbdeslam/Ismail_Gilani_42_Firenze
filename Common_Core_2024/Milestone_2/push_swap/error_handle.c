@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 17:09:09 by igilani           #+#    #+#             */
-/*   Updated: 2025/03/08 17:38:38 by igilani          ###   ########.fr       */
+/*   Updated: 2025/03/22 12:37:54 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	error_handle(t_push_swap_stack **stack_a, char **argv, bool flag_argc_2)
 	ft_lstclear((t_list **)stack_a, free);
 	if (flag_argc_2)
 		ft_lstclear((t_list **)argv, free);
-	perror("Error");
+	write(2, "Error\n", 6);
 	exit(1);
 }
 

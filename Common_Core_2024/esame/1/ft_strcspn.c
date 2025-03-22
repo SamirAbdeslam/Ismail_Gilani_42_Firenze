@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 18:35:17 by igilani           #+#    #+#             */
-/*   Updated: 2025/03/17 18:43:57 by igilani          ###   ########.fr       */
+/*   Updated: 2025/03/19 20:54:09 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 
 size_t	ft_strcspn(const char *s, const char *reject)
 {
-	int i = 0;
-	int j = 0;
+	size_t i = 0;
+	size_t j = 0;
 
 	while (s[i])
 	{

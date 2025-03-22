@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 18:12:45 by igilani           #+#    #+#             */
-/*   Updated: 2025/03/08 18:11:02 by igilani          ###   ########.fr       */
+/*   Updated: 2025/03/22 13:29:58 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,7 @@ void append_node(t_push_swap_stack **stack, int nbr)
     node = malloc(sizeof(t_push_swap_stack));
     if (node == NULL)
         return;
-        
-    // Inizializza tutti i campi della struttura
+
     node->value = nbr;
     node->next = NULL;
     node->prev = NULL;
@@ -42,7 +41,7 @@ void append_node(t_push_swap_stack **stack, int nbr)
     node->cheapest = false;
     node->above_median = false;
     node->target_node = NULL;
-    
+
     if (*stack == NULL)
     {
         *stack = node;
@@ -55,24 +54,25 @@ void append_node(t_push_swap_stack **stack, int nbr)
     }
 }
 
-t_push_swap_stack	*find_smallest(t_push_swap_stack *stack)
+t_push_swap_stack *find_smallest(t_push_swap_stack *stack)
 {
-	long	smallest;
-	t_push_swap_stack	*smallest_node;
+    t_push_swap_stack *smallest_node = NULL;
+    int smallest_index;
 
-	if (stack == NULL)
-		return (NULL);
-	smallest = LONG_MAX;
-	while (stack)
-	{
-		if (stack->value < smallest)
-		{
-			smallest = stack->value;
-			smallest_node = stack;
-		}
-		stack = stack->next;
-	}
-	return (smallest_node);
+    if (!stack)
+        return (NULL);
+    
+    smallest_index = INT_MAX;
+    while (stack)
+    {
+        if (stack->final_index < smallest_index)
+        {
+            smallest_index = stack->final_index;
+            smallest_node = stack;
+        }
+        stack = stack->next;
+    }
+    return (smallest_node);
 }
 
 t_push_swap_stack	*return_cheapest(t_push_swap_stack *stack)
