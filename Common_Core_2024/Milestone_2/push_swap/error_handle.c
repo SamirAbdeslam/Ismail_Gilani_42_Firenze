@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 17:09:09 by igilani           #+#    #+#             */
-/*   Updated: 2025/03/22 12:37:54 by igilani          ###   ########.fr       */
+/*   Updated: 2025/03/25 19:44:37 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@ void	free_matrix(char **argv)
 	free(argv - 1);
 }
 
-void	error_handle(t_push_swap_stack **stack_a, char **argv, bool flag_argc_2)
+void	error_handle(t_push_swap_stack **stack_a, char **argv, bool flag)
 {
 	ft_lstclear((t_list **)stack_a, free);
-	if (flag_argc_2)
+	if (flag)
 		ft_lstclear((t_list **)argv, free);
 	write(2, "Error\n", 6);
 	exit(1);
@@ -50,6 +50,8 @@ void	error_handle(t_push_swap_stack **stack_a, char **argv, bool flag_argc_2)
 
 int	error_syntax(char *str)
 {
+	if (!(*str))
+		return (0);
 	if (!(*str == '+' || *str == '-' || ft_isdigit(*str)))
 		return (1);
 	if ((*str == '+' || *str == '-') && !ft_isdigit(*(str + 1)))

@@ -6,27 +6,28 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 16:57:54 by igilani           #+#    #+#             */
-/*   Updated: 2025/03/22 14:48:39 by igilani          ###   ########.fr       */
+/*   Updated: 2025/03/25 19:29:24 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	stack_init(t_push_swap_stack **stack_a, char **argv, bool flag_argc_2)
+void	stack_init(t_push_swap_stack **stack_a, char **argv, bool flag)
 {
-	long long int		nbr;
-	int 				i;
+	long	nbr;
+	int 	i;
+	*stack_a = NULL;
 
 	i  = 0;
 	while (argv[i] != NULL)
 	{
 		if (error_syntax(argv[i]))
-			error_handle(stack_a, argv, flag_argc_2);
-		nbr = ft_atoll(argv[i]);
+			error_handle(stack_a, argv, flag);
+		nbr = ft_atol(argv[i]);
 		if (nbr > INT_MAX || nbr < INT_MIN)
-			error_handle(stack_a, argv, flag_argc_2);
+			error_handle(stack_a, argv, flag);
 		if (error_repetition(*stack_a, nbr))
-			error_handle(stack_a, argv, flag_argc_2);
+			error_handle(stack_a, argv, flag);
 		append_node(stack_a, (int)nbr);
 		++i;
 	}

@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 18:10:50 by igilani           #+#    #+#             */
-/*   Updated: 2025/03/22 13:28:33 by igilani          ###   ########.fr       */
+/*   Updated: 2025/03/25 16:33:51 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ bool stack_sorted(t_push_swap_stack *stack)
         
     while (stack->next != NULL)
     {
-        if (stack->final_index > stack->next->final_index)
+        if (stack->index > stack->next->index)
             return (false);
         stack = stack->next;
     }
@@ -37,9 +37,9 @@ static t_push_swap_stack *find_highest(t_push_swap_stack *stack)
     highest_index = INT_MIN;
     while (stack)
     {
-        if (stack->final_index > highest_index)
+        if (stack->index > highest_index)
         {
-            highest_index = stack->final_index;
+            highest_index = stack->index;
             highest_node = stack;
         }
         stack = stack->next;
@@ -56,7 +56,7 @@ void tiny_sort(t_push_swap_stack **a)
         ra(a, false);
     else if ((*a)->next == highest_node)
         rra(a, false);
-    if ((*a)->final_index > (*a)->next->final_index)
+    if ((*a)->index > (*a)->next->index)
         sa(a, false);
 }
 

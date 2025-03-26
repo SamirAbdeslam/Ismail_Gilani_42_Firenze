@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 18:12:45 by igilani           #+#    #+#             */
-/*   Updated: 2025/03/22 13:29:58 by igilani          ###   ########.fr       */
+/*   Updated: 2025/03/25 19:37:43 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,18 @@ void append_node(t_push_swap_stack **stack, int nbr)
     node = malloc(sizeof(t_push_swap_stack));
     if (node == NULL)
         return;
-
     node->value = nbr;
     node->next = NULL;
     node->prev = NULL;
-    node->final_index = 0;
+    node->index = 0;
     node->current_position = 0;
     node->push_price = 0;
     node->cheapest = false;
     node->above_median = false;
     node->target_node = NULL;
-
+    
     if (*stack == NULL)
-    {
+    {        
         *stack = node;
     }
     else
@@ -65,9 +64,9 @@ t_push_swap_stack *find_smallest(t_push_swap_stack *stack)
     smallest_index = INT_MAX;
     while (stack)
     {
-        if (stack->final_index < smallest_index)
+        if (stack->index < smallest_index)
         {
-            smallest_index = stack->final_index;
+            smallest_index = stack->index;
             smallest_node = stack;
         }
         stack = stack->next;

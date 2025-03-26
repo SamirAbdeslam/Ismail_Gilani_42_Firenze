@@ -6,17 +6,17 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 17:03:18 by igilani           #+#    #+#             */
-/*   Updated: 2025/03/03 17:08:06 by igilani          ###   ########.fr       */
+/*   Updated: 2025/03/25 18:30:56 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-long long int	ft_atoll(const char *nptr)
+long	ft_atol(const char *nptr)
 {
-	long long int	n;
-	int				sign;
-	int				i;
+	long	n;
+	int		sign;
+	int		i;
 
 	i = 0;
 	n = 0;

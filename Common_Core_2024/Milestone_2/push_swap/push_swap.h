@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 17:27:46 by igilani           #+#    #+#             */
-/*   Updated: 2025/03/22 15:56:56 by igilani          ###   ########.fr       */
+/*   Updated: 2025/03/25 18:24:02 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,8 @@ typedef struct s_push_swap_stack
 {
 	int							value;
 	int							current_position;
-	int							final_index;
 	int							push_price;
-	int							push_cost;
-	int							idx;
+	int							index;
 	bool						above_median;
 	bool						cheapest;
 	struct s_push_swap_stack	*target_node;
@@ -76,5 +74,7 @@ void 	error_handle(t_push_swap_stack **stack_a, char **argv, bool flag_argc_2);
 void 	free_stack(t_push_swap_stack **stack);
 
 
-void	assign_final_index(t_push_swap_stack *stack);
+// void	assign_final_index(t_push_swap_stack *stack);
+// void assign_indexes(t_push_swap_stack **stack);
+void assign_final_index(t_push_swap_stack *stack);
 #endif
