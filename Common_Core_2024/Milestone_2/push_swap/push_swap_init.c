@@ -1,21 +1,21 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   push_swap_init.c                                   :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/03 18:35:39 by igilani           #+#    #+#             */
-/*   Updated: 2025/03/25 16:30:22 by igilani          ###   ########.fr       */
-/*                                                                            */
+/*																			*/
+/*														:::	  ::::::::   */
+/*   push_swap_init.c								   :+:	  :+:	:+:   */
+/*													+:+ +:+		 +:+	 */
+/*   By: igilani <igilani@student.42firenze.it>	 +#+  +:+	   +#+		*/
+/*												+#+#+#+#+#+   +#+		   */
+/*   Created: 2025/03/03 18:35:39 by igilani		   #+#	#+#			 */
+/*   Updated: 2025/03/26 17:51:27 by igilani		  ###   ########.fr	   */
+/*																			*/
 /* ************************************************************************** */
 
-# include "push_swap.h"
+#include "push_swap.h"
 
-void	set_current_position(t_push_swap_stack *stack)
+void	set_current_position(t_stack *stack)
 {
-	int i;
-	int centerline;
+	int	i;
+	int	centerline;
 
 	i = 0;
 	if (stack == NULL)
@@ -33,11 +33,11 @@ void	set_current_position(t_push_swap_stack *stack)
 	}
 }
 
-static void	set_target_node(t_push_swap_stack *stack_a, t_push_swap_stack *stack_b)
+static void	set_target_node(t_stack *stack_a, t_stack *stack_b)
 {
-	t_push_swap_stack *current_a;
-	t_push_swap_stack *target_node;
-	long best_match_index;
+	t_stack	*current_a;
+	t_stack	*target_node;
+	long	best_match_index;
 
 	while (stack_b != NULL)
 	{
@@ -45,7 +45,8 @@ static void	set_target_node(t_push_swap_stack *stack_a, t_push_swap_stack *stack
 		current_a = stack_a;
 		while (current_a != NULL)
 		{
-			if (current_a->value > stack_b->value && current_a->value < best_match_index)
+			if (current_a->value > stack_b->value
+				&& current_a->value < best_match_index)
 			{
 				best_match_index = current_a->value;
 				target_node = current_a;
@@ -60,10 +61,10 @@ static void	set_target_node(t_push_swap_stack *stack_a, t_push_swap_stack *stack
 	}
 }
 
-void	set_price(t_push_swap_stack *stack_a, t_push_swap_stack *stack_b)
+void	set_price(t_stack *stack_a, t_stack *stack_b)
 {
-	int len_a;
-	int len_b;
+	int	len_a;
+	int	len_b;
 
 	len_a = ft_lstsize_push(stack_a);
 	len_b = ft_lstsize_push(stack_b);
@@ -75,16 +76,17 @@ void	set_price(t_push_swap_stack *stack_a, t_push_swap_stack *stack_b)
 		if (stack_b->target_node->above_median)
 			stack_b->push_price += stack_b->target_node->current_position;
 		else
-			stack_b->push_price += len_a - stack_b->target_node->current_position;
+			stack_b->push_price += len_a - stack_b
+				->target_node->current_position;
 		stack_b = stack_b->next;
 	}
 }
 
-void	set_cheapest(t_push_swap_stack *stack_b)
+void	set_cheapest(t_stack *stack_b)
 {
-	long int best_match_value;
-	t_push_swap_stack *best_match_node;
-	
+	long int	best_match_value;
+	t_stack		*best_match_node;
+
 	if (stack_b == NULL)
 		return ;
 	best_match_value = LONG_MAX;
@@ -100,7 +102,7 @@ void	set_cheapest(t_push_swap_stack *stack_b)
 	best_match_node->cheapest = true;
 }
 
-void	init_nodes(t_push_swap_stack *stack_a , t_push_swap_stack *stack_b)
+void	init_nodes(t_stack *stack_a, t_stack *stack_b)
 {
 	set_current_position(stack_a);
 	set_current_position(stack_b);

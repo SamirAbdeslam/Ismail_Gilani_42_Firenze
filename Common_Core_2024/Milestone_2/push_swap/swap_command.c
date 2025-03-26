@@ -6,18 +6,18 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 18:17:43 by igilani           #+#    #+#             */
-/*   Updated: 2025/03/22 14:01:36 by igilani          ###   ########.fr       */
+/*   Updated: 2025/03/26 17:59:24 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void	swap(t_push_swap_stack **stack)
+static void	swap(t_stack **stack)
 {
 	int	len;
 
 	len = ft_lstsize_push(*stack);
-	if(*stack == NULL || stack == NULL || len == 1)
+	if (*stack == NULL || stack == NULL || len == 1)
 		return ;
 	*stack = (*stack)->next;
 	(*stack)->prev->next = (*stack)->next;
@@ -27,24 +27,24 @@ static void	swap(t_push_swap_stack **stack)
 	(*stack)->prev = NULL;
 }
 
-void sa(t_push_swap_stack **stack_a, bool checker)
+void	sa(t_stack **stack_a, bool checker)
 {
 	swap(stack_a);
-	if(!checker)
+	if (!checker)
 		write(1, "sa\n", 3);
 }
 
-void sb(t_push_swap_stack **stack_b, bool checker)
+void	sb(t_stack **stack_b, bool checker)
 {
 	swap(stack_b);
-	if(!checker)
+	if (!checker)
 		write(1, "sb\n", 3);
 }
 
-void ss(t_push_swap_stack **stack_a, t_push_swap_stack **stack_b, bool checker)
+void	ss(t_stack **stack_a, t_stack **stack_b, bool checker)
 {
 	swap(stack_a);
 	swap(stack_b);
-	if(!checker)
+	if (!checker)
 		write(1, "ss\n", 3);
 }

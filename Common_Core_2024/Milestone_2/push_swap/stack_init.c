@@ -6,19 +6,19 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 16:57:54 by igilani           #+#    #+#             */
-/*   Updated: 2025/03/26 13:47:05 by igilani          ###   ########.fr       */
+/*   Updated: 2025/03/26 18:49:04 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	stack_init(t_push_swap_stack **stack_a, char **argv, bool flag)
+void	stack_init(t_stack **stack_a, char **argv, bool flag)
 {
 	long	nbr;
-	int 	i;
-	*stack_a = NULL;
+	int		i;
 
-	i  = 0;
+	*stack_a = NULL;
+	i = 0;
 	while (argv[i])
 	{
 		if (error_syntax(argv[i]))

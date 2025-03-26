@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   error_handle.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/03 17:09:09 by igilani           #+#    #+#             */
-/*   Updated: 2025/03/26 15:44:00 by igilani          ###   ########.fr       */
-/*                                                                            */
+/*																			*/
+/*														:::	  ::::::::   */
+/*   error_handle.c									 :+:	  :+:	:+:   */
+/*													+:+ +:+		 +:+	 */
+/*   By: igilani <igilani@student.42firenze.it>	 +#+  +:+	   +#+		*/
+/*												+#+#+#+#+#+   +#+		   */
+/*   Created: 2025/03/03 17:09:09 by igilani		   #+#	#+#			 */
+/*   Updated: 2025/03/26 17:39:03 by igilani		  ###   ########.fr	   */
+/*																			*/
 /* ************************************************************************** */
 
 #include "push_swap.h"
@@ -24,24 +24,24 @@ void	free_matrix(char **argv)
 	free(argv);
 }
 
-void free_stack(t_push_swap_stack **stack)
+void	free_stack(t_stack **stack)
 {
-    t_push_swap_stack *tmp;
-	t_push_swap_stack *current;
+	t_stack	*tmp;
+	t_stack	*current;
 
-    if (!stack || !(*stack))
-        return;
-    current = *stack;
-    while (current)
-    {
-        tmp = current->next;
-        free(current);
-        current = tmp;
-    }
+	if (!stack || !(*stack))
+		return ;
+	current = *stack;
+	while (current)
+	{
+		tmp = current->next;
+		free(current);
+		current = tmp;
+	}
 	*stack = NULL;
 }
 
-void	error_handle(t_push_swap_stack **a, char **argv, bool flag)
+void	error_handle(t_stack **a, char **argv, bool flag)
 {
 	if (a)
 		free_stack(a);
@@ -65,9 +65,9 @@ int	error_syntax(char *str)
 	return (0);
 }
 
-int error_repetition(t_push_swap_stack *stack_a, int nbr)
+int	error_repetition(t_stack *stack_a, int nbr)
 {
-	if(stack_a == NULL)
+	if (stack_a == NULL)
 		return (0);
 	while (stack_a != NULL)
 	{
