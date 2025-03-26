@@ -6,52 +6,53 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 17:09:09 by igilani           #+#    #+#             */
-/*   Updated: 2025/03/25 19:44:37 by igilani          ###   ########.fr       */
+/*   Updated: 2025/03/26 15:44:00 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void free_stack(t_push_swap_stack **stack)
-{
-    t_push_swap_stack *tmp;
-
-    if (!stack || !(*stack))
-        return;
-    
-    while (*stack)
-    {
-        tmp = (*stack)->next;
-        free(*stack);
-        *stack = tmp;
-    }
-}
-
 void	free_matrix(char **argv)
 {
 	int	i;
 
-	i = -1;
-	if (NULL == argv || NULL == *argv)
+	i = 0;
+	if (!argv || !*argv)
 		return ;
 	while (argv[i])
 		free(argv[i++]);
-	free(argv - 1);
+	free(argv);
 }
 
-void	error_handle(t_push_swap_stack **stack_a, char **argv, bool flag)
+void free_stack(t_push_swap_stack **stack)
 {
-	ft_lstclear((t_list **)stack_a, free);
+    t_push_swap_stack *tmp;
+	t_push_swap_stack *current;
+
+    if (!stack || !(*stack))
+        return;
+    current = *stack;
+    while (current)
+    {
+        tmp = current->next;
+        free(current);
+        current = tmp;
+    }
+	*stack = NULL;
+}
+
+void	error_handle(t_push_swap_stack **a, char **argv, bool flag)
+{
+	if (a)
+		free_stack(a);
 	if (flag)
-		ft_lstclear((t_list **)argv, free);
+		free_matrix(argv);
 	write(2, "Error\n", 6);
-	exit(1);
+	exit(EXIT_FAILURE);
 }
 
 int	error_syntax(char *str)
 {
-	if (!(*str))
-		return (0);
 	if (!(*str == '+' || *str == '-' || ft_isdigit(*str)))
 		return (1);
 	if ((*str == '+' || *str == '-') && !ft_isdigit(*(str + 1)))

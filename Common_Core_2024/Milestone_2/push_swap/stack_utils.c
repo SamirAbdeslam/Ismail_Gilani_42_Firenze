@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 18:12:45 by igilani           #+#    #+#             */
-/*   Updated: 2025/03/25 19:37:43 by igilani          ###   ########.fr       */
+/*   Updated: 2025/03/26 11:30:51 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ t_push_swap_stack	*ft_lstlast_push(t_push_swap_stack *lst)
 
 void append_node(t_push_swap_stack **stack, int nbr)
 {
-    t_push_swap_stack *node;
-    t_push_swap_stack *last_node;
+    t_push_swap_stack   *node;
+    t_push_swap_stack   *last_node;
 
     node = malloc(sizeof(t_push_swap_stack));
     if (node == NULL)
@@ -40,11 +40,8 @@ void append_node(t_push_swap_stack **stack, int nbr)
     node->cheapest = false;
     node->above_median = false;
     node->target_node = NULL;
-    
     if (*stack == NULL)
-    {        
         *stack = node;
-    }
     else
     {
         last_node = ft_lstlast_push(*stack);

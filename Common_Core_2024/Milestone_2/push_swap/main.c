@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 17:29:41 by igilani           #+#    #+#             */
-/*   Updated: 2025/03/25 19:37:23 by igilani          ###   ########.fr       */
+/*   Updated: 2025/03/26 15:49:45 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,10 @@ int main(int argc, char **argv)
     stack_b = NULL;
     if (argc == 1 || (argc == 2 && !argv[1][0]))
         return (1);
+    for (int i = 1; i < argc; i++)
+    {
+        printf("argv[%d]: %s\n", i, argv[i]);
+    }
     if (argc == 2)
     {
         args = ft_split(argv[1], ' ');
@@ -45,8 +49,6 @@ int main(int argc, char **argv)
         else
             push_swap(&stack_a, &stack_b);
     }
-	free_stack(&stack_a);
-	free_stack(&stack_b);
     if (is_split)
     {
         int i = 0;
@@ -54,5 +56,5 @@ int main(int argc, char **argv)
             free(args[i++]);
         free(args);
     }
-    return (0);
+    free_stack(&stack_a);
 }

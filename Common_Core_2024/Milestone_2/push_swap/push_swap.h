@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 17:27:46 by igilani           #+#    #+#             */
-/*   Updated: 2025/03/25 18:24:02 by igilani          ###   ########.fr       */
+/*   Updated: 2025/03/26 13:41:55 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef struct s_push_swap_stack
 } 			t_push_swap_stack;
 
 /* Stack Init */
-void	stack_init(t_push_swap_stack **stack_a, char **argv, bool flag_argc_2);
+void	stack_init(t_push_swap_stack **stack_a, char **argv, bool flag);
 void	set_current_position(t_push_swap_stack *stack);
 void	set_price(t_push_swap_stack *stack_a, t_push_swap_stack *stack_b);
 void	init_nodes(t_push_swap_stack *stack_a, t_push_swap_stack *stack_b);
@@ -70,11 +70,9 @@ void	pb(t_push_swap_stack **stack_a, t_push_swap_stack **stack_b, bool checker);
 void	free_matrix(char **argv);
 int		error_syntax(char *str);
 int 	error_repetition(t_push_swap_stack *stack_a, int nbr);
-void 	error_handle(t_push_swap_stack **stack_a, char **argv, bool flag_argc_2);
+void 	error_handle(t_push_swap_stack **stack_a, char **argv, bool flag);
 void 	free_stack(t_push_swap_stack **stack);
 
 
-// void	assign_final_index(t_push_swap_stack *stack);
-// void assign_indexes(t_push_swap_stack **stack);
 void assign_final_index(t_push_swap_stack *stack);
 #endif

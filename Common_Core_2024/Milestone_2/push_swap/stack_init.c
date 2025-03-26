@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 16:57:54 by igilani           #+#    #+#             */
-/*   Updated: 2025/03/25 19:29:24 by igilani          ###   ########.fr       */
+/*   Updated: 2025/03/26 13:47:05 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	stack_init(t_push_swap_stack **stack_a, char **argv, bool flag)
 	*stack_a = NULL;
 
 	i  = 0;
-	while (argv[i] != NULL)
+	while (argv[i])
 	{
 		if (error_syntax(argv[i]))
 			error_handle(stack_a, argv, flag);
