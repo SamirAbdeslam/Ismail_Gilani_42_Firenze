@@ -6,13 +6,13 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 17:29:41 by igilani           #+#    #+#             */
-/*   Updated: 2025/03/26 18:37:04 by igilani          ###   ########.fr       */
+/*   Updated: 2025/03/27 16:34:00 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static char	**handle_args(int argc, char **argv, bool *is_split)
+char	**handle_args(int argc, char **argv, bool *is_split)
 {
 	char	**args;
 

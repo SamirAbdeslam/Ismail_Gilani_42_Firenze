@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 17:27:46 by igilani           #+#    #+#             */
-/*   Updated: 2025/03/26 18:45:31 by igilani          ###   ########.fr       */
+/*   Updated: 2025/03/27 16:34:08 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	set_price(t_stack *stack_a, t_stack *stack_b);
 void	init_nodes(t_stack *stack_a, t_stack *stack_b);
 void	set_cheapest(t_stack *stack);
 void	assign_final_index(t_stack *stack);
+char	**handle_args(int argc, char **argv, bool *is_split);
 
 /* Stack Utils */
 void	append_node(t_stack **stack, int nbr);
