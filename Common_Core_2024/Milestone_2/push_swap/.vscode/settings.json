@@ -1,6 +1,6 @@
 {
 	"files.associations": {
-		"unistd.h": "c",
-		"push_swap.h": "c"
+		"push_swap.h": "c",
+		"checker_bonus.h": "c"
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: igilani <igilani@student.42.fr>            +#+  +:+       +#+        */
+/*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 17:56:43 by igilani           #+#    #+#             */
-/*   Updated: 2024/12/09 18:07:27 by igilani          ###   ########.fr       */
+/*   Updated: 2025/03/28 17:22:35 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ char	**ft_split(char const *s, char c)
 	char	**t;
 	int		d;
 
-	if (!s)
+	if (!s || s[0] == '\0')
 		return (NULL);
 	d = ft_count_words (s, c);
 	t = (char **)malloc((d + 1) * sizeof(char *));

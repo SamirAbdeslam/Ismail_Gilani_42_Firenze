@@ -1,87 +1,106 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checker.c                                          :+:      :+:    :+:   */
+/*   checker_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 15:55:39 by igilani           #+#    #+#             */
-/*   Updated: 2025/03/27 17:37:26 by igilani          ###   ########.fr       */
+/*   Updated: 2025/03/28 19:08:20 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "checker.h"
+#include "checker_bonus.h"
 
-static void handle_error()
+static void result_message(t_stack *stack, t_stack **stack_a, t_stack **stack_b)
 {
+	if (stack_sorted(stack))
+		write(1, "OK\n", 3);
+	else
+		write(1, "KO\n", 3);
+	free_stack(stack_a);
+	free_stack(stack_b);
+}
+
+static void handle_error(t_stack **stack_a, t_stack **stack_b, char *command)
+{
+	free_stack(stack_a);
+	free_stack(stack_b);
+	free(command);
 	write(1, "Error\n", 6);
 	exit(1);
+}
+
+static char	**args_handle(int argc, char **argv)
+{
+	char	**args;
+	int		i;
+
+	i = 0;
+	if (argc == 2)
+	{
+		args = ft_split(argv[1], ' ');
+		if (!args || args[0] == NULL)
+		{
+			handle_error(NULL, NULL, *args);
+			return (NULL);
+		}
+	}
+	else
+		args = argv + 1;
+	return (args);
 }
 
 static void parsing(t_stack **stack_a, t_stack **stack_b, char *command)
 {
 	if (!ft_strncmp(command, "pa\n", 3))
-		pa(stack_a, stack_b, false);
+		pa(stack_a, stack_b, true);
 	else if (!ft_strncmp(command, "pb\n", 3))
-		pb(stack_a, stack_b, false);
+		pb(stack_a, stack_b, true);
 	else if (!ft_strncmp(command, "sa\n", 3))
-		sa(stack_a, false);
+		sa(stack_a, true);
 	else if (!ft_strncmp(command, "sb\n", 3))
-		sb(stack_b, false);
+		sb(stack_b, true);
 	else if (!ft_strncmp(command, "ss\n", 3))
-		ss(stack_a, stack_b, false);
+		ss(stack_a, stack_b, true);
 	else if (!ft_strncmp(command, "ra\n", 3))
-		ra(stack_a, false);
+		ra(stack_a, true);
 	else if (!ft_strncmp(command, "rb\n", 3))
-		rb(stack_b, false);
+		rb(stack_b, true);
 	else if (!ft_strncmp(command, "rr\n", 3))
-		rr(stack_a, stack_b, false);
+		rr(stack_a, stack_b, true);
 	else if (!ft_strncmp(command, "rra\n", 4))
-		rra(stack_a, false);
+		rra(stack_a, true);
 	else if (!ft_strncmp(command, "rrb\n", 4))
-		rrb(stack_b, false);
+		rrb(stack_b, true);
 	else if (!ft_strncmp(command, "rrr\n", 4))
-		rrr(stack_a, stack_b, false);
+		rrr(stack_a, stack_b, true);
 	else
-		handle_error();
+		handle_error(stack_a, stack_b, command);
+	free(command);
 }
 
 int main(int argc, char **argv)
 {
 	t_stack	*stack_a;
 	t_stack	*stack_b;
-	int		len;
 	char	*next_line;
-	bool	is_split = false;
-	
+	char	**args;
+
 	stack_a = NULL;
 	stack_b = NULL;
-	len = 0;
+	args = NULL;
 	if (argc == 1)
 		return (0);
-	if (argc == 2)
-	{
-		ft_split(argv[1], ' ');
-		is_split = true;
-	}
-	else
-	{
-		argv++;
-		is_split = false;
-	}
-	len = ft_lstsize_push(stack_a);
-	stack_init(&stack_a, argv, is_split);
+	stack_init(&stack_a, argv + 1, argc == 2);
+	args = args_handle(argc, argv);
+	if (!args || args[0] == NULL)
+		handle_error(&stack_a, &stack_b, NULL);
 	next_line = get_next_line(STDIN_FILENO);
 	while (next_line)
 	{
 		parsing(&stack_a, &stack_b, next_line);
 		next_line = get_next_line(STDIN_FILENO);
 	}
-	if (stack_sorted(stack_a) && ft_lstsize_push(stack_a) == len)
-		write(1, "OK\n", 3);
-	else
-		write(1, "KO\n", 3);
-	if (is_split)
-		free_matrix(argv);
-	free_stack(&stack_a);
+	result_message(stack_a, &stack_a, &stack_b);
 }
