@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 18:58:26 by igilani           #+#    #+#             */
-/*   Updated: 2025/03/30 12:42:04 by igilani          ###   ########.fr       */
+/*   Updated: 2025/03/31 13:55:27 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	**handle_args(int argc, char **argv, bool *is_split)
 		args = ft_split(argv[1], ' ');
 		if (!args || args[0] == NULL)
 		{
-			write(2, "Error\n", 6);
+			write(2, "Erron\n", 6);
 			free(args);
 			return (NULL);
 		}
@@ -106,9 +106,9 @@ int	main(int argc, char **argv)
 	if (!args)
 		return (1);
 	stack_init(&stack_a, args, is_split);
-	process_commands(&stack_a, &stack_b);
 	if (is_split)
 		free_matrix(args);
+	process_commands(&stack_a, &stack_b);
 	free_stack(&stack_a);
 	free_stack(&stack_b);
 }
