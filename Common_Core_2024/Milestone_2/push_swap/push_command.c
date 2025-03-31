@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 13:56:33 by igilani           #+#    #+#             */
-/*   Updated: 2025/03/26 17:51:27 by igilani          ###   ########.fr       */
+/*   Updated: 2025/03/31 14:20:53 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,14 @@ static void	push(t_stack **dest, t_stack **src)
 	}
 }
 
-void	pa(t_stack **stack_a,
-		t_stack **stack_b, bool checker)
+void	pa(t_stack **stack_a, t_stack **stack_b, bool checker)
 {
 	push(stack_a, stack_b);
 	if (!checker)
 		write(1, "pa\n", 3);
 }
 
-void	pb(t_stack **stack_a,
-		t_stack **stack_b, bool checker)
+void	pb(t_stack **stack_a, t_stack **stack_b, bool checker)
 {
 	push(stack_b, stack_a);
 	if (!checker)
