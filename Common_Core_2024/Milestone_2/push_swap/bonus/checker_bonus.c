@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 18:58:26 by igilani           #+#    #+#             */
-/*   Updated: 2025/03/31 13:55:27 by igilani          ###   ########.fr       */
+/*   Updated: 2025/03/31 16:07:20 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	handle_error(t_stack **stack_a, t_stack **stack_b, char *command)
 	free_stack(stack_a);
 	free_stack(stack_b);
 	free(command);
-	write(1, "Error\n", 6);
+	write(2, "Error\n", 6);
 	exit(1);
 }
 
