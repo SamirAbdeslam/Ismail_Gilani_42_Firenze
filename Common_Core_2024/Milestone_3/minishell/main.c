@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmenoni <lmenoni@student.42.fr>            +#+  +:+       +#+        */
+/*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 16:21:16 by lmenoni           #+#    #+#             */
-/*   Updated: 2025/04/07 18:03:46 by lmenoni          ###   ########.fr       */
+/*   Updated: 2025/04/08 19:17:47 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int main()
     data = (t_data){0};
     while (1)
     {
-        data.input = readline("minishell> ");
+        data.input = readline(RED"minishell"RESET YELLOW"> "RESET);
         if (!data.input)
             break ;
         data.input_array = ft_split(data.input, ' ');

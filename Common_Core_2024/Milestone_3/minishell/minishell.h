@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmenoni <lmenoni@student.42.fr>            +#+  +:+       +#+        */
+/*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 16:21:28 by lmenoni           #+#    #+#             */
-/*   Updated: 2025/04/07 17:51:06 by lmenoni          ###   ########.fr       */
+/*   Updated: 2025/04/08 19:16:44 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,14 @@
 #include <readline/readline.h>  // readline, rl_clear_history, etc.
 #include <readline/history.h>   // add_history, etc.
 #include <errno.h>          // errno, perror, strerror
+
+#define RED "\033[31m"
+#define GREEN "\033[32m"
+#define YELLOW "\033[33m"
+#define BLUE "\033[34m"
+#define MAGENTA "\033[35m"
+#define CYAN "\033[36m"
+#define RESET "\033[0m"
 
 typedef struct  s_data
 {
