@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 17:05:42 by igilani           #+#    #+#             */
-/*   Updated: 2025/04/07 18:31:41 by igilani          ###   ########.fr       */
+/*   Updated: 2025/04/08 18:42:05 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,17 @@
 #include <limits.h>
 #include <sys/time.h>
 #include <pthread.h>
+
+typedef enum opcode
+{
+	LOCK,
+	UNLOCK,
+	INIT,
+	DESTROY,
+	CREATE,
+	JOIN,
+	DETACH,
+}	t_opcode;
 
 typedef struct s_fork
 {
@@ -52,8 +63,9 @@ typedef struct s_table
 }	t_table;
 
 
-/*  PARSING */
-void parse_data(t_table *table, char **argv);
+/*  INIT */
+void parse_data(char **argv);
+void data_init(t_table *table, char **argv);
 
 /* UTILS */
 long	ft_atol(const char *nptr);

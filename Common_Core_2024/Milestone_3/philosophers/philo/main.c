@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 17:12:30 by igilani           #+#    #+#             */
-/*   Updated: 2025/04/07 18:34:50 by igilani          ###   ########.fr       */
+/*   Updated: 2025/04/08 18:48:03 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,9 @@ int main(int argc, char **argv)
 	t_table	table;
 	if (argc == 5 || argc == 6)
 	{
-		parse_data(&table, argv);
+		parse_data(argv);
+		data_init(&table, argv); // Initialize the data structure
 		print_table(&table);
-
-		//data_init(argv); // Initialize the data structure
 		
 		//dinner_start(&table); // Start the dinner simulation
 

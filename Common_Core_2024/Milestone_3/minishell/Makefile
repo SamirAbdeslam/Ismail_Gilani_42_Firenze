@@ -6,7 +6,7 @@
 #    By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/03 14:47:16 by igilani           #+#    #+#              #
-#    Updated: 2025/04/08 18:25:13 by igilani          ###   ########.fr        #
+#    Updated: 2025/04/08 19:09:02 by igilani          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,13 +15,17 @@
 
 # Configurazioni principali
 CC	  	= cc
-CFLAGS  = -Wall -Wextra -Werror -g -O3
-NAME	= philo
-SRC	 	= main.c error_handle.c utils.c init.c debug.c
-HEADERS = philo.h
+CFLAGS  = -Wall -Wextra -Werror -g
+NAME	= minishell
+SRC	 	= main.c
+HEADERS = minishell.h
 OBJ_DIR = obj
 OBJ	 	= $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
+LIB_DIR = my_libft
 BUILD 	= 0
+
+# Librerie
+THA_LIB = $(LIB_DIR)/mylibft.a
 
 # Colori ANSI
 RED	 = \033[31m
@@ -40,6 +44,14 @@ all: $(NAME)
 		fi \
 	fi
 
+$(THA_LIB):
+	@echo "$(BLUE)➜ Compilazione della libreria $(YELLOW)mylibft$(RESET)$(BLUE)...$(RESET)"
+	@if ! $(MAKE) -C $(LIB_DIR) > /dev/null 2>&1; then \
+		echo "$(ERROR) Errore durante la compilazione della libreria mylibft$(RESET)"; \
+		exit 1; \
+	fi
+	@echo "$(GREEN)✔ mylibft compilata$(RESET)"
+
 $(OBJ_DIR)/%.o: %.c $(HEADERS) | $(OBJ_DIR)
 	@$(CC) $(CFLAGS) -c $< -o $@ || { \
 		echo "$(ERROR) Errore nella compilazione di $<$(RESET)"; \
@@ -49,8 +61,8 @@ $(OBJ_DIR)/%.o: %.c $(HEADERS) | $(OBJ_DIR)
 $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
 
-$(NAME): $(OBJ)
-	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME) || { \
+$(NAME): $(OBJ) $(THA_LIB)
+	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(THA_LIB) -lreadline || { \
 		echo "$(ERROR) Errore durante il linking finale$(RESET)"; \
 		exit 1; \
 	}
@@ -59,10 +71,13 @@ $(NAME): $(OBJ)
 	@echo "$(GREEN)✔ Eseguibile $(NAME) generato$(RESET)"
 
 clean:
+	@$(MAKE) -s -C $(LIB_DIR) clean > /dev/null 2>&1
+	@echo "$(BLUE)➜ File oggetto da $(YELLOW)$(LIB_DIR)$(RESET) $(BLUE)rimossi$(RESET)"
 	@rm -rf $(OBJ_DIR)
 	@echo "$(BLUE)➜ File oggetto $(YELLOW)$(NAME)$(RESET) $(BLUE)rimossi$(RESET)"
 
 fclean: clean
+	@$(MAKE) -s -C $(LIB_DIR) fclean > /dev/null 2>&1
 	@rm -f $(NAME)
 	@echo "$(BLUE)➜ Eseguibile $(YELLOW)$(NAME)$(RESET) $(BLUE)rimosso$(RESET)"
 
