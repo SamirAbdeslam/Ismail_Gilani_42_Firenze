@@ -6,59 +6,114 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 18:11:14 by igilani           #+#    #+#             */
-/*   Updated: 2025/04/08 18:49:03 by igilani          ###   ########.fr       */
+/*   Updated: 2025/04/17 20:20:29 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void parse_data(char **argv)
+static void assign_forks(t_philo *philo, t_fork *forks, int philo_position)
 {
-	int i;
-	long nbr;
+	int philo_nbr;
 
-	i = 1;
-	nbr = 0;
-	while (argv[i])
+	philo_nbr = philo->table->philo_number;
+
+	philo->first_fork = &forks[(philo_position + 1) % philo_nbr];
+	philo->second_fork = &forks[philo_position];
+	if (philo->id % 2 == 0)
 	{
-		if (error_syntax(argv[i]))
-			error_handle("Syntax error");
-		nbr = ft_atol(argv[i]);
-		if (nbr > INT_MAX || nbr < INT_MIN)
-			error_handle("Integer overflow");
-		++i;
+		philo->first_fork = &forks[philo_position];
+		philo->second_fork = &forks[(philo_position + 1) % philo_nbr];
 	}
 }
 
-void mutex_init(t_fork *mutex, t_opcode opcode)
+static void philo_init(t_table *table)
 {
-	if (LOCK == opcode)
-		pthread_mutex_lock(&mutex->mutex);
-	else if (UNLOCK == opcode)
-		pthread_mutex_unlock(&mutex->mutex);
-	else if (INIT == opcode)
-		pthread_mutex_init(&mutex->mutex, NULL);
-	else if (DESTROY == opcode)
-		pthread_mutex_destroy(&mutex->mutex);
-	else
-		error_handle("Invalid mutex operation");
+	int i;
+	t_philo *philo;
+
+	i = -1;
+	while (++i < table->philo_number)
+	{
+		philo = table->philos + i;
+		philo->id = i + 1;
+		philo->full = false;
+		philo->meals_counter = 0;
+		philo->table = table;
+		
+		assign_forks(philo, table->forks, i);
+	}
 }
 
-void data_init(t_table *table, char **argv)
+void thread_handle(pthread_t *thread, void *(*func)(void *), void *data, t_opcode opcode)
 {
-	table->philo_number = ft_atol(argv[1]);
-	table->time_to_die = ft_atol(argv[2]) * 1000;
-	table->time_to_eat = ft_atol(argv[3]) * 1000;
-	table->time_to_sleep = ft_atol(argv[4]) * 1000;
-	if (table->time_to_die < 60000 || table->time_to_eat < 60000
-		|| table->time_to_sleep < 60000)
-		error_handle("Time values must be greater than 60 seconds");
-	if (argv[5])
-		table->max_meals = ft_atol(argv[5]);
+	if (CREATE == opcode)
+	{
+		if (pthread_create(thread, NULL, func, data) != 0)
+			error_handle("Thread creation failed");
+	}
+	else if (JOIN == opcode)
+	{
+		if (pthread_join(*thread, NULL) != 0)
+			error_handle("Thread join failed");
+	}
+	else if (DETACH == opcode)
+	{
+		if (pthread_detach(*thread) != 0)
+			error_handle("Thread detach failed");
+	}
 	else
-		table->max_meals = -1; // No limit on meals
+	{
+		error_handle("Invalid thread operation");
+	}
+}
+
+void mutex_handle(t_fork *mutex, t_opcode opcode)
+{
+	if (LOCK == opcode)
+	{
+		if (pthread_mutex_lock(&mutex->fork) != 0)
+			error_handle("Mutex lock failed");
+	}
+	else if (UNLOCK == opcode)
+	{
+		if (pthread_mutex_unlock(&mutex->fork) != 0)
+			error_handle("Mutex unlock failed");
+	}
+	else if (INIT == opcode)
+	{
+		if (pthread_mutex_init(&mutex->fork, NULL) != 0)
+			error_handle("Mutex initialization failed");
+	}
+	else if (DESTROY == opcode)
+	{
+		if (pthread_mutex_destroy(&mutex->fork) != 0)
+			error_handle("Mutex destruction failed");
+	}
+	else
+	{
+		error_handle("Invalid mutex operation");
+	}
+}
+
+void data_init(t_table *table)
+{
+	int i;
+
+	i = -1;
 	table->end_simulation = false;
+	table->threads_ready = false;
 	table->philos = malloc(sizeof(t_philo) * table->philo_number);
 	if (!table->philos)
-		error_handle("Memory allocation failed");
+		error_handle("Memory allocation failed for philosophers");
+	mutex_handle(&table->table_mutex, INIT);
+	table->forks = malloc(sizeof(t_fork) * table->philo_number);
+	if (!table->forks)
+		error_handle("Memory allocation failed for forks");
+	while (++i < table->philo_number)
+	{
+		mutex_handle(&table->forks[i].fork, INIT);
+		table->forks[i].fork_id = i;
+	}
+	philo_init(table);
 }
