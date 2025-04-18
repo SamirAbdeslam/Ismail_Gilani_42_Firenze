@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 17:05:42 by igilani           #+#    #+#             */
-/*   Updated: 2025/04/17 20:19:18 by igilani          ###   ########.fr       */
+/*   Updated: 2025/04/18 18:18:22 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,13 @@ typedef enum opcode
 	JOIN,
 	DETACH,
 }	t_opcode;
+
+typedef enum time
+{
+	SECOND,
+	MILLISECOND,
+	MICROSECOND,
+}	t_time;
 
 typedef struct s_fork
 {
@@ -67,14 +74,26 @@ typedef struct s_table
 
 
 /*  INIT */
-void parse_data(t_table *table, char **argv);
 void data_init(t_table *table);
 void thread_handle(pthread_t *thread, void *(*func)(void *), void *data, t_opcode opcode);
 void mutex_handle(t_fork *mutex, t_opcode opcode);
 
-/* UTILS */
+/* PARSING */
 long	ft_atol(const char *nptr);
 int	ft_isdigit(int c);
+void parse_data(t_table *table, char **argv);
+
+/* SET & GET */
+void set_bool(pthread_mutex_t *mutex, bool *dest, bool value);
+bool get_bool(pthread_mutex_t *mutex, bool *value);
+void set_long(pthread_mutex_t *mutex, long *dest, long value);
+long get_long(pthread_mutex_t *mutex, long *value);
+bool simulation_ended(t_table *table);
+
+/* SYNC */
+void wait_threads(t_table *table);
+long get_time(t_time unit);
+void fix_usleep(long time, t_table *table);
 
 /* ERROR */
 int	error_syntax(char *str);
