@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 17:12:30 by igilani           #+#    #+#             */
-/*   Updated: 2025/04/17 18:36:54 by igilani          ###   ########.fr       */
+/*   Updated: 2025/04/20 11:55:04 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int main(int argc, char **argv)
 		data_init(&table); // Initialize the data structure
 		// print_table(&table);
 		
-		//dinner_start(&table); // Start the dinner simulation
+		dinner_start(&table); // Start the dinner simulation
 
 		//free_all(&table); // Free all allocated memory
 	}
