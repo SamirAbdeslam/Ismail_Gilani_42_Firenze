@@ -6,13 +6,13 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 13:22:34 by igilani           #+#    #+#             */
-/*   Updated: 2025/04/20 12:04:07 by igilani          ###   ########.fr       */
+/*   Updated: 2025/04/24 17:18:18 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-long get_time(t_time unit)
+long	get_time(t_time unit)
 {
 	struct timeval	tv;
 
@@ -29,18 +29,17 @@ long get_time(t_time unit)
 	return (1337);
 }
 
-void fix_usleep(long time, t_table *table)
+void	fix_usleep(long time, t_table *table)
 {
-	long start;
-	long elapsed;
-	long remaining;
+	long	start;
+	long	elapsed;
+	long	remaining;
 
 	start = get_time(MICROSECOND);
-
 	while (get_time(MICROSECOND) - start < time)
 	{
 		if (simulation_ended(table))
-			break;
+			break ;
 		elapsed = get_time(MICROSECOND) - start;
 		remaining = time - elapsed;
 		if (remaining > 1e3)
@@ -53,8 +52,42 @@ void fix_usleep(long time, t_table *table)
 	}
 }
 
-void wait_threads(t_table *table)
+void	wait_threads(t_table *table)
 {
 	while (!get_bool(&table->table_mutex, &table->threads_ready))
 		;
+}
+
+bool	all_threads_running(pthread_mutex_t *mutex, long *threads,
+		long philo_nbr)
+{
+	bool	return_value;
+
+	return_value = false;
+	mutex_handle(mutex, LOCK);
+	if (*threads == philo_nbr)
+		return_value = true;
+	mutex_handle(mutex, UNLOCK);
+	return (return_value);
+}
+
+void	increase_long(pthread_mutex_t *mutex, long *value)
+{
+	mutex_handle(mutex, LOCK);
+	(*value)++;
+	mutex_handle(mutex, UNLOCK);
+}
+
+void	de_sync_philo(t_philo *philo)
+{
+	if (philo->table->philo_number % 2 == 0)
+	{
+		if (philo->id % 2 == 0)
+			fix_usleep(3000, philo->table);
+	}
+	else
+	{
+		if (philo->id % 2)
+			think(philo, true);
+	}
 }

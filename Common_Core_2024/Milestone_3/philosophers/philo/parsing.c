@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 17:46:25 by igilani           #+#    #+#             */
-/*   Updated: 2025/04/17 18:37:27 by igilani          ###   ########.fr       */
+/*   Updated: 2025/04/24 17:27:28 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,10 @@ int	ft_isdigit(int c)
 	return (0);
 }
 
-void parse_data(t_table *table, char **argv)
+void	parse_data(t_table *table, char **argv)
 {
-	int i;
-	long nbr;
+	int		i;
+	long	nbr;
 
 	i = 1;
 	nbr = 0;

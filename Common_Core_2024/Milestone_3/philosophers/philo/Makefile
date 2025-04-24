@@ -6,7 +6,7 @@
 #    By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/03 14:47:16 by igilani           #+#    #+#              #
-#    Updated: 2025/04/20 12:02:37 by igilani          ###   ########.fr        #
+#    Updated: 2025/04/24 16:22:02 by igilani          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@
 CC	  	= cc
 CFLAGS  = -Wall -Wextra -Werror -g -O3
 NAME	= philo
-SRC	 	= main.c error_handle.c parsing.c init.c dinner.c set_get.c print.c sync.c debug.c
+SRC	 	= main.c error_handle.c parsing.c init.c dinner.c set_get.c print.c sync.c monitoring.c
 HEADERS = philo.h
 OBJ_DIR = obj
 OBJ	 	= $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))

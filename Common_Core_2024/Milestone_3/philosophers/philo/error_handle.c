@@ -6,40 +6,28 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 14:04:47 by igilani           #+#    #+#             */
-/*   Updated: 2025/04/07 18:21:44 by igilani          ###   ########.fr       */
+/*   Updated: 2025/04/24 17:22:09 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	free_matrix(char **argv)
+void	free_all(t_table *table)
 {
-	int	i;
+	t_philo	*philo;
+	int		i;
 
-	i = 0;
-	if (!argv || !*argv)
-		return ;
-	while (argv[i])
-		free(argv[i++]);
-	free(argv);
+	i = -1;
+	while (++i < table->philo_number)
+	{
+		philo = table->philos + i;
+		mutex_handle(&philo->philo_mutex, DESTROY);
+	}
+	mutex_handle(&table->print_mutex, DESTROY);
+	mutex_handle(&table->table_mutex, DESTROY);
+	free(table->philos);
+	free(table->forks);
 }
-
-// void	free_stack(t_stack **stack)
-// {
-// 	t_stack	*tmp;
-// 	t_stack	*current;
-
-// 	if (!stack || !(*stack))
-// 		return ;
-// 	current = *stack;
-// 	while (current)
-// 	{
-// 		tmp = current->next;
-// 		free(current);
-// 		current = tmp;
-// 	}
-// 	*stack = NULL;
-// }
 
 void	error_handle(char *error_message)
 {

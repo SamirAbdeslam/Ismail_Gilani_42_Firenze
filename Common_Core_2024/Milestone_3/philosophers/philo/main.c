@@ -6,25 +6,22 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 17:12:30 by igilani           #+#    #+#             */
-/*   Updated: 2025/04/20 11:55:04 by igilani          ###   ########.fr       */
+/*   Updated: 2025/04/24 17:19:47 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_table	table;
+
 	if (argc == 5 || argc == 6)
 	{
 		parse_data(&table, argv);
-		
-		data_init(&table); // Initialize the data structure
-		// print_table(&table);
-		
-		dinner_start(&table); // Start the dinner simulation
-
-		//free_all(&table); // Free all allocated memory
+		data_init(&table);
+		dinner_start(&table);
+		free_all(&table);
 	}
 	else
 		error_handle("Use ./philo <number_of_philosophers> "
