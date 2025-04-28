@@ -87,7 +87,7 @@ void	de_sync_philo(t_philo *philo)
 	}
 	else
 	{
-		if (philo->id % 2)
+		if (philo->id % 2 == 0)
 			think(philo, true);
 	}
 }
