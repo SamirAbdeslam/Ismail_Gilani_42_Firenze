@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 13:22:34 by igilani           #+#    #+#             */
-/*   Updated: 2025/04/24 17:18:18 by igilani          ###   ########.fr       */
+/*   Updated: 2025/04/30 17:10:43 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ long	get_time(t_time unit)
 		return ((tv.tv_sec * 1e6) + tv.tv_usec);
 	else
 		error_handle("Invalid time unit");
-	return (1337);
+	return (0);
 }
 
 void	fix_usleep(long time, t_table *table)
@@ -87,7 +87,7 @@ void	de_sync_philo(t_philo *philo)
 	}
 	else
 	{
-		if (philo->id % 2 == 0)
+		if (philo->id % 2)
 			think(philo, true);
 	}
 }

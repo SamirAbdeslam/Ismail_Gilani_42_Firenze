@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 20:00:02 by igilani           #+#    #+#             */
-/*   Updated: 2025/04/24 17:34:30 by igilani          ###   ########.fr       */
+/*   Updated: 2025/04/30 18:29:19 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	*one_philo(void *args)
 	t_philo	*philo;
 
 	philo = (t_philo *)args;
-	wait_threads(philo->table);
+	// wait_threads(philo->table);
 	set_long(&philo->philo_mutex, &philo->last_meal, get_time(MILLISECOND));
 	increase_long(&philo->table->table_mutex,
 		&philo->table->threads_running_nbr);
@@ -67,11 +67,11 @@ void	*dinner_routine(void *data)
 	t_philo	*philo;
 
 	philo = (t_philo *)data;
-	wait_threads(philo->table);
+	// wait_threads(philo->table);
 	set_long(&philo->philo_mutex, &philo->last_meal, get_time(MILLISECOND));
 	increase_long(&philo->table->table_mutex,
 		&philo->table->threads_running_nbr);
-	de_sync_philo(philo);
+	// de_sync_philo(philo);
 	while (!simulation_ended(philo->table))
 	{
 		if (philo->full)
@@ -92,16 +92,20 @@ void	dinner_start(t_table *table)
 	if (table->max_meals == 0)
 		return ;
 	else if (table->philo_number == 1)
+	{
+		table->start_simulation = get_time(MILLISECOND);
 		thread_handle(&table->philos[0].thread_id,
 			one_philo, &table->philos[0], CREATE);
+	}
 	else
 	{
+		table->start_simulation = get_time(MILLISECOND);
 		while (++i < table->philo_number)
 			thread_handle(&table->philos[i].thread_id,
 				dinner_routine, &table->philos[i], CREATE);
 	}
+	usleep(100);
 	thread_handle(&table->monitor_thread, monitoring_routine, table, CREATE);
-	table->start_simulation = get_time(MILLISECOND);
 	set_bool(&table->table_mutex, &table->threads_ready, true);
 	i = -1;
 	while (++i < table->philo_number)

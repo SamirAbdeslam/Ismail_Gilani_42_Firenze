@@ -6,7 +6,7 @@
 #    By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/03 14:47:16 by igilani           #+#    #+#              #
-#    Updated: 2025/04/24 16:22:02 by igilani          ###   ########.fr        #
+#    Updated: 2025/04/30 17:35:35 by igilani          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,13 +15,14 @@
 
 # Configurazioni principali
 CC	  	= cc
-CFLAGS  = -Wall -Wextra -Werror -g -O3
+CFLAGS  = -Wall -Wextra -Werror -g -pthread
 NAME	= philo
 SRC	 	= main.c error_handle.c parsing.c init.c dinner.c set_get.c print.c sync.c monitoring.c
 HEADERS = philo.h
 OBJ_DIR = obj
 OBJ	 	= $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
 BUILD 	= 0
+# SANI	= -fsanitize=memory	
 
 # Colori ANSI
 RED	 = \033[31m
@@ -72,3 +73,6 @@ silent:
 	@$(MAKE) all 2>&1 | grep -v '^make\[.*\]:'
 
 .PHONY: all clean fclean re lib_check silent
+
+# sani:
+# 	@$(CC) $(CFLAGS) $(SANI) $(SRC) -o $(NAME)_sani
