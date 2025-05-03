@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 17:05:42 by igilani           #+#    #+#             */
-/*   Updated: 2025/05/03 12:58:53 by igilani          ###   ########.fr       */
+/*   Updated: 2025/05/03 13:43:53 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,26 +88,25 @@ typedef struct s_table
 	t_philo			*philos;
 }	t_table;
 
-/*  INIT 3*/
+/*  INIT */
 void	data_init(t_table *table);
 void	thread_handle(pthread_t *thread, void *(*func)(void *),
 			void *data, t_opcode opcode);
 void	mutex_handle(pthread_mutex_t *mutex, t_opcode opcode);
 
-/* PARSING 3*/
+/* PARSING */
 long	ft_atol(const char *nptr);
 int		ft_isdigit(int c);
 void	parse_data(t_table *table, char **argv);
 
-/* SET & GET 5*/
+/* SET & GET */
 void	set_bool(pthread_mutex_t *mutex, bool *dest, bool value);
 bool	get_bool(pthread_mutex_t *mutex, bool *value);
 void	set_long(pthread_mutex_t *mutex, long *dest, long value);
 long	get_long(pthread_mutex_t *mutex, long *value);
 bool	simulation_ended(t_table *table);
 
-/* SYNC 5*/
-void	wait_threads(t_table *table);
+/* SYNC */
 long	get_time(t_time unit);
 void	fix_usleep(long time, t_table *table);
 void	increase_long(pthread_mutex_t *mutex, long *value);
@@ -115,10 +114,10 @@ bool	all_threads_running(pthread_mutex_t *mutex,
 			long *threads, long philo_nbr);
 void	de_sync_philo(t_philo *philo);
 
-/* MONITORING 1*/
+/* MONITORING */
 void	*monitoring_routine(void *data);
 
-/* DINNER 5*/
+/* DINNER */
 void	*dinner_routine(void *data);
 void	dinner_start(t_table *table);
 void	think(t_philo *philo, bool pre_sim);
