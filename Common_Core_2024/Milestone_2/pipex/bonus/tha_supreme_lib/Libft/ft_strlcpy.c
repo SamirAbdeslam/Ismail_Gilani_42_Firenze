@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalnum.c                                       :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmenoni <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: igilani <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/18 15:00:06 by lmenoni           #+#    #+#             */
-/*   Updated: 2024/11/18 15:00:17 by lmenoni          ###   ########.fr       */
+/*   Created: 2024/11/22 14:38:40 by igilani           #+#    #+#             */
+/*   Updated: 2024/11/23 14:49:23 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_isalnum(int c)
+size_t	ft_strlcpy(char *dest, const char *src, size_t size)
 {
-	if ((c >= 65 & c <= 90) || (c >= 97 & c <= 122))
-		return (1);
-	else if (c >= '0' & c <= '9')
-		return (1);
-	else
-		return (0);
+	size_t	i;
+
+	i = 0;
+	if (!size)
+	{
+		return (ft_strlen(src));
+	}
+	while (i < size - 1 && src[i])
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = '\0';
+	return (ft_strlen (src));
 }

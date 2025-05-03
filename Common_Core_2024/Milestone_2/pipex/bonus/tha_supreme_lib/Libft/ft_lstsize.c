@@ -1,23 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalnum.c                                       :+:      :+:    :+:   */
+/*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmenoni <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: igilani <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/18 15:00:06 by lmenoni           #+#    #+#             */
-/*   Updated: 2024/11/18 15:00:17 by lmenoni          ###   ########.fr       */
+/*   Created: 2024/12/05 20:53:08 by igilani           #+#    #+#             */
+/*   Updated: 2024/12/05 20:53:09 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_isalnum(int c)
+int	ft_lstsize(t_list *lst)
 {
-	if ((c >= 65 & c <= 90) || (c >= 97 & c <= 122))
-		return (1);
-	else if (c >= '0' & c <= '9')
-		return (1);
-	else
-		return (0);
+	t_list	*current;
+	int		i;
+
+	i = 0;
+	current = lst;
+	while (current != NULL)
+	{
+		i++;
+		current = current->next;
+	}
+	return (i);
 }

@@ -1,23 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalnum.c                                       :+:      :+:    :+:   */
+/*   ft_putnbr_base_fd.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmenoni <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/18 15:00:06 by lmenoni           #+#    #+#             */
-/*   Updated: 2024/11/18 15:00:17 by lmenoni          ###   ########.fr       */
+/*   Created: 2025/01/02 12:27:30 by igilani           #+#    #+#             */
+/*   Updated: 2025/01/05 19:57:15 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_isalnum(int c)
+int	ft_putnbr_base_fd(unsigned long n, char *base, int fd)
 {
-	if ((c >= 65 & c <= 90) || (c >= 97 & c <= 122))
-		return (1);
-	else if (c >= '0' & c <= '9')
-		return (1);
-	else
-		return (0);
+	int	count;
+
+	count = 0;
+	if (n >= 16)
+		count += ft_putnbr_base_fd (n / 16, base, fd);
+	count += write (fd, &base[n % 16], 1);
+	return (count);
 }

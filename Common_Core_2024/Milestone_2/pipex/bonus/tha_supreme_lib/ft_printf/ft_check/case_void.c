@@ -1,23 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalnum.c                                       :+:      :+:    :+:   */
+/*   case_void.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmenoni <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/18 15:00:06 by lmenoni           #+#    #+#             */
-/*   Updated: 2024/11/18 15:00:17 by lmenoni          ###   ########.fr       */
+/*   Created: 2025/01/06 15:54:24 by igilani           #+#    #+#             */
+/*   Updated: 2025/01/10 17:29:27 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../ft_printf.h"
 
-int	ft_isalnum(int c)
+int	case_void(size_t p)
 {
-	if ((c >= 65 & c <= 90) || (c >= 97 & c <= 122))
-		return (1);
-	else if (c >= '0' & c <= '9')
-		return (1);
+	if (p == 0)
+	{
+		ft_putstr_fd("(nil)", 1);
+		return (5);
+	}
 	else
-		return (0);
+	{
+		ft_putstr_fd("0x", 1);
+		return (ft_putnbr_base_fd((unsigned long)p, "0123456789abcdef", 1) + 2);
+	}
+	return (0);
 }

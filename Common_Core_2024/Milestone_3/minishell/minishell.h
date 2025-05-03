@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 16:21:28 by lmenoni           #+#    #+#             */
-/*   Updated: 2025/04/08 19:16:44 by igilani          ###   ########.fr       */
+/*   Updated: 2025/05/03 16:49:44 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,11 @@ typedef struct  s_data
     char **input_array;
 }               t_data;
 
+void	error_handle(int error, int exit_type);
+void	ft_free(char **mat);
+char	**get_path(char **env, int file);
+char	*find_cmd_path(char *cmd, char **path_dirs);
+void	exec(char **argv, char **env, char **path, int cmd_index);
+void	heredoc(char **argv);
+int		open_file(char *file, int flags);
 #endif
