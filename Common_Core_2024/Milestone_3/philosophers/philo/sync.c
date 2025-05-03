@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 13:22:34 by igilani           #+#    #+#             */
-/*   Updated: 2025/04/30 17:10:43 by igilani          ###   ########.fr       */
+/*   Updated: 2025/05/03 13:23:57 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,6 @@ void	fix_usleep(long time, t_table *table)
 				;
 		}
 	}
-}
-
-void	wait_threads(t_table *table)
-{
-	while (!get_bool(&table->table_mutex, &table->threads_ready))
-		;
 }
 
 bool	all_threads_running(pthread_mutex_t *mutex, long *threads,
