@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmenoni <lmenoni@student.42.fr>            +#+  +:+       +#+        */
+/*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 16:21:16 by lmenoni           #+#    #+#             */
-/*   Updated: 2025/05/05 13:38:04 by lmenoni          ###   ########.fr       */
+/*   Updated: 2025/05/05 16:41:23 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int main()
         data.token = NULL;
         data.last_token = NULL;
         tokenize_input(&data);
+        pipe_exec(&data);
         print_tokens(data.token);
         if (!ft_strncmp(data.input, "exit", ft_strlen(data.input)))
         {

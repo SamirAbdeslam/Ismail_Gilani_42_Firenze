@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmenoni <lmenoni@student.42.fr>            +#+  +:+       +#+        */
+/*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 16:21:28 by lmenoni           #+#    #+#             */
-/*   Updated: 2025/04/28 16:21:05 by lmenoni          ###   ########.fr       */
+/*   Updated: 2025/05/05 16:11:27 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #define MINISHELL_H
 
 #include "my_libft/libft.h"
+#include <stdbool.h>         // bool
 #include <sys/types.h>      // opendir, readdir, closedir, stat, lstat, fstat, wait, waitpid, etc.
 #include <sys/stat.h>       // stat, lstat, fstat, mkdir, etc.
 #include <dirent.h>         // opendir, readdir, closedir
@@ -81,4 +82,13 @@ void    free_token(t_token *token);
 void    skip_spaces(char *s, int *i);
 int is_space(char c);
 
+
+//pipex
+void	error_handle(int error, int exit_type);
+void	ft_free(char **mat);
+char	**get_path(char **env, int file);
+char	*find_cmd_path(char *cmd, char **path_dirs);
+void	exec(char **argv, char **env, char **path, int cmd_index);
+void	heredoc(char **argv);
+int		open_file(char *file, int flags);
 #endif

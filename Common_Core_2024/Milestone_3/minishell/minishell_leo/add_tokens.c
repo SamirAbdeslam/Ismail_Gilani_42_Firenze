@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add_tokens.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmenoni <lmenoni@student.42.fr>            +#+  +:+       +#+        */
+/*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 18:44:34 by lmenoni           #+#    #+#             */
-/*   Updated: 2025/04/30 15:04:11 by lmenoni          ###   ########.fr       */
+/*   Updated: 2025/05/05 16:11:54 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,11 @@ void    add_operator(t_data *data, char *s, int *idx)
 void    add_redirect(t_data *data, char *s, int *idx)
 {
     int i;
-    char type;
+    // char type;
     char *r;
     
     i = 0;
-    type = s[i];
+    // type = s[i];
     while (s[i] != '\0' && (s[i] == '<' || s[i] == '>'))
     {
         //if (s[i] != type)
