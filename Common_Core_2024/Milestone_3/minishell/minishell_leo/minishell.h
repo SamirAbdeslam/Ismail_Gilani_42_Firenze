@@ -1,0 +1,84 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lmenoni <lmenoni@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/07 16:21:28 by lmenoni           #+#    #+#             */
+/*   Updated: 2025/04/28 16:21:05 by lmenoni          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef MINISHELL_H
+#define MINISHELL_H
+
+#include "my_libft/libft.h"
+#include <sys/types.h>      // opendir, readdir, closedir, stat, lstat, fstat, wait, waitpid, etc.
+#include <sys/stat.h>       // stat, lstat, fstat, mkdir, etc.
+#include <dirent.h>         // opendir, readdir, closedir
+#include <string.h>         // strerror, etc.
+#include <signal.h>         // signal, sigaction, sigemptyset, sigaddset, kill
+#include <sys/wait.h>       // wait, waitpid, wait3, wait4
+#include <termios.h>        // tcsetattr, tcgetattr
+#include <term.h>           // tgetent, tgetflag, tgetnum, tgetstr, tgoto, tputs
+#include <sys/ioctl.h>      // ioctl
+#include <readline/readline.h>  // readline, rl_clear_history, etc.
+#include <readline/history.h>   // add_history, etc.
+#include <errno.h>          // errno, perror, strerror
+
+#define RED "\033[31m"
+#define GREEN "\033[32m"
+#define YELLOW "\033[33m"
+#define BLUE "\033[34m"
+#define MAGENTA "\033[35m"
+#define CYAN "\033[36m"
+#define RESET "\033[0m"
+
+typedef enum
+{
+    COMMAND,
+    ARGUMENT,
+    STRING,
+    PIPE,
+    OPERATOR,
+    REDIRECT
+}       tok_type;
+
+typedef struct  s_token
+{
+    char			*s;
+    tok_type		type;
+    struct s_token	*next;
+	struct s_token	*prev;
+}               t_token;
+
+typedef struct  s_data
+{
+    char        *input;
+    t_token     *token;
+    t_token     *last_token;
+}               t_data;
+
+void    tokenize_input(t_data *data);
+
+//add_token.c
+void    add_string(t_data *data, char *s, int *idx);
+void    add_pipe(t_data *data, char *s, int *idx);
+void    add_redirect(t_data *data, char *s, int *idx);
+void    add_operator(t_data *data, char *s, int *idx);
+void    add_argument(t_data *data, char *s, int *idx);
+
+//token_utils.c
+void    print_tokens(t_token *token);
+void    add_token(t_token **first, char *s, tok_type type, t_data *data);
+t_token *token_new(char *content, tok_type type);
+
+//free_mem.c
+void    free_token(t_token *token);
+
+//utils.c
+void    skip_spaces(char *s, int *i);
+int is_space(char c);
+
+#endif
