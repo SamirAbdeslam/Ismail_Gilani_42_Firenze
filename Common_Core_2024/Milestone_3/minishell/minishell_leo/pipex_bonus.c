@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 13:50:20 by igilani           #+#    #+#             */
-/*   Updated: 2025/05/03 17:07:42 by igilani          ###   ########.fr       */
+/*   Updated: 2025/05/06 11:42:20 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,4 +113,9 @@ int main(int argc, char **argv, char **env)
 	dup2(fd[1], STDOUT_FILENO);
 	char **path = get_path(env, fd[0]);
 	exec(argv, env, path, argc - 2);
+}
+
+void check_pipe(t_token *token)
+{
+	
 }

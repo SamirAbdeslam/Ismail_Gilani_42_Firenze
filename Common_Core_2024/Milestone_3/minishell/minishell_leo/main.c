@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 16:21:16 by lmenoni           #+#    #+#             */
-/*   Updated: 2025/05/05 16:41:23 by igilani          ###   ########.fr       */
+/*   Updated: 2025/05/06 10:46:04 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int main()
         data.token = NULL;
         data.last_token = NULL;
         tokenize_input(&data);
-        pipe_exec(&data);
+        check_pipe(data.token);
         print_tokens(data.token);
         if (!ft_strncmp(data.input, "exit", ft_strlen(data.input)))
         {

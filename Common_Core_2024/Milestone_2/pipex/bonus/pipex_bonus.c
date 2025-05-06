@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 13:50:20 by igilani           #+#    #+#             */
-/*   Updated: 2025/05/03 16:28:37 by igilani          ###   ########.fr       */
+/*   Updated: 2025/05/06 12:31:54 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void do_pipe(char **cmd, char **env, int i)
 	{
 		close(fd[1]);
 		dup2(fd[0], STDIN_FILENO);
-		waitpid(pid, NULL, 0);
+		waitpid(pid, NULL, 0); //forse non serve
 	}
 }
 
