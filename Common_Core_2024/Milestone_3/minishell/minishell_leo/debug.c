@@ -1,31 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   debug.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/10 18:46:48 by lmenoni           #+#    #+#             */
-/*   Updated: 2025/05/08 17:58:41 by igilani          ###   ########.fr       */
+/*   Created: 2025/05/08 16:58:08 by igilani           #+#    #+#             */
+/*   Updated: 2025/05/08 16:58:27 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int is_space(char c)
+void print_cd(t_data *data)
 {
-    return (c == ' ' || (c >= 9 && c <= 13));
-}
+	char *path;
+	char *new_path;
 
-void    skip_spaces(char *s, int *i)
-{
-    while (s[*i] != '\0' && is_space(s[*i]))
-    {
-        *i = *i + 1;
-    }
-}
-
-void print_error(char *s)
-{
-    ft_putstr_fd(s, 2);
+	path = getcwd(NULL, 0);
+	if (path == NULL)
+	{
+		perror("getcwd");
+		return ;
+	}
+	new_path = data->input_array[1];
+	printf("Current directory: %s\n", path);
+	printf("New directory: %s\n", new_path);
+	free(path);
 }

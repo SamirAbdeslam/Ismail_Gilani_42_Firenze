@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 15:43:55 by igilani           #+#    #+#             */
-/*   Updated: 2025/05/07 18:41:52 by igilani          ###   ########.fr       */
+/*   Updated: 2025/05/08 15:30:43 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,13 @@ int check_echo_flag(char **input_array)
 
 	while (input_array[j])
 	{
+		i = 0;
+		if (input_array[j][0] == '-')
+			i++;
+		else
+			return (j - 1);
 		while (input_array[j][i] != '\0')
 		{
-			if (input_array[j][0] == '-')
-				i++;
-			else
-				return (j - 1);
 			if (input_array[j][i] == 'n')
 				i++;
 			else
@@ -44,7 +45,6 @@ void echo(t_data *data)
 	int flag;
 	flag = check_echo_flag(data->input_array);
 
-	printf("flag: %d\n", flag);
 	if (flag > 0)
 		i = flag + 1;
 	else

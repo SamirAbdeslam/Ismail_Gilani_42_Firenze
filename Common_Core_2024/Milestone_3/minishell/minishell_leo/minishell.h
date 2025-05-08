@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 16:21:28 by lmenoni           #+#    #+#             */
-/*   Updated: 2025/05/07 16:14:13 by igilani          ###   ########.fr       */
+/*   Updated: 2025/05/08 18:01:15 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef struct  s_data
 {
     char        *input;
     char       **input_array;
+    char        **env;
     t_token     *token;
     t_token     *last_token;
 }               t_data;
@@ -82,7 +83,7 @@ void    free_token(t_token *token);
 //utils.c
 void    skip_spaces(char *s, int *i);
 int is_space(char c);
-
+void print_error(char *s);
 
 //pipex
 void	error_handle(int error, int exit_type);
@@ -92,5 +93,10 @@ char	*find_cmd_path(char *cmd, char **path_dirs);
 void	exec(char **argv, char **env, char **path, int cmd_index);
 void	heredoc(char **argv);
 int		open_file(char *file, int flags);
+
+// builtin
 void    echo(t_data *data);
+void cd(t_data *data);
+
+void    print_cd(t_data *data);
 #endif

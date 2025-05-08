@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 16:21:16 by lmenoni           #+#    #+#             */
-/*   Updated: 2025/05/07 16:39:40 by igilani          ###   ########.fr       */
+/*   Updated: 2025/05/08 17:13:01 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +53,22 @@ int define_input(t_data *data)
 {
     if (!ft_strncmp(data->input, "echo", 4))
         return (echo(data), 1);
+    else if (!ft_strncmp(data->input, "cd", 2))
+        return (cd(data), 1);
+    else if (!ft_strncmp(data->input, "debug", 5))
+        return (print_cd(data), 1);
     return (1);
 }
 
-int main()
+int main(int argc, char **argv, char **env)
 {
+    (void)argc;
+    (void)argv;
     t_data  data;
     data = (t_data){0};
     while (1)
     {
+        data.env = env;
         data.input = readline(CYAN"minishell"RESET YELLOW">"RESET);
         if (!data.input)
             break ;
