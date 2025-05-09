@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 16:58:08 by igilani           #+#    #+#             */
-/*   Updated: 2025/05/08 16:58:27 by igilani          ###   ########.fr       */
+/*   Updated: 2025/05/09 17:09:32 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,6 @@
 
 void print_cd(t_data *data)
 {
-	char *path;
-	char *new_path;
-
-	path = getcwd(NULL, 0);
-	if (path == NULL)
-	{
-		perror("getcwd");
-		return ;
-	}
-	new_path = data->input_array[1];
-	printf("Current directory: %s\n", path);
-	printf("New directory: %s\n", new_path);
-	free(path);
+	printf("Current directory: %s\n", data->current_path);
+	printf("Old directory: %s\n", data->old_path);
 }

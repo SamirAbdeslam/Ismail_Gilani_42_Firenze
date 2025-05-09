@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 16:21:28 by lmenoni           #+#    #+#             */
-/*   Updated: 2025/05/08 18:01:15 by igilani          ###   ########.fr       */
+/*   Updated: 2025/05/09 16:23:27 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,9 @@ typedef struct  s_data
     char        *input;
     char       **input_array;
     char        **env;
+    char        *current_path;
+    char        *old_path;
+    char        *home_path;
     t_token     *token;
     t_token     *last_token;
 }               t_data;
