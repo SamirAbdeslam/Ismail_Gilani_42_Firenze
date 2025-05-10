@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 16:21:28 by lmenoni           #+#    #+#             */
-/*   Updated: 2025/05/09 16:23:27 by igilani          ###   ########.fr       */
+/*   Updated: 2025/05/10 17:39:56 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,20 @@ typedef enum
     OPERATOR,
     REDIRECT
 }       tok_type;
+
+typedef struct  s_env
+{
+    char			*s;
+    struct s_token	*next;
+	struct s_token	*prev;
+}               t_env;
+
+typedef struct  s_export
+{
+    char			*s;
+    struct s_token	*next;
+	struct s_token	*prev;
+}               t_export;
 
 typedef struct  s_token
 {

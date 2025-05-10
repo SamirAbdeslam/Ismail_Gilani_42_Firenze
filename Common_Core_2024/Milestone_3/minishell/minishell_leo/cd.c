@@ -6,17 +6,19 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 16:25:13 by igilani           #+#    #+#             */
-/*   Updated: 2025/05/09 17:31:28 by igilani          ###   ########.fr       */
+/*   Updated: 2025/05/10 18:09:29 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /*
-UNSET HOME funziona sempre
+i comandi chdir e getcwd fanno delle chiamate di sistema e non sono condizionate dall'env
+UNSET HOME funziona sempre ma non viene risettato se unsettato
+una volta fatto UNSET di una variabile, non viene piu' risettata
 OLDPWD funziona solo se e' settato
-ogni cd setta nuovamente OLDPWD e PWD
 il comando pwd funziona sempre
+OLDPWD inzia a NULL e viene comparto con il OLDPWD di env, viene settato il nosto OLDPWD ad ogni chiamata di cd e messo a NULL ogni volta che in unset viene fatto l'unset di OLDPWD
 */
 
 static void get_home_path(t_data *data)
@@ -60,6 +62,7 @@ void cd(t_data *data)
 			return ;
 		}
 		ft_printf("%s\n", data->old_path);
+		data->old_path = data->current_path;
 		data->current_path = getcwd(NULL, 4096);
 	}
 	else if (new_path != NULL)
