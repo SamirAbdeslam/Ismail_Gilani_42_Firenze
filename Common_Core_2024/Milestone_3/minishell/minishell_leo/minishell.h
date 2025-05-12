@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 16:21:28 by lmenoni           #+#    #+#             */
-/*   Updated: 2025/05/10 17:39:56 by igilani          ###   ########.fr       */
+/*   Updated: 2025/05/12 18:43:28 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,16 +48,16 @@ typedef enum
 
 typedef struct  s_env
 {
-    char			*s;
-    struct s_token	*next;
-	struct s_token	*prev;
+    char			*e;
+    struct s_env	*next;
+	struct s_env	*prev;
 }               t_env;
 
 typedef struct  s_export
 {
-    char			*s;
-    struct s_token	*next;
-	struct s_token	*prev;
+    char			*x;
+    struct s_export	*next;
+	struct s_export	*prev;
 }               t_export;
 
 typedef struct  s_token
@@ -72,12 +72,12 @@ typedef struct  s_data
 {
     char        *input;
     char       **input_array;
-    char        **env;
     char        *current_path;
     char        *old_path;
     char        *home_path;
     t_token     *token;
     t_token     *last_token;
+    t_env       *env_data;
 }               t_data;
 
 void    tokenize_input(t_data *data);
@@ -111,9 +111,17 @@ void	exec(char **argv, char **env, char **path, int cmd_index);
 void	heredoc(char **argv);
 int		open_file(char *file, int flags);
 
+// env
+void init_env(char **env, t_data *data);
+void add_env(t_data *data, char *s);
+
+
 // builtin
 void    echo(t_data *data);
 void cd(t_data *data);
+void unset(t_data *data, char *var);
+void env(t_data *data);
+void pwd();
 
 void    print_cd(t_data *data);
 #endif

@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 16:21:16 by lmenoni           #+#    #+#             */
-/*   Updated: 2025/05/10 18:03:35 by igilani          ###   ########.fr       */
+/*   Updated: 2025/05/12 18:43:22 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,16 @@ int define_input(t_data *data)
         return (echo(data), 1);
     else if (!ft_strncmp(data->input, "cd", 2))
         return (cd(data), 1);
-    else if (!ft_strncmp(data->input, "debug", 5))
+    else if (!ft_strncmp(data->input, "pwd", 3))
+        return (pwd(), 1);
+    else if (!ft_strncmp(data->input, "debug cd", 8))
         return (print_cd(data), 1);
+    else if (!ft_strncmp(data->input, "env", 9))
+        return (env(data), 1);
+    else if (!ft_strncmp(data->input, "add env", 7))
+        return (add_env(data, data->input + 8), 1);
+    else if (!ft_strncmp(data->input, "unset", 5))
+        return (unset(data, data->input + 6), 1);
     return (1);
 }
 
@@ -66,8 +74,9 @@ int main(int argc, char **argv, char **env)
     (void)argv;
     t_data  data;
     data = (t_data){0};
-    data.env = env;
-    data.old_path = getcwd(NULL, 4096); //NULL
+    data.env_data = NULL;
+    init_env(env, &data);
+    data.old_path = getcwd(NULL, 4096);
     data.current_path = getcwd(NULL, 4096);
     while (1)
     {
