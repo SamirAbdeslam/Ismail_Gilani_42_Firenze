@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 17:05:42 by igilani           #+#    #+#             */
-/*   Updated: 2025/05/03 13:43:53 by igilani          ###   ########.fr       */
+/*   Updated: 2025/06/17 16:12:24 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ typedef struct s_philo
 	long			last_meal;
 	t_fork			*first_fork;
 	t_fork			*second_fork;
-	pthread_t		thread_id; //philosopher
+	pthread_t		thread_id;
 	pthread_mutex_t	philo_mutex;
 	t_table			*table;
 }	t_philo;
