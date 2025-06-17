@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 15:50:22 by igilani           #+#    #+#             */
-/*   Updated: 2025/05/03 12:38:59 by igilani          ###   ########.fr       */
+/*   Updated: 2025/06/17 18:03:35 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ void	*monitoring_routine(void *data)
 	int		i;
 
 	table = (t_table *)data;
-	while (!all_threads_running(&table->table_mutex,
-			&table->threads_running_nbr, table->philo_number))
-		;
+	// while (!all_threads_running(&table->table_mutex,
+	// 		&table->threads_running_nbr, table->philo_number))
+	// 	;
 	while (!simulation_ended(table))
 	{
 		i = -1;

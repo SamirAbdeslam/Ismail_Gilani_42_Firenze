@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 20:00:02 by igilani           #+#    #+#             */
-/*   Updated: 2025/05/10 16:49:33 by igilani          ###   ########.fr       */
+/*   Updated: 2025/06/17 18:04:06 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ void	*dinner_routine(void *data)
 	set_long(&philo->philo_mutex, &philo->last_meal, get_time(MILLISECOND));
 	increase_long(&philo->table->table_mutex,
 		&philo->table->threads_running_nbr);
-	de_sync_philo(philo);
 	while (!simulation_ended(philo->table))
 	{
 		if (philo->full)
@@ -101,7 +100,7 @@ void	dinner_start(t_table *table)
 			thread_handle(&table->philos[i].thread_id,
 				dinner_routine, &table->philos[i], CREATE);
 	}
-	usleep(100);
+	// usleep(100);
 	thread_handle(&table->monitor_thread, monitoring_routine, table, CREATE);
 	set_bool(&table->table_mutex, &table->threads_ready, true);
 	i = -1;
