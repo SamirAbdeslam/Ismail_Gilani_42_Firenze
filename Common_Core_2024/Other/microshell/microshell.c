@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 18:46:32 by igilani           #+#    #+#             */
-/*   Updated: 2025/06/19 14:17:03 by igilani          ###   ########.fr       */
+/*   Updated: 2025/06/23 22:05:56 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,24 +17,29 @@ $>./microshell /bin/ls "|" /usr/bin/grep microshell ";" /bin/echo i love my micr
 Sono 11 argomenti
 */
 
-void do_pipe(char **cmd, char **env)
+int ft_strlen(char *s)
 {
-	pid_t pid;
-	int fd[2];
+	int i = 0;
 
-	if (pipe(fd) == -1)
-		write(2, "error: fatal\n", 13);
+	while (s[i])
+		i++;
+	return (i);
+}
+
+void do_pipe(char **argv, char **env, int start)
+{
+	int fd[2];
+	pid_t pid;
+	
+	pipe(fd);
 	pid = fork();
 	if (!pid)
 	{
-		close(fd[0]);
 		dup2(fd[1], STDOUT_FILENO);
-		execve(*cmd, cmd, env);
-		return ((void)write(2, "error: cannot execute ", 22));
+		execve(*argv,argv, env);
 	}
 	else
 	{
-		close(fd[1]);
 		dup2(fd[0], STDIN_FILENO);
 		waitpid(pid, NULL, 0);
 	}
@@ -42,21 +47,20 @@ void do_pipe(char **cmd, char **env)
 
 int main(int argc, char **argv, char **env)
 {
-	int tmp;
-	int i = 0;
+	(void)env;
+	(void)argc;
+	int i = 1;
+	int start = 1;
 
-	tmp = dup(0);
-	if (tmp == -1)
-		return (write(2, "error: fatal\n", 13));
-	i = 1;
-	while (i < argc && argv[i])
+	while (argv[i])
 	{
-		while (i < argc && (strcmp(argv[i], ";") && strcmp(argv[i], "|")))
-			i++;
-		printf("arg[%d] = %s\n", i, argv[i]);
-		argv[i] = NULL;
-		printf("arg[%d] = %s\n", i, argv[i]);
-		do_pipe(argv++, env);
+		if (!strcmp(argv[i], "|"))
+		{
+			argv[i] = NULL;
+			do_pipe(argv, env, start);
+			start = i + 1;
+		}
 		i++;
 	}
+	// ft_print(&argv[start]); QUI SI FA UN EXCEVE PER L'ULTIMO COMANDO DIO CRISTO
 }
