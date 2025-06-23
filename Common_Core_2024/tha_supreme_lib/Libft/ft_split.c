@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: igilani <igilani@student.42.fr>            +#+  +:+       +#+        */
+/*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 17:56:43 by igilani           #+#    #+#             */
-/*   Updated: 2024/12/09 18:07:27 by igilani          ###   ########.fr       */
+/*   Updated: 2025/06/23 19:34:03 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ static char	**ft_split_mechanic(char const *s, char **t, char c, int d)
 		t[w++] = ft_substr(s, start, (i - start));
 		if (!t[w - 1])
 			return (ft_free(t));
-		i++;
+		if (s[i])
+			i++;
 	}
 	t[w] = NULL;
 	return (t);
