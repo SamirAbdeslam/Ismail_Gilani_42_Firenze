@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 19:13:26 by igilani           #+#    #+#             */
-/*   Updated: 2025/06/25 20:32:52 by igilani          ###   ########.fr       */
+/*   Updated: 2025/06/25 23:11:57 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void handle_error(int status, char *str)
 	}
 	else if (status == 3)
 	{
-		write(2, "error: cannot execute ", 23);
+		write(2, "error: cannot executec ", 23);
 		write(2, str, ft_strlen(str));
 		write(2, "\n", 1);
 		exit(EXIT_FAILURE);
@@ -55,6 +55,11 @@ void handle_error(int status, char *str)
 void do_cd(char **argv)
 {
 	int i = 1;
+	if (argv[1] == NULL)
+	{
+		handle_error(4, NULL);
+		return ;
+	}
 	while (argv[i])
 		i++;
 	if (i > 2)
@@ -73,8 +78,8 @@ int do_pipe(char **argv, char **env, int old_fd, int pipe_need)
 		do_cd(argv);
 		return(old_fd);
 	}
-	if (pipe(fd) == -1 && pipe_need)
-		exit(1);
+	if (pipe_need && pipe(fd) == -1)
+		handle_error(1, NULL);
 	pid = fork();
 	if (!pid)
 	{
@@ -83,8 +88,8 @@ int do_pipe(char **argv, char **env, int old_fd, int pipe_need)
 		if (pipe_need)
 		{
 			dup2(fd[1], STDOUT_FILENO);
-			close(fd[0]);
 			close(fd[1]);
+			close(fd[0]);
 		}
 		execve(*argv, argv, env);
 		handle_error(3, *argv);
@@ -92,17 +97,18 @@ int do_pipe(char **argv, char **env, int old_fd, int pipe_need)
 	else
 	{
 		close(old_fd);
-		close(fd[1]);
 		if (pipe_need)
+		{
+			close(fd[1]);
 			return (fd[0]);
+		}
 		else
 		{
-			close(fd[0]);
 			waitpid(pid, NULL, 0);
-			old_fd = dup(STDIN_FILENO); 	
+			return (dup(STDIN_FILENO));
 		}
 	}
-	return(old_fd);
+	return (old_fd);  // Non dovrebbe mai arrivare qui
 }
 
 int main(int argc, char **argv, char **env)
@@ -119,17 +125,23 @@ int main(int argc, char **argv, char **env)
 		{
 			is_pipe = !strcmp(argv[i], "|");
 			argv[i] = NULL;
-			if (argv[start] == NULL)
+			if (start < i && argv[start] != NULL)  // Controlla che ci sia un comando valido
 			{
-				close(old_fd);
-				handle_error(1, NULL);
+				old_fd = do_pipe(&argv[start], env, old_fd, is_pipe);
 			}
-			old_fd = do_pipe(&argv[start], env, old_fd, is_pipe);
 			start = i + 1;
 		}
 		i++;
 	}
-	if (start < argc)
+	if (start < argc && argv[start] != NULL)  // Controlla che ci sia un comando valido
 		do_pipe(&argv[start], env, old_fd, 0);
-	close(old_fd);
+	else if (old_fd != STDIN_FILENO)  // Se c'è una pipe finale senza comando
+	{
+		close(old_fd);
+		// Aspetta tutti i processi rimanenti
+		while (waitpid(-1, NULL, 0) > 0);
+	}
+	else
+		close(old_fd);
+	return (0);
 }
