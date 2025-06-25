@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   microshell.c                                       :+:      :+:    :+:   */
+/*   microshell_nuovo.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/18 18:46:32 by igilani           #+#    #+#             */
-/*   Updated: 2025/06/25 19:04:43 by igilani          ###   ########.fr       */
+/*   Created: 2025/06/25 19:13:26 by igilani           #+#    #+#             */
+/*   Updated: 2025/06/25 20:32:52 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ int ft_strlen(char *str)
 {
 	int i = 0;
 
-	while (str[i])
+	while(str[i])
 		i++;
-	return (i);
+	return(i);
 }
 
 void handle_error(int status, char *str)
@@ -55,7 +55,6 @@ void handle_error(int status, char *str)
 void do_cd(char **argv)
 {
 	int i = 1;
-	
 	while (argv[i])
 		i++;
 	if (i > 2)
@@ -68,40 +67,39 @@ int do_pipe(char **argv, char **env, int old_fd, int pipe_need)
 {
 	int fd[2];
 	pid_t pid;
-
+	
 	if (!strcmp(argv[0], "cd"))
 	{
 		do_cd(argv);
 		return(old_fd);
 	}
-	if (pipe(fd) == -1)
-		handle_error(1, NULL);
+	if (pipe(fd) == -1 && pipe_need)
+		exit(1);
+	pid = fork();
+	if (!pid)
+	{
+		dup2(old_fd, STDIN_FILENO);
+		close(old_fd);
+		if (pipe_need)
+		{
+			dup2(fd[1], STDOUT_FILENO);
+			close(fd[0]);
+			close(fd[1]);
+		}
+		execve(*argv, argv, env);
+		handle_error(3, *argv);
+	}
 	else
 	{
-		pid = fork();
-		if (!pid)
-		{
-			dup2(old_fd, STDIN_FILENO);
-			close(old_fd);
-			if (pipe_need)
-				dup2(fd[1], STDOUT_FILENO);
-			close(fd[1]);
-			close(fd[0]);
-			execve(*argv, argv, env);
-			handle_error(3, *argv);
-		}
+		close(old_fd);
+		close(fd[1]);
+		if (pipe_need)
+			return (fd[0]);
 		else
 		{
-			close(old_fd);
-			close(fd[1]);
-			if (pipe_need)
-				return (fd[0]);
-			else
-			{
-				close(fd[0]);
-				waitpid(pid, NULL, 0);
-				old_fd = dup(STDIN_FILENO);
-			}
+			close(fd[0]);
+			waitpid(pid, NULL, 0);
+			old_fd = dup(STDIN_FILENO); 	
 		}
 	}
 	return(old_fd);
@@ -110,15 +108,16 @@ int do_pipe(char **argv, char **env, int old_fd, int pipe_need)
 int main(int argc, char **argv, char **env)
 {
 	int i = 1;
-	int start = 1;
+	int start = 1; 
 	int old_fd;
-
+	int is_pipe;
 	old_fd = dup(STDIN_FILENO);
+
 	while (argv[i] && i < argc)
 	{
-		if (strcmp(argv[i], "|") == 0 || strcmp(argv[i], ";") == 0)
+		if (!strcmp(argv[i], "|") || !strcmp(argv[i], ";"))
 		{
-			int is_pipe = !strcmp(argv[i], "|");
+			is_pipe = !strcmp(argv[i], "|");
 			argv[i] = NULL;
 			if (argv[start] == NULL)
 			{
