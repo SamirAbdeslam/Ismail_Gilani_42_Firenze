@@ -6,7 +6,7 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 18:46:32 by igilani           #+#    #+#             */
-/*   Updated: 2025/06/25 23:22:57 by igilani          ###   ########.fr       */
+/*   Updated: 2025/06/26 12:42:45 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void handle_error(int status, char *str)
 	}
 	else if (status == 3)
 	{
-		write(2, "error: cannot executec ", 24);
+		write(2, "error: cannot execute ", 22);
 		write(2, str, ft_strlen(str));
 		write(2, "\n", 1);
 		exit(EXIT_FAILURE);
