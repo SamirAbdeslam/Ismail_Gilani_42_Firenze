@@ -1,7 +1,0 @@
-[Desktop Entry]
-Name=Supreme Terminal
-Exec=/home/igilani/.venv/project_navigator/bin/python3 /home/igilani/bin/navigator.py
-Icon=/home/igilani/Pictures/icons/terminal.png
-Terminal=true
-Type=Application
-Categories=Development;
