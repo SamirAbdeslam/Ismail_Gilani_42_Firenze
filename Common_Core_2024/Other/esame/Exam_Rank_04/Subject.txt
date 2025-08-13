@@ -1,0 +1,89 @@
+ft_popen.c
+
+Allowed functions: pipe, fork, dup2, execvp, close, exit
+
+write the following function:
+
+    int    ft_popen(const char file, charconst argv[], char type)
+
+The function must launch the executable file with the arguments argv (using execvp).
+If the type is 'r' the function must return a file descriptor connected to the output of the command.
+If the type is 'w' the function must return a file descriptor connected to the input of the command.
+In case of error or invalid parameter the function must return -1.
+
+example:
+
+int main() {
+    int fd = ft_popen("ls", (char const[]){"ls", NULL}, 'r');
+
+    charline;
+    while(line = get_next_line(fd))
+        ft_putstr(line);
+}
+
+Hint: Do not leak file descriptors!
+
+_________________________________________________________________________________
+
+Assignment name:    picoshell
+Expected files:        picoshell.c
+Allowed functions:    close, fork, wait, exit, execvp, dup2, pipe
+___
+
+Write the following function:
+
+int    picoshell(char *cmds[]);
+
+The goal of this function is to execute a pipeline. It must execute each
+commands [sic] of cmds and connect the output of one to the input of the
+next command (just like a shell).
+
+Cmds contains a null-terminated list of valid commands. Each rows [sic]
+of cmds are an argv array directly usable for a call to execvp. The first
+arguments [sic] of each command is the command name or path and can be passed
+directly as the first argument of execvp.
+
+If any error occur [sic], The function must return 1 (you must of course
+close all the open fds before). otherwise the function must wait all child
+processes and return 0. You will find in this directory a file main.c which
+contain [sic] something to help you test your function.
+
+
+Examples: 
+./picoshell /bin/ls "|" /usr/bin/grep picoshell
+picoshell
+./picoshell echo 'squalala' "|" cat "|" sed 's/a/b/g'
+squblblb/
+
+________________________________________________________________________________
+
+Assignment name		:	sandbox
+Expected files		:	sandbox.c
+Allowed functions	:	fork, waitpid, exit, alarm, sigaction, kill,
+						printf, strsignal, errno
+===============================================================================
+
+Write the following function:
+
+#include <stdbool.h>
+int	sandbox(void (*f)(void), unsigned int timeout, bool verbose)
+
+This function must test if the function f is a nice function or a bad function,
+you will return 1 if f is nice , 0 if f is bad or -1 in case of an error in
+your function.
+
+A function is considered bad if it is terminated or stopped by a signal
+(segfault, abort...), if it exit with any other exit code than 0 or if it
+times out.
+
+If verbose is true, you must write the appropriate message among the following:
+
+"Nice function!\n"
+"Bad function: exited with code <exit_code>\n"
+"Bad function: <signal description>\n"
+"Bad function: timed out after <timeout> seconds\n"
+
+You must not leak processes (even in zombie state, this will be checked using
+wait).
+
+We will test your code with very bad functions.
