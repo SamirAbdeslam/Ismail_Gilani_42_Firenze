@@ -6,15 +6,9 @@
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 17:12:57 by igilani           #+#    #+#             */
-/*   Updated: 2025/08/14 18:37:28 by igilani          ###   ########.fr       */
+/*   Updated: 2025/08/14 21:15:43 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-typedef struct s_command {
-	char **argv;
-	int fd_input;
-	int fd_output;
-} t_command;
 
 #include <unistd.h>
 #include <stdio.h>
@@ -45,15 +39,34 @@ int count_pipes(char **cmds)
 			j++;
 		}
 		if (ft_strcmp(cmds[i], "|") != 0)
-			printf("Trovato cmds a: %s - %d\n", cmds[i], i);
+		{
+			//controllo l'indice di inizio e fine del comando
+			printf("cmds are: %s in: %d\n",cmds[i], i);
+		}
 		i++;
 	}
 	return(j);
 }
 
+// void save_cmd(char **cmds, int n_cmds)
+// {
+// 	int i = 0;
+// 	int j = 0;
+// 	char *args[n_cmds];
+
+// 	while (cmds[i])
+// 	{
+// 		if (ft_strcmp(cmds[i], "|") != 0)
+// 			args[j] = cmds[i];
+// 		i++;
+// 	}
+// }
+
 int	picoshell(char *cmds[])
 {
+	// int n_cmds = count_pipes + 1;
 	printf("pipes are: %d", count_pipes(cmds));
+	// save_cmd(cmds, n_cmds);
 	return(0);
 }
 
