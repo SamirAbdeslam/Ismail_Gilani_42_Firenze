@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: igilani <igilani@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/30 17:05:46 by igilani           #+#    #+#             */
-/*   Updated: 2025/08/30 17:41:01 by igilani          ###   ########.fr       */
+/*   Created: 2025/08/30 17:55:28 by igilani           #+#    #+#             */
+/*   Updated: 2025/08/30 18:18:46 by igilani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,10 @@
 
 int	picoshell(char **cmds[])
 {
-	int i = 0;
-	int fd[2];
 	int in_fd = -1;
+	int fd[2];
+	int i = 0;
+	int status = 0;
 	pid_t pid;
 
 	while(cmds[i])
@@ -39,6 +40,11 @@ int	picoshell(char **cmds[])
 		{
 			if (in_fd != -1)
 				close(in_fd);
+			if (cmds[i + 1])
+			{
+				close(fd[0]);
+				close(fd[1]);
+			}
 			return (1);
 		}
 		if (pid == 0)
@@ -47,12 +53,16 @@ int	picoshell(char **cmds[])
 			{
 				if (dup2(in_fd, 0) < 0)
 				{
-					close(fd[0]);
-					close(fd[1]);
 					close(in_fd);
+					if (cmds[i + 1])
+					{
+						close(fd[0]);
+						close(fd[1]);
+					}
 					exit (1);
 				}
 				close(in_fd);
+				in_fd = -1;
 			}
 			if (cmds[i + 1])
 			{
@@ -82,7 +92,7 @@ int	picoshell(char **cmds[])
 		}
 		i++;
 	}
-	while (wait(NULL) > 0)
+	while (wait(&status) > 0)
 		;
 	return (0);
 }
